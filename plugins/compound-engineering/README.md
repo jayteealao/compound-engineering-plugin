@@ -8,7 +8,7 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 |-----------|-------|
 | Agents | 27 |
 | Commands | 20 |
-| Skills | 13 |
+| Skills | 14 |
 | MCP Servers | 2 |
 
 ## Agents
@@ -25,8 +25,8 @@ Agents are organized into categories for easier discovery.
 | `data-integrity-guardian` | Database migrations and data integrity |
 | `data-migration-expert` | Validate ID mappings match production, check for swapped values |
 | `deployment-verification-agent` | Create Go/No-Go deployment checklists for risky data changes |
-| `dhh-rails-reviewer` | Rails review from DHH's perspective |
-| `kieran-rails-reviewer` | Rails code review with strict conventions |
+| `framework-conventions-reviewer` | Review code against framework conventions (any framework) |
+| `senior-code-reviewer` | High-bar code review with strict quality standards |
 | `kieran-python-reviewer` | Python code review with strict conventions |
 | `kieran-typescript-reviewer` | TypeScript code review with strict conventions |
 | `pattern-recognition-specialist` | Analyze code for patterns and anti-patterns |
@@ -65,7 +65,7 @@ Agents are organized into categories for easier discovery.
 
 | Agent | Description |
 |-------|-------------|
-| `ankane-readme-writer` | Create READMEs following Ankane-style template for Ruby gems |
+| `library-readme-writer` | Create READMEs for any library/package with proven best practices |
 
 ## Commands
 
@@ -112,18 +112,19 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 
 | Skill | Description |
 |-------|-------------|
-| `andrew-kane-gem-writer` | Write Ruby gems following Andrew Kane's patterns |
 | `compound-docs` | Capture solved problems as categorized documentation |
 | `create-agent-skills` | Expert guidance for creating Claude Code skills |
-| `dhh-rails-style` | Write Ruby/Rails code in DHH's 37signals style |
-| `dspy-ruby` | Build type-safe LLM applications with DSPy.rb |
+| `framework-conventions-guide` | Write code following framework conventions (any framework) |
 | `frontend-design` | Create production-grade frontend interfaces |
+| `library-writer` | Write libraries with minimal dependencies and clean APIs |
+| `llm-application-patterns` | Build production LLM apps with structured patterns |
 | `skill-creator` | Guide for creating effective Claude Code skills |
 
 ### Content & Workflow
 
 | Skill | Description |
 |-------|-------------|
+| `claude-workspace` | Organize working files in .claude/ with required cross-references |
 | `every-style-editor` | Review copy for Every's style guide compliance |
 | `file-todos` | File-based todo tracking system |
 | `git-worktree` | Manage Git worktrees for parallel development |

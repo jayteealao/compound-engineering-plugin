@@ -54,8 +54,8 @@ Ensure that the code is ready for analysis (either in worktree or on current bra
 
 Run ALL or most of these agents at the same time:
 
-1. Task kieran-rails-reviewer(PR content)
-2. Task dhh-rails-reviewer(PR title)
+1. Task senior-code-reviewer(PR content)
+2. Task framework-conventions-reviewer(PR title)
 3. If turbo is used: Task rails-turbo-expert(PR content)
 4. Task git-history-analyzer(PR content)
 5. Task dependency-detective(PR content)
@@ -195,7 +195,7 @@ Run the Task code-simplicity-reviewer() to see if we can simplify the code.
 
 ### 5. Findings Synthesis and Todo Creation Using file-todos Skill
 
-<critical_requirement> ALL findings MUST be stored in the todos/ directory using the file-todos skill. Create todo files immediately after synthesis - do NOT present findings for user approval first. Use the skill for structured todo management. </critical_requirement>
+<critical_requirement> ALL findings MUST be stored in the .claude/todos/ directory using the file-todos skill. Create todo files immediately after synthesis - do NOT present findings for user approval first. Use the skill for structured todo management. </critical_requirement>
 
 #### Step 1: Synthesize All Findings
 
@@ -367,7 +367,7 @@ After creating all todo files, present comprehensive summary:
 
 ### Review Agents Used:
 
-- kieran-rails-reviewer
+- senior-code-reviewer
 - security-sentinel
 - performance-oracle
 - architecture-strategist
@@ -384,7 +384,7 @@ After creating all todo files, present comprehensive summary:
 
 2. **Triage All Todos**:
    ```bash
-   ls todos/*-pending-*.md  # View all pending todos
+   ls .claude/todos/*-pending-*.md  # View all pending todos
    /triage                  # Use slash command for interactive triage
    ```
 ````
@@ -398,7 +398,7 @@ After creating all todo files, present comprehensive summary:
 4. **Track Progress**:
    - Rename file when status changes: pending → ready → complete
    - Update Work Log as you work
-   - Commit todos: `git add todos/ && git commit -m "refactor: add code review findings"`
+   - Commit todos: `git add .claude/todos/ && git commit -m "refactor: add code review findings"`
 
 ### Severity Breakdown:
 

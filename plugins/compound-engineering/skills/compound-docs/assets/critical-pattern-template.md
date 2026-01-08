@@ -1,6 +1,6 @@
 # Critical Pattern Template
 
-Use this template when adding a pattern to `docs/solutions/patterns/cora-critical-patterns.md`:
+Use this template when adding a pattern to `.claude/solutions/patterns/cora-critical-patterns.md`:
 
 ---
 
@@ -20,7 +20,7 @@ Use this template when adding a pattern to `docs/solutions/patterns/cora-critica
 
 **Placement/Context:** [When this applies]
 
-**Documented in:** `docs/solutions/[category]/[filename].md`
+**Documented in:** `.claude/solutions/[category]/[filename].md`
 
 ---
 

@@ -50,16 +50,16 @@ tags: [n-plus-one, eager-loading, performance]
 
 Based on `problem_type`, documentation is filed in:
 
-- **build_error** → `docs/solutions/build-errors/`
-- **test_failure** → `docs/solutions/test-failures/`
-- **runtime_error** → `docs/solutions/runtime-errors/`
-- **performance_issue** → `docs/solutions/performance-issues/`
-- **database_issue** → `docs/solutions/database-issues/`
-- **security_issue** → `docs/solutions/security-issues/`
-- **ui_bug** → `docs/solutions/ui-bugs/`
-- **integration_issue** → `docs/solutions/integration-issues/`
-- **logic_error** → `docs/solutions/logic-errors/`
-- **developer_experience** → `docs/solutions/developer-experience/`
-- **workflow_issue** → `docs/solutions/workflow-issues/`
-- **best_practice** → `docs/solutions/best-practices/`
-- **documentation_gap** → `docs/solutions/documentation-gaps/`
+- **build_error** → `.claude/solutions/build-errors/`
+- **test_failure** → `.claude/solutions/test-failures/`
+- **runtime_error** → `.claude/solutions/runtime-errors/`
+- **performance_issue** → `.claude/solutions/performance-issues/`
+- **database_issue** → `.claude/solutions/database-issues/`
+- **security_issue** → `.claude/solutions/security-issues/`
+- **ui_bug** → `.claude/solutions/ui-bugs/`
+- **integration_issue** → `.claude/solutions/integration-issues/`
+- **logic_error** → `.claude/solutions/logic-errors/`
+- **developer_experience** → `.claude/solutions/developer-experience/`
+- **workflow_issue** → `.claude/solutions/workflow-issues/`
+- **best_practice** → `.claude/solutions/best-practices/`
+- **documentation_gap** → `.claude/solutions/documentation-gaps/`

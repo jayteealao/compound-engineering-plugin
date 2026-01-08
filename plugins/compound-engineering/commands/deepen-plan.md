@@ -24,8 +24,8 @@ The result is a deeply grounded, production-ready plan with concrete implementat
 <plan_path> #$ARGUMENTS </plan_path>
 
 **If the plan path above is empty:**
-1. Check for recent plans: `ls -la plans/`
-2. Ask the user: "Which plan would you like to deepen? Please provide the path (e.g., `plans/my-feature.md`)."
+1. Check for recent plans: `ls -la .claude/plans/`
+2. Ask the user: "Which plan would you like to deepen? Please provide the path (e.g., `.claude/plans/my-feature.md`)."
 
 Do not proceed until you have a valid plan file path.
 
@@ -131,7 +131,7 @@ The skill tells you what to do - follow it. Execute the skill completely."
 
 **Example spawns:**
 ```
-Task general-purpose: "Use the dhh-rails-style skill at ~/.claude/plugins/.../dhh-rails-style. Read SKILL.md and apply it to: [Rails sections of plan]"
+Task general-purpose: "Use the framework-conventions-guide skill at ~/.claude/plugins/.../framework-conventions-guide. Read SKILL.md and apply it to: [Rails sections of plan]"
 
 Task general-purpose: "Use the frontend-design skill at ~/.claude/plugins/.../frontend-design. Read SKILL.md and apply it to: [UI sections of plan]"
 
@@ -151,7 +151,7 @@ Check for documented learnings from /workflows:compound. These are solved proble
 **LEARNINGS LOCATION - Check these exact folders:**
 
 ```
-docs/solutions/           <-- PRIMARY: Project-level learnings (created by /workflows:compound)
+.claude/solutions/           <-- PRIMARY: Project-level learnings (created by /workflows:compound)
 ├── performance-issues/
 │   └── *.md
 ├── debugging-patterns/
@@ -172,9 +172,9 @@ Run these commands to get every learning file:
 
 ```bash
 # PRIMARY LOCATION - Project learnings
-find docs/solutions -name "*.md" -type f 2>/dev/null
+find .claude/solutions -name "*.md" -type f 2>/dev/null
 
-# If docs/solutions doesn't exist, check alternate locations:
+# If .claude/solutions doesn't exist, check alternate locations:
 find .claude/docs -name "*.md" -type f 2>/dev/null
 find ~/.claude/docs -name "*.md" -type f 2>/dev/null
 ```
@@ -198,7 +198,7 @@ root_cause: "Missing includes on association"
 
 ```bash
 # Read first 20 lines of each learning (frontmatter + summary)
-head -20 docs/solutions/**/*.md
+head -20 .claude/solutions/**/*.md
 ```
 
 **Step 3: Filter - only spawn sub-agents for LIKELY relevant learnings**
@@ -251,14 +251,14 @@ If NOT relevant after deeper analysis:
 # Found 15 learning files, plan is about "Rails API caching"
 
 # SPAWN (likely relevant):
-docs/solutions/performance-issues/n-plus-one-queries.md      # tags: [activerecord] ✓
-docs/solutions/performance-issues/redis-cache-stampede.md    # tags: [caching, redis] ✓
-docs/solutions/configuration-fixes/redis-connection-pool.md  # tags: [redis] ✓
+.claude/solutions/performance-issues/n-plus-one-queries.md      # tags: [activerecord] ✓
+.claude/solutions/performance-issues/redis-cache-stampede.md    # tags: [caching, redis] ✓
+.claude/solutions/configuration-fixes/redis-connection-pool.md  # tags: [redis] ✓
 
 # SKIP (clearly not applicable):
-docs/solutions/deployment-issues/heroku-memory-quota.md      # not about caching
-docs/solutions/frontend-issues/stimulus-race-condition.md    # plan is API, not frontend
-docs/solutions/authentication-issues/jwt-expiry.md           # plan has no auth
+.claude/solutions/deployment-issues/heroku-memory-quota.md      # not about caching
+.claude/solutions/frontend-issues/stimulus-race-condition.md    # plan is API, not frontend
+.claude/solutions/authentication-issues/jwt-expiry.md           # plan has no auth
 ```
 
 **Spawn sub-agents in PARALLEL for all filtered learnings.**
@@ -460,7 +460,7 @@ At the top of the plan, add a summary section:
 
 ## Output Format
 
-Update the plan file in place (or create `plans/<original-name>-deepened.md` if requested).
+Update the plan file in place (or create `.claude/plans/<original-name>-deepened.md` if requested).
 
 ## Quality Checks
 

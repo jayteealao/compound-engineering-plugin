@@ -5,6 +5,60 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.26.0] - 2026-01-08
+
+### Changed
+
+- **Generalized Ruby-specific components** - Replaced all Ruby/Rails-specific agents and skills with language-agnostic equivalents that work for any framework or language.
+- **Standardized file output paths to `.claude/`** - All commands and skills now write non-code files to `.claude/` directory instead of top-level directories:
+  - `.claude/plans/` - Implementation plans (from `plans/`)
+  - `.claude/todos/` - Todo tracking (from `todos/`)
+  - `.claude/solutions/` - Solved problem documentation (from `docs/solutions/`)
+  - Updated: `workflows:plan`, `workflows:review`, `workflows:compound`, `deepen-plan`, `triage`, `resolve_todo_parallel`, `playwright-test`, `xcode-test`, `file-todos` skill, `compound-docs` skill (including references)
+- **Updated agent references in commands** - Replaced all references to removed Ruby-specific agents with their generic equivalents in `plan_review`, `workflows:review`, `workflows:work`, `workflows:compound`, and `deepen-plan`
+
+### Added
+
+- **`framework-conventions-reviewer` agent** - Review code against framework conventions (Django, Laravel, Next.js, Spring Boot, Phoenix, etc.). Fights complexity, enforces conventions, mocks over-engineering.
+- **`senior-code-reviewer` agent** - High-bar code review with strict quality standards. Strict on modifications, pragmatic on new code, obsessive about testability and naming.
+- **`library-readme-writer` agent** - Create READMEs for any library/package with proven best practices. 15-word sentences, imperative voice, proper section ordering.
+- **`framework-conventions-guide` skill** - Write code following framework conventions for any opinionated framework. Includes universal patterns (REST mapping, state as data, naming) and anti-patterns to avoid.
+- **`llm-application-patterns` skill** - Build production LLM applications with structured, testable patterns. Covers signatures, modules, providers, testing, and optimization.
+- **`library-writer` skill** - Write libraries with minimal dependencies, clean APIs, and framework integration without coupling.
+
+### Removed
+
+- **`dhh-rails-reviewer` agent** - Replaced by `framework-conventions-reviewer`
+- **`kieran-rails-reviewer` agent** - Replaced by `senior-code-reviewer`
+- **`ankane-readme-writer` agent** - Replaced by `library-readme-writer`
+- **`dhh-rails-style` skill** - Replaced by `framework-conventions-guide`
+- **`dspy-ruby` skill** - Replaced by `llm-application-patterns`
+- **`andrew-kane-gem-writer` skill** - Replaced by `library-writer`
+
+### Summary
+
+- 27 agents, 20 commands, 14 skills, 2 MCP servers
+
+---
+
+## [2.23.0] - 2025-01-07
+
+### Added
+
+- **`claude-workspace` skill** - Organize working files in `.claude/` directory with enforced structure, naming conventions, and required cross-references. Features:
+  - **5 categories**: plans/, architecture/, examples/, research/, analysis/
+  - **Category indexes**: Each category has auto-generated INDEX.md
+  - **Required cross-references**: Every file must link to codebase files and related .claude/ docs
+  - **Date-prefixed naming**: `YYYY-MM-DD-description.md` convention
+  - **YAML frontmatter**: Category-specific schemas with validation
+  - **4 workflows**: create-file, update-index, validate-workspace, migrate-existing
+
+### Summary
+
+- 27 agents, 20 commands, 14 skills, 2 MCP servers
+
+---
+
 ## [2.22.0] - 2026-01-05
 
 ### Added
