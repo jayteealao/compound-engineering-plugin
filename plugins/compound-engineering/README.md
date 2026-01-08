@@ -6,9 +6,9 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 | Component | Count |
 |-----------|-------|
-| Agents | 27 |
-| Commands | 20 |
-| Skills | 14 |
+| Agents | 38 |
+| Commands | 32 |
+| Skills | 21 |
 | MCP Servers | 2 |
 
 ## Agents
@@ -61,11 +61,37 @@ Agents are organized into categories for easier discovery.
 | `pr-comment-resolver` | Address PR comments and implement fixes |
 | `spec-flow-analyzer` | Analyze user flows and identify gaps in specifications |
 
-### Docs (1)
+### Docs (3)
 
 | Agent | Description |
 |-------|-------------|
 | `library-readme-writer` | Create READMEs for any library/package with proven best practices |
+| `api-docs-generator` | Generate OpenAPI/Swagger documentation from code |
+| `onboarding-generator` | Create onboarding docs for new developers |
+
+### Testing (3)
+
+| Agent | Description |
+|-------|-------------|
+| `test-generator` | Generate comprehensive tests following project conventions |
+| `test-coverage-analyzer` | Analyze coverage gaps and suggest tests |
+| `api-test-generator` | Generate API/integration tests from endpoints |
+
+### Analysis (4)
+
+| Agent | Description |
+|-------|-------------|
+| `debt-tracker` | Scan codebase for technical debt with scoring |
+| `codebase-health` | Generate comprehensive health reports |
+| `dependency-auditor` | Audit dependencies for updates/vulnerabilities |
+| `error-analyst` | Analyze error logs and stack traces |
+
+### Refactoring (2)
+
+| Agent | Description |
+|-------|-------------|
+| `refactoring-assistant` | Plan and execute safe refactorings |
+| `code-modernizer` | Update code to modern patterns/APIs |
 
 ## Commands
 
@@ -79,6 +105,37 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | `/workflows:review` | Run comprehensive code reviews |
 | `/workflows:work` | Execute work items systematically |
 | `/workflows:compound` | Document solved problems to compound team knowledge |
+| `/workflows:maintain` | Run maintenance tasks (deps, debt, coverage, health) |
+
+### Testing Commands
+
+| Command | Description |
+|---------|-------------|
+| `/generate-tests` | Generate tests for specified files or features |
+| `/analyze-coverage` | Analyze test coverage and identify gaps |
+| `/generate-api-tests` | Generate API tests from endpoints |
+
+### Documentation Commands
+
+| Command | Description |
+|---------|-------------|
+| `/document-api` | Generate or update API documentation |
+| `/generate-onboarding` | Generate onboarding documentation |
+
+### Analysis Commands
+
+| Command | Description |
+|---------|-------------|
+| `/scan-debt` | Scan codebase for technical debt |
+| `/health-report` | Generate comprehensive health report |
+| `/update-deps` | Safely update dependencies |
+
+### Refactoring Commands
+
+| Command | Description |
+|---------|-------------|
+| `/refactor` | Plan and execute safe refactorings |
+| `/modernize` | Update code to modern patterns |
 
 ### Utility Commands
 
@@ -119,6 +176,28 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | `library-writer` | Write libraries with minimal dependencies and clean APIs |
 | `llm-application-patterns` | Build production LLM apps with structured patterns |
 | `skill-creator` | Guide for creating effective Claude Code skills |
+
+### Testing & Quality
+
+| Skill | Description |
+|-------|-------------|
+| `test-patterns` | Test patterns for unit, integration, and API testing |
+| `technical-debt` | Track and categorize technical debt with scoring |
+| `refactoring-patterns` | Safe, systematic refactoring patterns |
+
+### Documentation
+
+| Skill | Description |
+|-------|-------------|
+| `api-documentation` | Generate and maintain API documentation |
+| `onboarding-docs` | Generate developer onboarding documentation |
+
+### Maintenance
+
+| Skill | Description |
+|-------|-------------|
+| `dependency-management` | Manage project dependencies safely |
+| `error-analysis` | Analyze errors and logs systematically |
 
 ### Content & Workflow
 

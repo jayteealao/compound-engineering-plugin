@@ -5,6 +5,73 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.27.0] - 2026-01-08
+
+### Added
+
+**Major expansion: 7 new skills, 11 new agents, 12 new commands, 1 new workflow**
+
+#### New Skills (7)
+
+- **`test-patterns` skill** - Generate and organize tests following project conventions. References: unit-test-patterns, integration-test-patterns, test-data-factories, coverage-strategies.
+- **`api-documentation` skill** - Generate and maintain API documentation with OpenAPI patterns. References: openapi-patterns, endpoint-documentation, example-generation, versioning-docs.
+- **`technical-debt` skill** - Track and categorize technical debt with scoring. References: debt-categories, debt-scoring, debt-frontmatter, debt-resolution. Output: `.claude/debt/` directory.
+- **`onboarding-docs` skill** - Generate developer onboarding documentation. References: architecture-overview, setup-guide, code-tour, decision-log.
+- **`dependency-management` skill** - Manage project dependencies safely. References: update-strategies, security-audit, compatibility-matrix, changelog-analysis.
+- **`error-analysis` skill** - Analyze errors and logs systematically. References: log-patterns, root-cause-analysis, error-categorization, fix-patterns.
+- **`refactoring-patterns` skill** - Safe, systematic refactoring patterns. References: extract-patterns, rename-patterns, move-patterns, simplify-patterns.
+
+#### New Agents (11)
+
+**Testing Agents (agents/testing/)**
+- **`test-generator` agent** - Generate comprehensive tests following project conventions
+- **`test-coverage-analyzer` agent** - Analyze coverage gaps and suggest tests
+- **`api-test-generator` agent** - Generate API/integration tests from endpoints
+
+**Documentation Agents (agents/docs/)**
+- **`api-docs-generator` agent** - Generate OpenAPI/Swagger documentation
+- **`onboarding-generator` agent** - Create onboarding docs for new developers
+
+**Analysis Agents (agents/analysis/)**
+- **`debt-tracker` agent** - Scan codebase for technical debt with scoring
+- **`codebase-health` agent** - Generate comprehensive health reports
+- **`dependency-auditor` agent** - Audit dependencies for updates/vulnerabilities
+- **`error-analyst` agent** - Analyze error logs and stack traces
+
+**Refactoring Agents (agents/refactoring/)**
+- **`refactoring-assistant` agent** - Plan and execute safe refactorings
+- **`code-modernizer` agent** - Update code to modern patterns/APIs
+
+#### New Commands (12)
+
+**Testing Commands**
+- **`/generate-tests`** - Generate tests for specified files or features
+- **`/analyze-coverage`** - Analyze test coverage and identify gaps
+- **`/generate-api-tests`** - Generate API tests from endpoints
+
+**Documentation Commands**
+- **`/document-api`** - Generate or update API documentation
+- **`/generate-onboarding`** - Generate onboarding documentation
+
+**Analysis Commands**
+- **`/scan-debt`** - Scan codebase for technical debt
+- **`/health-report`** - Generate comprehensive health report
+- **`/update-deps`** - Safely update dependencies
+
+**Refactoring Commands**
+- **`/refactor`** - Plan and execute safe refactorings (extract/rename/move/simplify)
+- **`/modernize`** - Update code to modern patterns
+
+#### New Workflow
+
+- **`/workflows:maintain`** - Systematic maintenance workflow combining dependency audit, debt scan, coverage analysis, and health reporting. Modes: full, quick, deps, debt, tests.
+
+### Summary
+
+- 38 agents, 32 commands, 21 skills, 2 MCP servers
+
+---
+
 ## [2.26.0] - 2026-01-08
 
 ### Changed
