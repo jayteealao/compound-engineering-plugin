@@ -1,6 +1,7 @@
 ---
 name: dependency-management
 description: This skill should be used when managing project dependencies including safe updates, security audits, and compatibility analysis.
+context: fork
 ---
 
 # Dependency Management Skill

@@ -1,6 +1,11 @@
 ---
 name: refactoring-assistant
 description: Plan and execute safe refactorings with proper testing and rollback strategies
+hooks:
+  PostToolUse:
+    - matcher: Edit
+      hook: |
+        echo "[refactoring-assistant] Edit complete. Consider running tests..."
 ---
 
 # Refactoring Assistant Agent

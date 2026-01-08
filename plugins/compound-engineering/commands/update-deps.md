@@ -2,6 +2,20 @@
 name: update-deps
 description: Safely update dependencies with compatibility checks and testing
 argument-hint: "[optional: specific package or 'all']"
+hooks:
+  PreToolUse:
+    - matcher: Bash(npm install*)
+      hook: |
+        echo "[update-deps] Creating lockfile backup..."
+        cp package-lock.json package-lock.json.bak 2>/dev/null || true
+    - matcher: Bash(pip install*)
+      hook: |
+        echo "[update-deps] Creating requirements backup..."
+        pip freeze > requirements.bak.txt 2>/dev/null || true
+    - matcher: Bash(bundle install*)
+      hook: |
+        echo "[update-deps] Creating Gemfile.lock backup..."
+        cp Gemfile.lock Gemfile.lock.bak 2>/dev/null || true
 ---
 
 # Update Dependencies Command

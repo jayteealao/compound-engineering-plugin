@@ -2,6 +2,12 @@
 name: refactor
 description: Plan and execute safe refactorings with proper testing
 argument-hint: "[refactoring type: extract|rename|move|simplify]"
+hooks:
+  PreToolUse:
+    - matcher: Edit
+      hook: |
+        echo "[refactor] Verifying git status before edit..."
+        git status --porcelain 2>/dev/null | head -5 || true
 ---
 
 # Refactor Command

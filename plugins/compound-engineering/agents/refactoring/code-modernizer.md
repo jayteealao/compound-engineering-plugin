@@ -1,6 +1,11 @@
 ---
 name: code-modernizer
 description: Update code to modern patterns, APIs, and language features with safe migration strategies
+hooks:
+  PostToolUse:
+    - matcher: Edit
+      hook: |
+        echo "[code-modernizer] Modernization edit complete. Consider running tests..."
 ---
 
 # Code Modernizer Agent

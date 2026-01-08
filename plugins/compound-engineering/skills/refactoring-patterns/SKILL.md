@@ -1,6 +1,7 @@
 ---
 name: refactoring-patterns
 description: This skill provides patterns for safe, systematic refactoring including extract, rename, move, and simplification operations with proper testing and rollback strategies.
+context: fork
 ---
 
 # Refactoring Patterns Skill

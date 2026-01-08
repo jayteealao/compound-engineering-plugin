@@ -2,6 +2,12 @@
 name: modernize
 description: Update code to modern patterns and APIs
 argument-hint: "[area or file to modernize]"
+hooks:
+  PreToolUse:
+    - matcher: Edit
+      hook: |
+        echo "[modernize] Verifying git status before edit..."
+        git status --porcelain 2>/dev/null | head -5 || true
 ---
 
 # Modernize Command

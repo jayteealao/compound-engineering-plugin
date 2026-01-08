@@ -5,6 +5,44 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.28.0] - 2026-01-08
+
+### Added
+
+**Claude Code 2.1.0 feature adoption: hooks, context isolation, visibility control**
+
+#### Skills with `context: fork` (4)
+
+Heavy processing skills now run in isolated forked context:
+- **`test-patterns`** - Test generation runs in isolated context
+- **`refactoring-patterns`** - Refactoring operations run in isolated context
+- **`technical-debt`** - Debt scanning runs in isolated context
+- **`dependency-management`** - Dependency audits run in isolated context
+
+#### Skills with `user-invocable: false` (2)
+
+Reference-only skills hidden from slash command menu:
+- **`skill-creator`** - Used by /create-agent-skill command
+- **`every-style-editor`** - Used by every-style-editor agent
+
+#### Commands with PreToolUse Hooks (3)
+
+- **`/refactor`** - Verifies git status before edits
+- **`/update-deps`** - Creates lockfile backups before dependency changes (npm, pip, bundle)
+- **`/modernize`** - Verifies git status before edits
+
+#### Agents with PostToolUse Hooks (2)
+
+- **`refactoring-assistant`** - Notifies after edits complete
+- **`code-modernizer`** - Notifies after modernization edits
+
+### Summary
+
+- 38 agents, 32 commands, 21 skills, 2 MCP servers
+- New features: 4 skills with forked context, 2 hidden skills, 3 commands with hooks, 2 agents with hooks
+
+---
+
 ## [2.27.0] - 2026-01-08
 
 ### Added
