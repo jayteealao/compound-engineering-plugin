@@ -5,6 +5,14 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.33.0-beta.2] - 2026-01-10
+
+### Changed
+
+**Version bump to beta.2**
+
+Incremented version to 2.33.0-beta.2 for continued beta testing with workflow command protection fixes in place.
+
 ## [2.32.1] - 2026-01-10
 
 ### Fixed
