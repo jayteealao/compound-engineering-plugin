@@ -33,10 +33,10 @@
         <div class="nav-section">
           <h3>Reference</h3>
           <ul>
-            <li><a href="agents.html">Agents (23)</a></li>
-            <li><a href="commands.html">Commands (13)</a></li>
-            <li><a href="skills.html">Skills (11)</a></li>
-            <li><a href="mcp-servers.html">MCP Servers (two)</a></li>
+            <li><a href="agents.html">Agents (38)</a></li>
+            <li><a href="commands.html">Commands (32)</a></li>
+            <li><a href="skills.html">Skills (21)</a></li>
+            <li><a href="mcp-servers.html">MCP Servers (2)</a></li>
           </ul>
         </div>
         <div class="nav-section">
@@ -48,16 +48,18 @@
         <div class="nav-section">
           <h3>On This Page</h3>
           <ul>
+            <li><a href="#v2.30.1">v2.30.1</a></li>
+            <li><a href="#v2.30.0">v2.30.0</a></li>
+            <li><a href="#v2.28.0">v2.28.0</a></li>
+            <li><a href="#v2.27.0">v2.27.0</a></li>
+            <li><a href="#v2.26.0">v2.26.0</a></li>
+            <li><a href="#v2.23.0">v2.23.0</a></li>
+            <li><a href="#v2.22.0">v2.22.0</a></li>
+            <li><a href="#v2.21.0">v2.21.0</a></li>
+            <li><a href="#v2.16.0">v2.16.0</a></li>
+            <li><a href="#v2.15.0">v2.15.0</a></li>
             <li><a href="#v2.6.0">v2.6.0</a></li>
-            <li><a href="#v2.5.0">v2.5.0</a></li>
-            <li><a href="#v2.4.1">v2.4.1</a></li>
-            <li><a href="#v2.4.0">v2.4.0</a></li>
-            <li><a href="#v2.3.0">v2.3.0</a></li>
-            <li><a href="#v2.2.1">v2.2.1</a></li>
-            <li><a href="#v2.2.0">v2.2.0</a></li>
-            <li><a href="#v2.1.0">v2.1.0</a></li>
             <li><a href="#v2.0.0">v2.0.0</a></li>
-            <li><a href="#v1.1.0">v1.1.0</a></li>
             <li><a href="#v1.0.0">v1.0.0</a></li>
           </ul>
         </div>
@@ -86,6 +88,361 @@
           <a href="https://keepachangelog.com/">Keep a Changelog</a> conventions.
         </p>
 
+        <!-- Version 2.30.1 -->
+        <section id="v2.30.1" class="version-section">
+          <div class="version-header">
+            <h2>v2.30.1</h2>
+            <span class="version-date">2026-01-10</span>
+            <span class="version-badge">Patch</span>
+          </div>
+
+          <p class="version-description">
+            Documentation site updates to reflect v2.30.0 changes.
+          </p>
+
+          <div class="changelog-category fixed">
+            <h3><i class="fa-solid fa-wrench"></i> Fixed</h3>
+            <h4>Documentation Site Updates</h4>
+            <p>Updated the documentation website to reflect the latest plugin changes from v2.30.0:</p>
+            <ul>
+              <li>Updated landing page (index.html) with current component counts</li>
+              <li>Updated agents reference page with all 38 agents</li>
+              <li>Updated commands reference page with all 32 commands</li>
+              <li>Updated skills reference page with all 21 skills</li>
+              <li>Updated MCP servers reference page</li>
+              <li>Updated changelog page with v2.30.0 and v2.30.1 release notes</li>
+            </ul>
+            <p><strong>Note:</strong> These documentation files were inadvertently not included in the v2.30.0 commit and are now being added.</p>
+          </div>
+        </section>
+
+        <!-- Version 2.30.0 -->
+        <section id="v2.30.0" class="version-section">
+          <div class="version-header">
+            <h2>v2.30.0</h2>
+            <span class="version-date">2026-01-10</span>
+            <span class="version-badge">Feature</span>
+          </div>
+
+          <p class="version-description">
+            TodoWrite tracking and skill bindings for improved command usability and integration.
+          </p>
+
+          <div class="changelog-category added">
+            <h3><i class="fa-solid fa-plus"></i> Added</h3>
+
+            <h4>TodoWrite Tracking for Multi-Step Commands (15 commands)</h4>
+            <p>Commands with complex workflows now use TodoWrite tool for progress tracking, providing real-time visibility:</p>
+
+            <p><strong>High-priority commands:</strong></p>
+            <ul>
+              <li><code>/deepen-plan</code> - Track 9-phase plan enhancement with parallel agents</li>
+              <li><code>/release-docs</code> - Track component inventory and 14 documentation updates</li>
+              <li><code>/feature-video</code> - Track 9-step video recording workflow</li>
+              <li><code>/triage</code> - Track finding-by-finding progress through approval/skip decisions</li>
+            </ul>
+
+            <p><strong>Testing/analysis commands:</strong></p>
+            <ul>
+              <li><code>/playwright-test</code> - Track multi-step browser testing with dynamic route additions</li>
+              <li><code>/xcode-test</code> - Track 11-step iOS testing workflow (build, install, test, cleanup)</li>
+              <li><code>/scan-debt</code> - Track multi-category debt scanning (5 categories + scoring)</li>
+              <li><code>/health-report</code> - Track multi-metric collection (6 metrics + analysis)</li>
+            </ul>
+
+            <p><strong>Refactoring commands:</strong></p>
+            <ul>
+              <li><code>/refactor</code> - Track incremental refactoring steps with test verification</li>
+              <li><code>/modernize</code> - Track multi-phase modernization (syntax, API, architecture, dependencies)</li>
+              <li><code>/update-deps</code> - Track 4-phase dependency updates with test runs after each phase</li>
+            </ul>
+
+            <p><strong>Documentation/generation commands:</strong></p>
+            <ul>
+              <li><code>/generate-onboarding</code> - Track multi-section documentation generation</li>
+              <li><code>/analyze-coverage</code> - Track coverage analysis and gap identification</li>
+              <li><code>/generate-api-tests</code> - Track endpoint-by-endpoint test generation</li>
+              <li><code>/heal-skill</code> - Track skill file correction workflow</li>
+            </ul>
+
+            <h4>Command-Skill Bindings via <code>allowed-tools</code> (13 commands)</h4>
+            <p>Commands now declare their related skills for automatic invocation without permission requests:</p>
+
+            <p><strong>Workflow commands:</strong></p>
+            <ul>
+              <li><code>/triage</code> → <code>file-todos</code></li>
+              <li><code>/scan-debt</code> → <code>technical-debt</code></li>
+              <li><code>/health-report</code> → <code>technical-debt</code></li>
+            </ul>
+
+            <p><strong>Refactoring commands:</strong></p>
+            <ul>
+              <li><code>/refactor</code> → <code>refactoring-patterns</code></li>
+              <li><code>/modernize</code> → <code>refactoring-patterns</code></li>
+              <li><code>/update-deps</code> → <code>dependency-management</code></li>
+            </ul>
+
+            <p><strong>Testing commands:</strong></p>
+            <ul>
+              <li><code>/generate-tests</code> → <code>test-patterns</code></li>
+              <li><code>/generate-api-tests</code> → <code>api-documentation</code>, <code>test-patterns</code></li>
+              <li><code>/analyze-coverage</code> → <code>test-patterns</code></li>
+              <li><code>/playwright-test</code> → <code>test-patterns</code></li>
+              <li><code>/xcode-test</code> → <code>test-patterns</code></li>
+            </ul>
+
+            <p><strong>Documentation commands:</strong></p>
+            <ul>
+              <li><code>/document-api</code> → <code>api-documentation</code></li>
+              <li><code>/generate-onboarding</code> → <code>onboarding-docs</code></li>
+            </ul>
+          </div>
+
+          <div class="version-summary">
+            <h4>Summary</h4>
+            <p>38 agents, 32 commands, 21 skills, 2 MCP servers</p>
+            <p><strong>Improved UX:</strong> 15 commands with TodoWrite progress tracking for complex workflows</p>
+            <p><strong>Improved integration:</strong> 13 commands with automatic skill invocation</p>
+          </div>
+        </section>
+
+        <!-- Version 2.28.0 -->
+        <section id="v2.28.0" class="version-section">
+          <div class="version-header">
+            <h2>v2.28.0</h2>
+            <span class="version-date">2026-01-08</span>
+            <span class="version-badge">Claude Code 2.1.0</span>
+          </div>
+
+          <p class="version-description">
+            Adopt Claude Code 2.1.0 features: hooks, context isolation, and visibility control.
+          </p>
+
+          <div class="changelog-category added">
+            <h3><i class="fa-solid fa-plus"></i> Added</h3>
+
+            <h4>Skills with <code>context: fork</code> (4)</h4>
+            <p>Heavy processing skills now run in isolated forked context:</p>
+            <ul>
+              <li><code>test-patterns</code> - Test generation runs in isolated context</li>
+              <li><code>refactoring-patterns</code> - Refactoring operations run in isolated context</li>
+              <li><code>technical-debt</code> - Debt scanning runs in isolated context</li>
+              <li><code>dependency-management</code> - Dependency audits run in isolated context</li>
+            </ul>
+
+            <h4>Skills with <code>user-invocable: false</code> (2)</h4>
+            <p>Reference-only skills hidden from slash command menu:</p>
+            <ul>
+              <li><code>skill-creator</code> - Used by /create-agent-skill command</li>
+              <li><code>every-style-editor</code> - Used by every-style-editor agent</li>
+            </ul>
+
+            <h4>Commands with PreToolUse Hooks (3)</h4>
+            <ul>
+              <li><code>/refactor</code> - Verifies git status before edits</li>
+              <li><code>/update-deps</code> - Creates lockfile backups before dependency changes (npm, pip, bundle)</li>
+              <li><code>/modernize</code> - Verifies git status before edits</li>
+            </ul>
+
+            <h4>Agents with PostToolUse Hooks (2)</h4>
+            <ul>
+              <li><code>refactoring-assistant</code> - Notifies after edits complete</li>
+              <li><code>code-modernizer</code> - Notifies after modernization edits</li>
+            </ul>
+          </div>
+
+          <div class="version-summary">
+            <h4>Summary</h4>
+            <p>38 agents, 32 commands, 21 skills, 2 MCP servers</p>
+          </div>
+        </section>
+
+        <!-- Version 2.27.0 -->
+        <section id="v2.27.0" class="version-section">
+          <div class="version-header">
+            <h2>v2.27.0</h2>
+            <span class="version-date">2026-01-08</span>
+            <span class="version-badge major">Major Expansion</span>
+          </div>
+
+          <p class="version-description">
+            Major expansion: 7 new skills, 11 new agents, 12 new commands, 1 new workflow.
+          </p>
+
+          <div class="changelog-category added">
+            <h3><i class="fa-solid fa-plus"></i> Added</h3>
+
+            <h4>New Skills (7)</h4>
+            <ul>
+              <li><code>test-patterns</code> - Generate and organize tests following project conventions</li>
+              <li><code>api-documentation</code> - Generate and maintain API documentation with OpenAPI patterns</li>
+              <li><code>technical-debt</code> - Track and categorize technical debt with scoring</li>
+              <li><code>onboarding-docs</code> - Generate developer onboarding documentation</li>
+              <li><code>dependency-management</code> - Manage project dependencies safely</li>
+              <li><code>error-analysis</code> - Analyze errors and logs systematically</li>
+              <li><code>refactoring-patterns</code> - Safe, systematic refactoring patterns</li>
+            </ul>
+
+            <h4>New Agents (11)</h4>
+            <p><strong>Testing Agents:</strong> <code>test-generator</code>, <code>test-coverage-analyzer</code>, <code>api-test-generator</code></p>
+            <p><strong>Documentation Agents:</strong> <code>api-docs-generator</code>, <code>onboarding-generator</code></p>
+            <p><strong>Analysis Agents:</strong> <code>debt-tracker</code>, <code>codebase-health</code>, <code>dependency-auditor</code>, <code>error-analyst</code></p>
+            <p><strong>Refactoring Agents:</strong> <code>refactoring-assistant</code>, <code>code-modernizer</code></p>
+
+            <h4>New Commands (12)</h4>
+            <p><strong>Testing:</strong> <code>/generate-tests</code>, <code>/analyze-coverage</code>, <code>/generate-api-tests</code></p>
+            <p><strong>Documentation:</strong> <code>/document-api</code>, <code>/generate-onboarding</code></p>
+            <p><strong>Analysis:</strong> <code>/scan-debt</code>, <code>/health-report</code>, <code>/update-deps</code></p>
+            <p><strong>Refactoring:</strong> <code>/refactor</code>, <code>/modernize</code></p>
+
+            <h4>New Workflow</h4>
+            <ul>
+              <li><code>/workflows:maintain</code> - Systematic maintenance workflow combining dependency audit, debt scan, coverage analysis, and health reporting</li>
+            </ul>
+          </div>
+
+          <div class="version-summary">
+            <h4>Summary</h4>
+            <p>38 agents, 32 commands, 21 skills, 2 MCP servers</p>
+          </div>
+        </section>
+
+        <!-- Version 2.26.0 -->
+        <section id="v2.26.0" class="version-section">
+          <div class="version-header">
+            <h2>v2.26.0</h2>
+            <span class="version-date">2026-01-08</span>
+          </div>
+
+          <p class="version-description">
+            Generalized Ruby-specific components to language-agnostic equivalents.
+          </p>
+
+          <div class="changelog-category changed">
+            <h3><i class="fa-solid fa-arrows-rotate"></i> Changed</h3>
+            <ul>
+              <li>Replaced all Ruby/Rails-specific agents and skills with language-agnostic equivalents</li>
+              <li>Standardized file output paths to <code>.claude/</code> directory</li>
+            </ul>
+          </div>
+
+          <div class="changelog-category added">
+            <h3><i class="fa-solid fa-plus"></i> Added</h3>
+            <ul>
+              <li><code>framework-conventions-reviewer</code> agent - Review code against any framework's conventions</li>
+              <li><code>senior-code-reviewer</code> agent - High-bar code review with strict quality standards</li>
+              <li><code>library-readme-writer</code> agent - Create READMEs for any library/package</li>
+              <li><code>framework-conventions-guide</code> skill - Write code following framework conventions</li>
+              <li><code>llm-application-patterns</code> skill - Build production LLM applications</li>
+              <li><code>library-writer</code> skill - Write libraries with minimal dependencies</li>
+            </ul>
+          </div>
+
+          <div class="changelog-category removed">
+            <h3><i class="fa-solid fa-minus"></i> Removed</h3>
+            <ul>
+              <li><code>dhh-rails-reviewer</code> agent → Replaced by <code>framework-conventions-reviewer</code></li>
+              <li><code>kieran-rails-reviewer</code> agent → Replaced by <code>senior-code-reviewer</code></li>
+              <li><code>ankane-readme-writer</code> agent → Replaced by <code>library-readme-writer</code></li>
+              <li><code>dhh-rails-style</code> skill → Replaced by <code>framework-conventions-guide</code></li>
+              <li><code>dspy-ruby</code> skill → Replaced by <code>llm-application-patterns</code></li>
+              <li><code>andrew-kane-gem-writer</code> skill → Replaced by <code>library-writer</code></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Version 2.23.0 -->
+        <section id="v2.23.0" class="version-section">
+          <div class="version-header">
+            <h2>v2.23.0</h2>
+            <span class="version-date">2025-01-07</span>
+          </div>
+
+          <div class="changelog-category added">
+            <h3><i class="fa-solid fa-plus"></i> Added</h3>
+            <ul>
+              <li><code>claude-workspace</code> skill - Organize working files in <code>.claude/</code> directory with enforced structure, naming conventions, and required cross-references</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Version 2.22.0 -->
+        <section id="v2.22.0" class="version-section">
+          <div class="version-header">
+            <h2>v2.22.0</h2>
+            <span class="version-date">2026-01-05</span>
+          </div>
+
+          <div class="changelog-category added">
+            <h3><i class="fa-solid fa-plus"></i> Added</h3>
+            <ul>
+              <li><code>rclone</code> skill - Upload files to S3, Cloudflare R2, Backblaze B2, and other cloud storage providers</li>
+            </ul>
+          </div>
+
+          <div class="changelog-category changed">
+            <h3><i class="fa-solid fa-arrows-rotate"></i> Changed</h3>
+            <ul>
+              <li><code>/feature-video</code> command - Enhanced with better ffmpeg commands, rclone integration, and screenshot copying</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Version 2.21.0 -->
+        <section id="v2.21.0" class="version-section">
+          <div class="version-header">
+            <h2>v2.21.0</h2>
+            <span class="version-date">2026-01-05</span>
+          </div>
+
+          <div class="changelog-category added">
+            <h3><i class="fa-solid fa-plus"></i> Added</h3>
+            <ul>
+              <li><code>/feature-video</code> command - Record video walkthroughs of features using Playwright</li>
+              <li><code>/deepen-plan</code> command - Enhance plans with parallel research agents</li>
+            </ul>
+          </div>
+
+          <div class="changelog-category changed">
+            <h3><i class="fa-solid fa-arrows-rotate"></i> Changed</h3>
+            <ul>
+              <li><code>agent-native-architecture</code> skill - Major expansion with dynamic capability discovery, action parity, shared workspace patterns</li>
+              <li><code>create-agent-skills</code> skill - Complete rewrite to match Anthropic's official skill specification</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Version 2.16.0 -->
+        <section id="v2.16.0" class="version-section">
+          <div class="version-header">
+            <h2>v2.16.0</h2>
+            <span class="version-date">2025-12-21</span>
+          </div>
+
+          <div class="changelog-category changed">
+            <h3><i class="fa-solid fa-arrows-rotate"></i> Changed</h3>
+            <ul>
+              <li><code>dhh-rails-style</code> skill - Massively expanded reference documentation from Marc Köhlbrugge's 37signals analysis</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Version 2.15.0 -->
+        <section id="v2.15.0" class="version-section">
+          <div class="version-header">
+            <h2>v2.15.0</h2>
+            <span class="version-date">2025-12-18</span>
+          </div>
+
+          <div class="changelog-category added">
+            <h3><i class="fa-solid fa-plus"></i> Added</h3>
+            <ul>
+              <li><code>/xcode-test</code> command - Build and test iOS apps on simulator using XcodeBuildMCP</li>
+              <li><code>/playwright-test</code> command - Run Playwright browser tests on pages affected by current PR</li>
+            </ul>
+          </div>
+        </section>
+
         <!-- Version 2.6.0 -->
         <section id="v2.6.0" class="version-section">
           <div class="version-header">
@@ -98,7 +455,6 @@
             <ul>
               <li>
                 <strong><code>feedback-codifier</code> agent</strong> - Removed from workflow agents.
-                Agent count reduced from 24 to 23.
               </li>
             </ul>
           </div>
