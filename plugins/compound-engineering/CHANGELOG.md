@@ -5,6 +5,44 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.1] - 2026-01-10
+
+### Fixed
+
+**Workflow commands regression fix**
+
+Fixed critical regression where workflow commands (`/workflows:plan`, `/workflows:work`, `/workflows:review`, `/workflows:compound`, `/workflows:maintain`) were incorrectly triggering Claude Code's built-in planning mechanisms (EnterPlanMode, TodoWrite) instead of executing their custom workflows.
+
+**Changes:**
+
+1. **`/workflows:plan`** - Added explicit instructions to prevent EnterPlanMode usage
+   - Now correctly spawns research agents (repo-research-analyst, best-practices-researcher, framework-docs-researcher)
+   - Writes plans to `.claude/plans/` as intended
+   - Presents next-step options via AskUserQuestion (deepen-plan, plan_review, workflows:work)
+
+2. **`/workflows:work`** - Clarified TodoWrite usage scope
+   - TodoWrite only used in Phase 1, Step 3 for task tracking
+   - Does not enter plan mode
+   - Executes existing plans correctly
+
+3. **`/workflows:review`** - Enforced file-todos skill usage
+   - Uses file-todos skill for creating finding files
+   - Does not use TodoWrite
+   - Spawns parallel agents and creates todos in `.claude/todos/`
+
+4. **`/workflows:compound`** - Prevented planning tool interference
+   - Does not use TodoWrite or EnterPlanMode
+   - Spawns parallel subagents to document solved problems
+   - Writes to `.claude/solutions/` correctly
+
+5. **`/workflows:maintain`** - Direct execution enforced
+   - No planning or todo tracking
+   - Runs maintenance tasks directly
+
+**Root cause:** Claude Code's system prompts were detecting "planning" keywords and triggering built-in EnterPlanMode instead of executing custom workflow instructions.
+
+**Impact:** All workflow commands now execute their custom logic correctly without interference from Claude Code's default tools.
+
 ## [2.32.0] - 2026-01-10
 
 ### Added

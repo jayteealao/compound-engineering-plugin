@@ -6,6 +6,12 @@ argument-hint: "[full|quick|deps|debt|tests]"
 
 # Maintenance Workflow
 
+## CRITICAL: Command Execution Instructions
+
+**DO NOT use TodoWrite or EnterPlanMode for this command.**
+
+This command runs maintenance tasks (dependency updates, debt scanning, test coverage). Execute the maintenance workflow directly - no planning or todo tracking needed.
+
 Systematic codebase maintenance for ongoing health.
 
 ## Usage

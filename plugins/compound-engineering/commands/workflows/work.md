@@ -6,7 +6,13 @@ argument-hint: "[plan file, specification, or todo file path]"
 
 # Work Plan Execution Command
 
-Execute a work plan efficiently while maintaining quality and finishing features.
+## CRITICAL: Command Execution Instructions
+
+**This is a WORK EXECUTION command, NOT a planning command.**
+
+- Use TodoWrite ONLY in Phase 1, Step 3 ("Create Todo List") to track implementation tasks
+- DO NOT use EnterPlanMode - this command executes existing plans
+- Follow the execution workflow below EXACTLY
 
 ## Introduction
 

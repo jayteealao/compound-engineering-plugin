@@ -6,6 +6,12 @@ argument-hint: "[PR number, GitHub URL, branch name, or latest]"
 
 # Review Command
 
+## CRITICAL: Command Execution Instructions
+
+**DO NOT use TodoWrite for this command.**
+
+This command uses the `file-todos` skill to create finding files in `.claude/todos/`. Follow the workflow below EXACTLY - spawn parallel agents, synthesize findings, and create todo files using the file-todos skill.
+
 <command_purpose> Perform exhaustive code reviews using multi-agent analysis, ultra-thinking, and Git worktrees for deep local inspection. </command_purpose>
 
 ## Introduction

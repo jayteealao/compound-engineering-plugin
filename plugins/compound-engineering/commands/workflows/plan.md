@@ -6,6 +6,17 @@ argument-hint: "[feature description, bug report, or improvement idea]"
 
 # Create a plan for a new feature or bug fix
 
+## CRITICAL: Command Execution Instructions
+
+**DO NOT use Claude Code's EnterPlanMode tool or TodoWrite tool for this command.**
+
+This is a custom workflow command with its own planning mechanism that:
+- Spawns specialized research agents (repo-research-analyst, best-practices-researcher, framework-docs-researcher)
+- Writes plans to `.claude/plans/` (NOT Claude Code's default planning system)
+- Presents next-step options via AskUserQuestion (deepen-plan, plan_review, workflows:work)
+
+Follow the instructions in this command EXACTLY. Do not delegate to other planning tools.
+
 ## Introduction
 
 **Note: The current year is 2026.** Use this when dating plans and searching for recent documentation.

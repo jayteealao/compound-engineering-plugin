@@ -6,6 +6,12 @@ argument-hint: "[optional: brief context about the fix]"
 
 # /compound
 
+## CRITICAL: Command Execution Instructions
+
+**DO NOT use TodoWrite or EnterPlanMode for this command.**
+
+This command spawns parallel subagents to document solved problems in `.claude/solutions/`. Follow the parallel subagent strategy below EXACTLY.
+
 Coordinate multiple subagents working in parallel to document a recently solved problem.
 
 ## Purpose
