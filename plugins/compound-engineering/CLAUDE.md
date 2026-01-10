@@ -52,6 +52,39 @@ skills/
 
 **Why `workflows:`?** Claude Code has built-in `/plan` and `/review` commands. Using `name: workflows:plan` in frontmatter creates a unique `/workflows:plan` command with no collision.
 
+## Workflow Command Protection
+
+**CRITICAL:** Workflow commands require explicit guards to prevent Claude Code's built-in planning tools from hijacking execution.
+
+**Problem:** Claude Code's system prompts detect "planning" keywords in commands and automatically trigger `EnterPlanMode` or `TodoWrite`, overriding custom command logic.
+
+**Solution:** All workflow commands in `commands/workflows/` must include a "CRITICAL: Command Execution Instructions" section at the top that:
+1. Explicitly forbids using `EnterPlanMode` and/or `TodoWrite` (depending on command)
+2. States what the command's custom mechanism is (e.g., `.claude/plans/`, `.claude/solutions/`)
+3. Directs Claude to follow the command instructions EXACTLY
+
+**Example:**
+```markdown
+## CRITICAL: Command Execution Instructions
+
+**DO NOT use Claude Code's EnterPlanMode tool or TodoWrite tool for this command.**
+
+This is a custom workflow command with its own planning mechanism that:
+- Spawns specialized research agents
+- Writes plans to `.claude/plans/`
+- Presents next-step options via AskUserQuestion
+
+Follow the instructions in this command EXACTLY. Do not delegate to other planning tools.
+```
+
+**When to add guards:**
+- All commands in `commands/workflows/` (these use custom mechanisms)
+- Commands that might be confused as "planning" tasks by Claude Code's heuristics
+
+**When NOT to add guards:**
+- Utility commands that legitimately use TodoWrite for progress tracking (`/deepen-plan`, `/refactor`, etc.)
+- Simple commands that won't trigger planning heuristics
+
 ## Skill Compliance Checklist
 
 When adding or modifying skills, verify compliance with skill-creator spec:
