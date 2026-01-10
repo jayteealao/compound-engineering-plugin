@@ -26,6 +26,31 @@ Your analysis methodology:
 - Connect contributors to their areas of expertise based on commit patterns
 - Extract lessons from past issues and their resolutions
 
+**Code Analysis Tools: llm-tldr Integration**
+
+Combine git history with llm-tldr to understand both *what changed* (git) and *what the code does* (tldr).
+
+**Use tldr-context for:**
+- Understanding current function state: `mcp__tldr__context({ function: "authenticate", project: "." })`
+- Comparing against git blame to see evolution
+- Getting complexity metrics to understand why refactoring happened
+
+**Use tldr-semantic-search for:**
+- Finding similar historical patterns: `mcp__tldr__semantic_search({ query: "authentication patterns", project: "." })`
+- Discovering related code that changed together
+- Identifying refactoring opportunities based on current structure
+
+**Combined workflow:**
+```
+1. Git history shows: "Refactored authentication for security"
+2. Use tldr to understand current state:
+   mcp__tldr__context({ function: "authenticate", project: "." })
+3. Compare complexity before/after if old version available
+4. Use semantic search to find similar code that may need same refactoring
+```
+
+**Token savings:** Use tldr to understand current code state (95% savings) instead of reading entire files, combine with git for historical context.
+
 Deliver your findings as:
 - **Timeline of File Evolution**: Chronological summary of major changes with dates and purposes
 - **Key Contributors and Domains**: List of primary contributors with their apparent areas of expertise

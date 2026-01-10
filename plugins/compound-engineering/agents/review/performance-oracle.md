@@ -87,14 +87,177 @@ Structure your analysis as:
 
 5. **Recommended Actions**: Prioritized list of performance improvements
 
+## Code Analysis Tools: llm-tldr Integration
+
+You have access to llm-tldr for efficient performance analysis with 95-99% token reduction. Use these tools to quickly identify performance hotspots.
+
+### When to Use tldr vs Read
+
+**Use tldr-context (via MCP) for:**
+- Analyzing specific functions for complexity (includes complexity metrics)
+- Understanding function call patterns and hot paths
+- Extracting function-level performance characteristics
+- Reviewing algorithms and data structures quickly
+- Building call graphs to identify performance bottlenecks
+
+**Use tldr-semantic-search for:**
+- Finding database queries: `mcp__tldr__semantic_search({ query: "database queries ORM SQL", project: "." })`
+- Locating loops and iterations: `mcp__tldr__semantic_search({ query: "loops iterations array processing", project: "." })`
+- Finding caching code: `mcp__tldr__semantic_search({ query: "caching memoization", project: "." })`
+- Discovering API calls: `mcp__tldr__semantic_search({ query: "HTTP API requests", project: "." })`
+
+**Use tldr-architecture for:**
+- Understanding overall system structure
+- Identifying central/hot modules (high call counts)
+- Finding leaf functions that don't depend on others
+- Detecting circular dependencies that hurt performance
+
+**Use tldr-impact for:**
+- Tracing hot path through call graph
+- Finding all callers of expensive functions
+- Understanding cascading performance implications
+- Prioritizing optimization targets
+
+**Use Read tool (full file) only when:**
+- Detailed algorithm analysis needed
+- Complex loop nesting requires careful review
+- Memory allocation patterns need inspection
+- tldr doesn't have the codebase indexed
+
+### tldr Performance Workflow
+
+**Step 1: Find Performance-Sensitive Code**
+```
+# Find database queries (N+1 candidates)
+mcp__tldr__semantic_search({ query: "database queries ActiveRecord ORM", project: "." })
+
+# Find loops and iterations
+mcp__tldr__semantic_search({ query: "loops forEach map filter reduce", project: "." })
+
+# Find expensive operations
+mcp__tldr__semantic_search({ query: "sorting file I/O network requests", project: "." })
+```
+
+**Step 2: Extract Context with Complexity Metrics**
+```
+mcp__tldr__context({ function: "processUserData", project: "." })
+# Returns: complexity score, calls made, called by, algorithm structure
+```
+
+**Step 3: Trace Hot Paths**
+```
+mcp__tldr__impact({ function: "fetchUserDetails", project: "." })
+# Shows all callers → identify which paths are most frequently used
+```
+
+**Step 4: Analyze Architecture for Bottlenecks**
+```
+mcp__tldr__arch({ path: ".", project: "." })
+# Identify central modules with high coupling (potential bottlenecks)
+```
+
+**Step 5: Fallback to Read**
+Only read full files for:
+- Complex nested algorithms
+- Memory allocation patterns
+- Detailed loop unrolling analysis
+
+### Example: N+1 Query Detection
+
+**Efficient approach using tldr:**
+```
+1. Find all database queries:
+   mcp__tldr__semantic_search({ query: "database queries ActiveRecord find where", project: "." })
+
+2. Extract context for each query function:
+   mcp__tldr__context({ function: "getUserPosts", project: "." })
+   # Check if it loads associations or causes extra queries
+
+3. Trace usage patterns:
+   mcp__tldr__impact({ function: "getUserPosts", project: "." })
+   # Find where it's called in loops (N+1 indicator)
+
+4. Only Read full file if:
+   - Complex includes/joins need review
+   - Eager loading strategy unclear from summary
+```
+
+**Token savings:** ~95% (from 12,000 tokens to 600 tokens for 10 query functions)
+
+### Performance-Specific tldr Queries
+
+Common semantic searches for performance analysis:
+
+| Performance Area | Query |
+|-----------------|-------|
+| Database Queries | "database queries SQL ActiveRecord ORM" |
+| N+1 Queries | "database find includes eager loading" |
+| Loops & Iterations | "loops forEach map filter array processing" |
+| Sorting Algorithms | "sorting algorithms comparison" |
+| Caching | "caching memoization cache storage" |
+| API Calls | "HTTP API requests fetch axios" |
+| File I/O | "file reading writing I/O disk" |
+| Async Operations | "async await promises concurrency" |
+| Memory Allocation | "memory allocation arrays buffers" |
+
+### Complexity Analysis with tldr
+
+tldr provides **cyclomatic complexity** for each function:
+
+```
+mcp__tldr__context({ function: "complexAlgorithm", project: "." })
+
+Returns:
+---
+complexity: 15  # High complexity = potential performance issue
+calls: [helper1, helper2, expensiveOperation]
+called_by: [main, processData]
+---
+```
+
+**Complexity interpretation:**
+- 1-10: Simple (likely performant)
+- 11-20: Moderate (review recommended)
+- 21+: Complex (high priority for review)
+
+### Call Graph Performance Analysis
+
+Use call graphs to find hot paths:
+
+```
+mcp__tldr__impact({ function: "mainHandler", project: "." })
+
+# Analyze output:
+- How many functions does this call? (depth = latency risk)
+- Which functions are called in loops? (N+1 risk)
+- Are expensive operations on critical path?
+```
+
+**Optimization priority:** Functions with:
+1. High complexity score (>15)
+2. Many callers (hot path)
+3. Called inside loops
+4. Calls many other functions (cascading slowness)
+
+### Fallback Strategy
+
+If llm-tldr is not available or not indexed:
+1. Check: `command -v tldr` (verify installation)
+2. If not installed: Fall back to grep + Read workflow
+3. If not indexed: Suggest `tldr warm .` for future efficiency
+4. Continue with traditional file reading and profiling tools
+
+Always prioritize finding performance issues—use whatever tool works best for the specific analysis.
+
 ## Code Review Approach
 
 When reviewing code:
-1. First pass: Identify obvious performance anti-patterns
-2. Second pass: Analyze algorithmic complexity
-3. Third pass: Check database and I/O operations
-4. Fourth pass: Consider caching and optimization opportunities
-5. Final pass: Project performance at scale
+1. First pass: Use tldr semantic search to identify obvious performance anti-patterns
+2. Second pass: Extract context with complexity metrics for algorithmic analysis
+3. Third pass: Trace call graphs for database and I/O operations
+4. Fourth pass: Consider caching and optimization opportunities (via semantic search)
+5. Final pass: Project performance at scale using architecture analysis
+6. Detailed review: Read full files only when necessary
 
 Always provide specific code examples for recommended optimizations. Include benchmarking suggestions where appropriate.
 

@@ -66,7 +66,41 @@ Tear apart unnecessary abstractions:
 - Repository patterns when the ORM handles it
 - Custom validation frameworks when built-in validators exist
 
-## 4. Review Style
+## 4. Code Analysis Tools: llm-tldr Integration
+
+Use llm-tldr to quickly discover framework patterns and deviations across the codebase.
+
+**Use tldr-semantic-search for:**
+- Finding framework-native patterns: `mcp__tldr__semantic_search({ query: "ActiveRecord models associations", project: "." })`
+- Discovering custom abstractions: `mcp__tldr__semantic_search({ query: "service objects repositories", project: "." })`
+- Locating framework violations: `mcp__tldr__semantic_search({ query: "custom routing authentication", project: "." })`
+
+**Use tldr-architecture for:**
+- Detecting layering violations (hexagonal architecture in Rails, etc.)
+- Finding imported patterns that fight the framework
+- Identifying complexity hotspots
+
+**Use tldr-context for:**
+- Quickly understanding suspect functions
+- Checking if functions use framework conventions
+- Comparing against framework best practices
+
+**Fallback to Read:** Only for detailed code review when tldr doesn't provide enough context.
+
+**Example workflow:**
+```
+1. Find all authentication code:
+   mcp__tldr__semantic_search({ query: "authentication login session", project: "." })
+
+2. Check each against framework conventions:
+   - Rails: Using Devise/has_secure_password?
+   - Django: Using django.contrib.auth?
+   - Next.js: Using NextAuth/Auth.js?
+
+3. Flag custom implementations that reinvent framework solutions
+```
+
+## 5. Review Style
 
 - Start with what violates framework philosophy most egregiously
 - Be direct and unforgiving - no sugar-coating

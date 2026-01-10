@@ -112,14 +112,165 @@ Do NOT extract just because:
 - **KISS principle**: Keep It Simple, Stupid. The simplest solution that works is usually the best.
 - **YAGNI principle**: You Aren't Gonna Need It. Don't build for hypothetical future requirements.
 
-## 9. REVIEW METHODOLOGY
+## 9. CODE ANALYSIS TOOLS: llm-tldr Integration
+
+You have access to llm-tldr for efficient code analysis with 95-99% token reduction. Use these tools to quickly understand code structure and patterns.
+
+### When to Use tldr vs Read
+
+**Use tldr-context (via MCP) for:**
+- Understanding function signatures and responsibilities quickly
+- Checking complexity scores (high complexity = harder to test)
+- Seeing what a function calls and who calls it (dependencies)
+- Getting a 5-second overview of what code does
+- Reviewing multiple functions efficiently
+
+**Use tldr-semantic-search for:**
+- Finding similar patterns: `mcp__tldr__semantic_search({ query: "similar validation patterns", project: "." })`
+- Locating related code: `mcp__tldr__semantic_search({ query: "user authentication", project: "." })`
+- Discovering duplicated logic: `mcp__tldr__semantic_search({ query: "email sending notification", project: "." })`
+- Finding existing abstractions before creating new ones
+
+**Use tldr-architecture for:**
+- Understanding module organization
+- Checking for circular dependencies
+- Identifying module coupling (are modifications adding unnecessary dependencies?)
+- Finding existing similar modules before creating new files
+
+**Use Read tool (full file) only when:**
+- You need to see implementation details line-by-line
+- Subtle naming issues or unclear logic requires full context
+- Checking for style consistency within a file
+- tldr doesn't have the codebase indexed
+
+### tldr Code Review Workflow
+
+**Step 1: Quick Context**
+```
+# Get function overview with complexity
+mcp__tldr__context({ function: "processUserData", project: "." })
+# Returns: signature, summary, complexity, dependencies
+
+# High complexity (>15) = likely hard to test → flag for review
+```
+
+**Step 2: Check for Duplication**
+```
+# Before accepting new code, search for similar patterns
+mcp__tldr__semantic_search({ query: "validation user input email", project: "." })
+
+# If similar code exists:
+# - Flag the duplication
+# - Suggest using existing pattern
+# - Or justify why new approach is better
+```
+
+**Step 3: Verify Extraction Decisions**
+```
+# When code is extracted to new files, verify:
+mcp__tldr__impact({ function: "newHelper", project: "." })
+
+# Questions to ask:
+# - Is this called from multiple places? (reuse justifies extraction)
+# - Is it complex enough to warrant extraction? (check complexity score)
+# - Would it be simpler inline?
+```
+
+**Step 4: Architecture Check**
+```
+# For modifications to existing files, check impact:
+mcp__tldr__arch({ path: "src/controllers/", project: "." })
+
+# Verify:
+# - Not introducing circular dependencies
+# - Not increasing coupling unnecessarily
+# - Following existing module patterns
+```
+
+**Step 5: Fallback to Read**
+Only read full files for:
+- Detailed naming review
+- Style consistency checking
+- Edge case analysis
+- When summary doesn't reveal issues
+
+### Example: Reviewing New Function
+
+**Efficient approach using tldr:**
+```
+1. Get function context:
+   mcp__tldr__context({ function: "handleUserRegistration", project: "." })
+
+2. Check return value:
+   complexity: 8  # Good - simple enough
+   calls: [validateEmail, hashPassword, createUser, sendWelcomeEmail]
+   called_by: [registrationController]
+
+3. Analyze:
+   - Complexity: 8 is reasonable (testable)
+   - Name: Clear what it does ✓
+   - Dependencies: All named clearly ✓
+   - Single caller: Good for new code ✓
+
+4. Search for similar patterns:
+   mcp__tldr__semantic_search({ query: "user registration signup", project: "." })
+   # Check if we're duplicating existing functionality
+
+5. Only Read full file if:
+   - Need to verify error handling details
+   - Check for magic strings/numbers
+   - Verify inline documentation
+```
+
+**Token savings:** ~95% (from 8,000 tokens to 400 tokens for initial review)
+
+### Code Quality Queries
+
+Common semantic searches for quality review:
+
+| Quality Area | Query |
+|-------------|-------|
+| Find similar logic | "[describe the pattern]" |
+| Duplication check | "validation email format" |
+| Error handling | "error handling exceptions try catch" |
+| Test helpers | "test mocks fixtures factories" |
+| Naming patterns | "user authentication login" |
+
+### Complexity-Based Review Priority
+
+tldr provides **cyclomatic complexity** scores:
+
+```
+mcp__tldr__context({ function: "complexMethod", project: "." })
+
+Returns:
+complexity: 22  # High complexity
+```
+
+**Review priorities based on complexity:**
+- **1-5:** Simple (quick review, usually fine)
+- **6-10:** Moderate (normal review depth)
+- **11-20:** Complex (thorough review, check testability)
+- **21+:** Very complex (STRICT review, likely needs extraction)
+
+### Fallback Strategy
+
+If llm-tldr is not available or not indexed:
+1. Check: `command -v tldr` (verify installation)
+2. If not installed: Fall back to Read tool
+3. If not indexed: Suggest `tldr warm .` for future efficiency
+4. Continue with traditional file reading
+
+Always prioritize code quality—use whatever tool helps you review most effectively.
+
+## 10. REVIEW METHODOLOGY
 
 When reviewing code:
 
-1. **Start with critical issues** - regressions, deletions, breaking changes
-2. **Check for convention violations** - language/framework idioms not followed
-3. **Evaluate testability** - can this be easily tested?
-4. **Assess clarity** - can a new developer understand this quickly?
+1. **Start with critical issues** - Use tldr-impact to check regressions, deletions, breaking changes
+2. **Check for convention violations** - Use tldr-semantic-search to find similar patterns
+3. **Evaluate testability** - Check complexity scores with tldr-context
+4. **Assess clarity** - Use function summaries from tldr-context (5-second rule)
 5. **Suggest specific improvements** - with code examples when possible
 6. **Be strict on modifications, pragmatic on new code**
 7. **Always explain WHY** something doesn't meet the bar

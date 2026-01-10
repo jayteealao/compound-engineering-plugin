@@ -46,6 +46,116 @@ You will systematically execute these security scans:
    - Document compliance status for each category
    - Provide specific remediation steps for any gaps
 
+## Code Analysis Tools: llm-tldr Integration
+
+You have access to llm-tldr for efficient code analysis with 95-99% token reduction. Use these tools strategically to maximize efficiency.
+
+### When to Use tldr vs Read
+
+**Use tldr-context (via MCP) for:**
+- Function-level security analysis (99% token savings)
+- Understanding authentication/authorization implementations
+- Analyzing specific vulnerable functions
+- Reviewing API endpoints and handlers
+- Extracting call graphs to trace data flow
+
+**Use tldr-semantic-search for:**
+- Finding all authentication code: `mcp__tldr__semantic_search({ query: "JWT token validation", project: "." })`
+- Locating input validation: `mcp__tldr__semantic_search({ query: "user input validation sanitization", project: "." })`
+- Finding password handling: `mcp__tldr__semantic_search({ query: "password hashing storage", project: "." })`
+- Discovering crypto usage: `mcp__tldr__semantic_search({ query: "encryption cryptography", project: "." })`
+
+**Use Read tool (full file) only when:**
+- Detailed line-by-line review needed
+- Analyzing complex security logic
+- Reviewing entire middleware implementations
+- Examining security configurations (CORS, CSP, etc.)
+- tldr doesn't have the codebase indexed
+
+### tldr Security Workflow
+
+**Step 1: Semantic Discovery**
+Find security-relevant code quickly:
+```
+# Find all authentication code
+mcp__tldr__semantic_search({ query: "authentication authorization access control", project: "." })
+
+# Find input handling
+mcp__tldr__semantic_search({ query: "user input validation sanitization", project: "." })
+
+# Find database queries
+mcp__tldr__semantic_search({ query: "database queries SQL", project: "." })
+```
+
+**Step 2: Extract Context**
+For each security-sensitive function:
+```
+mcp__tldr__context({ function: "validateToken", project: "." })
+# Returns: signature, summary, logic, dependencies, callers, complexity
+```
+
+**Step 3: Trace Impact**
+Understand security implications:
+```
+mcp__tldr__impact({ function: "authenticate", project: "." })
+# Returns: all callers, dependency tree, critical paths
+```
+
+**Step 4: Fallback to Read**
+If detailed analysis needed:
+```
+Read full implementation for line-by-line security review
+```
+
+### Example: JWT Security Audit
+
+**Efficient approach using tldr:**
+```
+1. Find JWT code:
+   mcp__tldr__semantic_search({ query: "JWT token validation verification", project: "." })
+
+2. Extract each function's context:
+   mcp__tldr__context({ function: "validateToken", project: "." })
+   mcp__tldr__context({ function: "verifySignature", project: "." })
+   mcp__tldr__context({ function: "checkExpiry", project: "." })
+
+3. Trace usage:
+   mcp__tldr__impact({ function: "validateToken", project: "." })
+
+4. Only Read full files if:
+   - Complex crypto implementation
+   - Custom signature verification
+   - Edge cases need line-by-line review
+```
+
+**Token savings:** ~95% (from 15,000 tokens to 750 tokens for 5 functions)
+
+### Security-Specific tldr Queries
+
+Common semantic searches for security audits:
+
+| Security Area | Query |
+|--------------|-------|
+| Authentication | "JWT token validation" |
+| Authorization | "access control permissions roles" |
+| Input Validation | "user input validation sanitization" |
+| SQL Injection | "database queries parameterization" |
+| XSS Prevention | "HTML escaping output encoding" |
+| Password Security | "password hashing bcrypt argon2" |
+| Session Management | "session cookie security httpOnly" |
+| Crypto | "encryption AES cryptography" |
+| Secrets | "API keys environment variables" |
+
+### Fallback Strategy
+
+If llm-tldr is not available or not indexed:
+1. Check: `command -v tldr` (verify installation)
+2. If not installed: Fall back to grep + Read workflow
+3. If not indexed: Suggest `tldr warm .` for future efficiency
+4. Continue with traditional file reading
+
+Always prioritize finding vulnerabilities—use whatever tool works best for the specific analysis.
+
 ## Security Requirements Checklist
 
 For every review, you will verify:
