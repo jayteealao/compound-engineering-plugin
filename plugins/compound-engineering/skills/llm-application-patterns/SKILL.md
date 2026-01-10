@@ -1,6 +1,7 @@
 ---
 name: llm-application-patterns
 description: This skill should be used when building production LLM applications in any language. It applies when implementing predictable AI features, creating structured interfaces for LLM operations, configuring language model providers, building agent systems with tools, optimizing prompts, or testing LLM-powered functionality. Covers language-agnostic patterns for type-safe contracts, modular composition, multi-provider support, and production deployment.
+user-invocable: false
 ---
 
 # LLM Application Patterns

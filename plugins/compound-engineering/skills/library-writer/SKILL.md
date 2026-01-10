@@ -1,6 +1,7 @@
 ---
 name: library-writer
 description: This skill should be used when writing software libraries, packages, or modules following battle-tested patterns for clean, minimal, production-ready code. It applies when creating new libraries, refactoring existing ones, designing library APIs, or when clean, dependency-minimal library code is needed. Triggers on requests like "create a library", "write a package", "design a module API", or mentions of professional library development.
+user-invocable: false
 ---
 
 # Library Writer

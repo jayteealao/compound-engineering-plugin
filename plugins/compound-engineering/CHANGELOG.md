@@ -5,6 +5,36 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.29.0] - 2026-01-10
+
+### Changed
+
+**Improved skill visibility: Hidden 6 pattern/guidance skills from slash command menu**
+
+Skills that teach Claude how to perform tasks are now hidden from the user-facing slash command menu and instead auto-discovered based on context. This reduces menu clutter while maintaining full functionality through automatic skill discovery.
+
+#### Additional Skills with `user-invocable: false` (6 new, 8 total)
+
+Pattern and guidance skills now hidden from menu:
+- **`create-agent-skills`** - Guides skill creation (auto-invoked when helping create skills)
+- **`framework-conventions-guide`** - Framework-native code patterns (auto-applied when writing framework code)
+- **`library-writer`** - Library development patterns (auto-applied when writing libraries)
+- **`llm-application-patterns`** - LLM application patterns (auto-applied when building LLM apps)
+- **`refactoring-patterns`** - Safe refactoring patterns (auto-applied when refactoring code)
+- **`test-patterns`** - Test generation patterns (auto-applied when writing tests)
+
+Previously hidden (unchanged):
+- **`skill-creator`** - Used by /create-agent-skill command
+- **`every-style-editor`** - Used by every-style-editor agent
+
+### Summary
+
+- 38 agents, 32 commands, 21 skills, 2 MCP servers
+- Visibility: 8 skills hidden from menu (auto-discovered), 13 skills visible in menu (user-invocable)
+- Improved UX: Cleaner slash command menu with only workflow/utility skills visible
+
+---
+
 ## [2.28.0] - 2026-01-08
 
 ### Added
