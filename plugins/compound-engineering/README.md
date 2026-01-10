@@ -126,6 +126,7 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 
 | Command | Description |
 |---------|-------------|
+| `/debug` | Analyze errors, stack traces, and logs with automated fix recommendations |
 | `/scan-debt` | Scan codebase for technical debt |
 | `/health-report` | Generate comprehensive health report |
 | `/update-deps` | Safely update dependencies |
@@ -196,6 +197,7 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 
 | Skill | Description |
 |-------|-------------|
+| `debugging-workflow` | Systematic debugging using hypothesis-driven methodology |
 | `dependency-management` | Manage project dependencies safely |
 | `error-analysis` | Analyze errors and logs systematically |
 

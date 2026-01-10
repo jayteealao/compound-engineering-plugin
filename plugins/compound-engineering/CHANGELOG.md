@@ -5,6 +5,64 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.31.0] - 2026-01-10
+
+### Added
+
+**New `/debug` command for unified error analysis**
+
+Added comprehensive debugging workflow command that provides systematic error analysis, root cause identification, and automated fix recommendations:
+
+**Features:**
+- **Unified workflow**: Single command to analyze errors, stack traces, and log files
+- **Multiple input modes**: Inline errors, pasted stack traces, or log file paths
+- **Automatic agent invocation**: Launches `error-analyst` agent with full context
+- **5-phase tracking**: TodoWrite integration for progress visibility
+  1. Parse error information and extract key details
+  2. Categorize error type and severity
+  3. Perform root cause analysis
+  4. Generate fix recommendations (hotfix + long-term)
+  5. Create action items and todos
+- **Structured analysis reports**: Comprehensive reports with error classification, RCA, timelines, and hypotheses
+- **Auto-create todos**: Automatically generates todo files in `.claude/todos/` for all recommended fixes:
+  - Immediate fixes → `{id}-ready-p1-*.md` (Priority 1)
+  - Short-term fixes → `{id}-ready-p2-*.md` (Priority 2)
+  - Long-term fixes → `{id}-pending-p3-*.md` (Priority 3)
+- **Integration**: Works with `error-analyst` agent, `error-analysis` skill, and `file-todos` patterns
+
+**Usage examples:**
+```bash
+/debug "TypeError: Cannot read property 'id' of undefined"
+/debug logs/application.log
+/debug  # Interactive mode
+```
+
+**New `debugging-workflow` skill**
+
+Added comprehensive debugging methodology skill that provides structured approaches to systematic debugging:
+
+**Content:**
+- **Hypothesis-driven debugging**: Scientific method applied to bugs (observe, hypothesize, test, verify)
+- **4-phase debugging process**: Gather information → Form hypotheses → Test hypotheses → Verify root cause
+- **Reproduction strategies**: Minimal reproduction, isolate variables, consistent environments
+- **Fix validation workflows**: Local → Staging → Production verification with monitoring
+- **Binary search debugging**: Git bisect, code scope narrowing, data narrowing techniques
+- **Error-type checklists**: Specific checklists for null references, network errors, performance, race conditions
+- **Tool selection guide**: When to use logs vs debugger vs tests vs print statements
+- **Best practices**: Documentation, avoiding common pitfalls, integration with error-analysis
+
+**Properties:**
+- Set as `user-invocable: false` (auto-discovered by Claude during debugging)
+- Uses `context: fork` for isolated execution
+- Complements existing `error-analysis` skill
+
+**Component counts:**
+- Commands: 32 → 33 (+1: `/debug`)
+- Skills: 21 → 22 (+1: `debugging-workflow`)
+- Agents: 38 (unchanged)
+
+---
+
 ## [2.30.1] - 2026-01-10
 
 ### Fixed
