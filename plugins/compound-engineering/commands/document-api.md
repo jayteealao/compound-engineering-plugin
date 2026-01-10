@@ -2,6 +2,7 @@
 name: document-api
 description: Generate or update API documentation from code
 argument-hint: "[optional: specific endpoint or controller]"
+allowed-tools: Skill(api-documentation)
 ---
 
 # Document API Command

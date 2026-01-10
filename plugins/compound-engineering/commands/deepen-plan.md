@@ -29,6 +29,25 @@ The result is a deeply grounded, production-ready plan with concrete implementat
 
 Do not proceed until you have a valid plan file path.
 
+## Progress Tracking
+
+Use TodoWrite to track progress through the 9-phase deepening workflow:
+
+```
+TodoWrite:
+1. Parse plan structure and identify sections - pending
+2. Discover and apply available skills (parallel) - pending
+3. Discover and apply learnings/solutions (parallel) - pending
+4. Launch per-section research agents (parallel) - pending
+5. Launch ALL review agents (40+ parallel) - pending
+6. Synthesize all agent findings - pending
+7. Enhance plan sections with research insights - pending
+8. Update plan file with enhancements - pending
+9. Present post-enhancement options to user - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each phase.
+
 ## Main Tasks
 
 ### 1. Parse and Analyze Plan Structure

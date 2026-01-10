@@ -2,6 +2,7 @@
 name: update-deps
 description: Safely update dependencies with compatibility checks and testing
 argument-hint: "[optional: specific package or 'all']"
+allowed-tools: Skill(dependency-management)
 hooks:
   PreToolUse:
     - matcher: Bash(npm install*)
@@ -54,6 +55,28 @@ Safely update project dependencies with comprehensive checks.
 # All updates
 /update-deps all
 ```
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the multi-phase dependency update workflow:
+
+```
+TodoWrite:
+1. Audit dependencies for vulnerabilities - pending
+2. Generate update plan with 4 phases - pending
+3. Phase 1: Security updates - pending
+4. Run tests after security updates - pending
+5. Phase 2: Patch updates - pending
+6. Run tests after patch updates - pending
+7. Phase 3: Minor updates - pending
+8. Run tests after minor updates - pending
+9. Phase 4: Major updates - pending
+10. Run tests after major updates - pending
+11. Verify all updates successful - pending
+12. Commit changes if all tests pass - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each phase.
 
 ## Workflow
 

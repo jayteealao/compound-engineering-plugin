@@ -25,6 +25,23 @@ Skill detection: !`ls -1 ./skills/*/SKILL.md | head -5`
 </workflow>
 </quick_start>
 
+## Progress Tracking
+
+Use TodoWrite to track progress through the skill healing workflow:
+
+```
+TodoWrite:
+1. Detect which skill needs healing - pending
+2. Reflect and analyze what went wrong - pending
+3. Scan affected files for all issues - pending
+4. Present proposed changes to user - pending
+5. Get user approval for changes - pending
+6. Apply changes to SKILL.md and related files - pending
+7. Verify changes and optionally commit - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each step.
+
 <process>
 <step_1 name="detect_skill">
 Identify the skill from conversation context:

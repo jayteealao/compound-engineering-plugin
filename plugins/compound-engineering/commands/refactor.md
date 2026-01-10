@@ -2,6 +2,7 @@
 name: refactor
 description: Plan and execute safe refactorings with proper testing
 argument-hint: "[refactoring type: extract|rename|move|simplify]"
+allowed-tools: Skill(refactoring-patterns)
 hooks:
   PreToolUse:
     - matcher: Edit
@@ -46,6 +47,23 @@ Plan and execute safe code refactorings.
 # Simplify complex function
 /refactor simplify src/utils/parser.ts:parseConfig
 ```
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the safe refactoring workflow:
+
+```
+TodoWrite:
+1. Safety check (git status, test status) - pending
+2. Analyze code and identify refactoring targets - pending
+3. Plan refactoring steps with verification points - pending
+4. Execute refactoring incrementally - pending
+5. Run tests after each change - pending
+6. Verify metrics and code quality improvements - pending
+7. Commit changes if all tests pass - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each step.
 
 ## Workflow
 

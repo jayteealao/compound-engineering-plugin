@@ -2,6 +2,7 @@
 name: health-report
 description: Generate comprehensive codebase health report
 argument-hint: "[optional: output format]"
+allowed-tools: Skill(technical-debt)
 ---
 
 # Health Report Command
@@ -29,6 +30,26 @@ Generate a comprehensive health report for your codebase.
 # Generate HTML report
 /health-report html
 ```
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the multi-metric health analysis:
+
+```
+TodoWrite:
+1. Collect test coverage metrics - pending
+2. Collect code quality metrics - pending
+3. Collect complexity analysis metrics - pending
+4. Collect dependency health metrics - pending
+5. Collect technical debt metrics - pending
+6. Collect documentation metrics - pending
+7. Calculate overall health score - pending
+8. Compare trends (30-day comparison) - pending
+9. Generate recommendations - pending
+10. Generate final report - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each metric.
 
 ## Workflow
 

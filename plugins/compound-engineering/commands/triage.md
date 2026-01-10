@@ -2,6 +2,7 @@
 name: triage
 description: Triage and categorize findings for the CLI todo system
 argument-hint: "[findings list or source type]"
+allowed-tools: Skill(file-todos)
 ---
 
 - First set the /model to Haiku
@@ -17,6 +18,27 @@ This command is for:
 - Processing security audit results
 - Reviewing performance analysis
 - Handling any other categorized findings that need tracking
+
+## Progress Tracking
+
+Use TodoWrite to track progress through all findings in the triage session:
+
+```
+TodoWrite:
+1. Finding #1: [title] - decision: pending - pending
+2. Finding #2: [title] - decision: pending - pending
+3. Finding #3: [title] - decision: pending - pending
+...
+Final summary and report - pending
+```
+
+**Update tracking as you go:**
+- When presenting a finding: Mark as `in_progress`
+- After user decides "yes": Update to `completed` with `decision: approved (ready)`
+- After user decides "next": Update to `completed` with `decision: skipped`
+- After user decides "custom": Update to `completed` with `decision: custom priority`
+
+**Dynamic list:** Add todos dynamically as you discover findings. Start with a count placeholder, then populate as findings are loaded.
 
 ## Workflow
 

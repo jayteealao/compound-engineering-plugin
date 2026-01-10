@@ -2,6 +2,7 @@
 name: analyze-coverage
 description: Analyze test coverage and identify gaps in critical code paths
 argument-hint: "[optional: specific module or file]"
+allowed-tools: Skill(test-patterns)
 ---
 
 # Analyze Coverage Command
@@ -29,6 +30,22 @@ Analyze test coverage and identify gaps that need tests.
 # Analyze specific file
 /analyze-coverage src/utils/validation.ts
 ```
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the coverage analysis workflow:
+
+```
+TodoWrite:
+1. Run coverage analysis tool - pending
+2. Parse coverage report for each module - pending
+3. Identify critical gaps in coverage - pending
+4. Generate test recommendations - pending
+5. Create todos for uncovered critical paths (optional) - pending
+6. Generate summary report - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each step.
 
 ## Workflow
 

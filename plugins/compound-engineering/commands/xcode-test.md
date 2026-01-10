@@ -2,6 +2,7 @@
 name: xcode-test
 description: Build and test iOS apps on simulator using XcodeBuildMCP
 argument-hint: "[scheme name or 'current' to use default]"
+allowed-tools: Skill(test-patterns)
 ---
 
 # Xcode Test Command
@@ -27,6 +28,28 @@ This command tests iOS/macOS apps by:
 - Valid Xcode project or workspace
 - At least one iOS Simulator available
 </requirements>
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the multi-step iOS testing workflow:
+
+```
+TodoWrite:
+1. Verify XcodeBuildMCP is installed - pending
+2. Discover project and scheme - pending
+3. Boot simulator - pending
+4. Build the app for simulator - pending
+5. Install and launch app - pending
+6. Test screen #1: [screen] - pending
+7. Test screen #2: [screen] - pending
+8. Test screen #3: [screen] - pending
+...
+9. Handle test failures and create todos - pending
+10. Generate test summary report - pending
+11. Cleanup simulator and temp files - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each step. Add screen-specific todos dynamically as screens are identified.
 
 ## Main Tasks
 

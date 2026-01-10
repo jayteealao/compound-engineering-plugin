@@ -2,6 +2,7 @@
 name: generate-onboarding
 description: Generate onboarding documentation for new developers
 argument-hint: "[optional: specific area to document]"
+allowed-tools: Skill(onboarding-docs)
 ---
 
 # Generate Onboarding Command
@@ -35,6 +36,23 @@ Create comprehensive onboarding documentation for new team members.
 # Generate decision records
 /generate-onboarding decisions
 ```
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the multi-section onboarding documentation generation:
+
+```
+TodoWrite:
+1. Analyze project structure and stack - pending
+2. Generate architecture overview (architecture.md) - pending
+3. Generate local setup guide (setup.md) - pending
+4. Generate guided code tour (code-tour.md) - pending
+5. Document architecture decisions (decisions/*.md) - pending
+6. Create welcome README with navigation - pending
+7. Validate all documentation links - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each section.
 
 ## Workflow
 

@@ -17,6 +17,30 @@ The documentation site is a static HTML/CSS/JS site based on the Evil Martians L
 - Skills are added, removed, or modified
 - MCP servers are added, removed, or modified
 
+## Progress Tracking
+
+Use TodoWrite to track progress through the documentation update workflow:
+
+```
+TodoWrite:
+1. Inventory agents from files - pending
+2. Inventory commands from files - pending
+3. Inventory skills from files - pending
+4. Inventory MCP servers from files - pending
+5. Update docs/index.html with stats - pending
+6. Update docs/pages/agents.html - pending
+7. Update docs/pages/commands.html - pending
+8. Update docs/pages/skills.html - pending
+9. Update docs/pages/mcp-servers.html - pending
+10. Update plugin.json metadata - pending
+11. Update marketplace.json metadata - pending
+12. Update README.md metadata - pending
+13. Validate JSON files and counts - pending
+14. Report changes to user - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each step.
+
 ## Step 1: Inventory Current Components
 
 First, count and list all current components:

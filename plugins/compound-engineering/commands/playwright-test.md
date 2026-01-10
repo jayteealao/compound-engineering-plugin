@@ -2,6 +2,7 @@
 name: playwright-test
 description: Run Playwright browser tests on pages affected by current PR or branch
 argument-hint: "[PR number, branch name, or 'current' for current branch]"
+allowed-tools: Skill(test-patterns)
 ---
 
 # Playwright Test Command
@@ -25,6 +26,25 @@ This command tests affected pages in a real browser, catching issues that unit t
 - Playwright MCP server connected
 - Git repository with changes to test
 </requirements>
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the multi-step browser testing workflow:
+
+```
+TodoWrite:
+1. Determine test scope from PR changes - pending
+2. Map changed files to testable routes - pending
+3. Verify local server is running - pending
+4. Test route #1: [route] - pending
+5. Test route #2: [route] - pending
+6. Test route #3: [route] - pending
+...
+7. Handle test failures and create todos - pending
+8. Generate test summary report - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each step. Add route-specific todos dynamically as routes are discovered.
 
 ## Main Tasks
 

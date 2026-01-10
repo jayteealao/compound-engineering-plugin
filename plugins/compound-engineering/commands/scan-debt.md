@@ -2,6 +2,7 @@
 name: scan-debt
 description: Scan codebase for technical debt and create tracking files
 argument-hint: "[optional: specific area or type]"
+allowed-tools: Skill(technical-debt)
 ---
 
 # Scan Debt Command
@@ -34,6 +35,25 @@ Systematically identify and track technical debt in your codebase.
 # Scan for test debt only
 /scan-debt test
 ```
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the multi-category debt scanning workflow:
+
+```
+TodoWrite:
+1. Scan code debt indicators - pending
+2. Scan architecture debt indicators - pending
+3. Scan test debt indicators - pending
+4. Scan documentation debt indicators - pending
+5. Scan dependency debt indicators - pending
+6. Calculate debt scores and priorities - pending
+7. Generate debt tracking files - pending
+8. Update .claude/debt/INDEX.md - pending
+9. Generate summary report - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each category.
 
 ## Workflow
 

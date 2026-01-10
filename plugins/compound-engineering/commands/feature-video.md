@@ -28,6 +28,25 @@ This command creates professional video walkthroughs of features for PR document
 - `rclone` configured (optional, for cloud upload - see rclone skill)
 </requirements>
 
+## Progress Tracking
+
+Use TodoWrite to track progress through the 9-step video recording workflow:
+
+```
+TodoWrite:
+1. Parse arguments and identify PR - pending
+2. Gather feature context from PR - pending
+3. Plan video flow (requires user approval) - pending
+4. Setup video recording directories - pending
+5. Record walkthrough with Playwright - pending
+6. Create video/GIF from screenshots - pending
+7. Upload video to cloud storage - pending
+8. Update PR description with video embed - pending
+9. Cleanup and summary - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each step.
+
 ## Main Tasks
 
 ### 1. Parse Arguments

@@ -5,6 +5,71 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.30.0] - 2026-01-10
+
+### Added
+
+**TodoWrite tracking for multi-step commands (15 commands enhanced)**
+
+Commands with complex workflows now use TodoWrite tool for progress tracking, providing users with real-time visibility into multi-phase operations:
+
+**High-priority commands:**
+- **`/deepen-plan`** - Track 9-phase plan enhancement with parallel agents (skills, learnings, research, review)
+- **`/release-docs`** - Track component inventory and 14 documentation/metadata updates
+- **`/feature-video`** - Track 9-step video recording workflow (setup, record, upload, PR update)
+- **`/triage`** - Track finding-by-finding progress through approval/skip decisions
+
+**Testing/analysis commands:**
+- **`/playwright-test`** - Track multi-step browser testing with dynamic route additions
+- **`/xcode-test`** - Track 11-step iOS testing workflow (build, install, test, cleanup)
+- **`/scan-debt`** - Track multi-category debt scanning (5 categories + scoring)
+- **`/health-report`** - Track multi-metric collection (6 metrics + analysis)
+
+**Refactoring commands:**
+- **`/refactor`** - Track incremental refactoring steps with test verification
+- **`/modernize`** - Track multi-phase modernization (syntax, API, architecture, dependencies)
+- **`/update-deps`** - Track 4-phase dependency updates with test runs after each phase
+
+**Documentation/generation commands:**
+- **`/generate-onboarding`** - Track multi-section documentation generation
+- **`/analyze-coverage`** - Track coverage analysis and gap identification
+- **`/generate-api-tests`** - Track endpoint-by-endpoint test generation
+- **`/heal-skill`** - Track skill file correction workflow
+
+**Command-skill bindings via `allowed-tools` (13 commands configured)**
+
+Commands now declare their related skills for automatic invocation without permission requests:
+
+**Workflow commands:**
+- **`/triage`** → `Skill(file-todos)`
+- **`/scan-debt`** → `Skill(technical-debt)`
+- **`/health-report`** → `Skill(technical-debt)`
+
+**Refactoring commands:**
+- **`/refactor`** → `Skill(refactoring-patterns)`
+- **`/modernize`** → `Skill(refactoring-patterns)`
+- **`/update-deps`** → `Skill(dependency-management)`
+
+**Testing commands:**
+- **`/generate-tests`** → `Skill(test-patterns)`
+- **`/generate-api-tests`** → `Skill(api-documentation), Skill(test-patterns)`
+- **`/analyze-coverage`** → `Skill(test-patterns)`
+- **`/playwright-test`** → `Skill(test-patterns)`
+- **`/xcode-test`** → `Skill(test-patterns)`
+
+**Documentation commands:**
+- **`/document-api`** → `Skill(api-documentation)`
+- **`/generate-onboarding`** → `Skill(onboarding-docs)`
+
+### Summary
+
+- 38 agents, 32 commands, 21 skills, 2 MCP servers
+- **Improved UX:** 15 commands with TodoWrite progress tracking for complex workflows
+- **Improved integration:** 13 commands with automatic skill invocation via `allowed-tools`
+- Commands now provide real-time progress visibility and apply relevant skill patterns automatically
+
+---
+
 ## [2.29.0] - 2026-01-10
 
 ### Changed

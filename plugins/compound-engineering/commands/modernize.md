@@ -2,6 +2,7 @@
 name: modernize
 description: Update code to modern patterns and APIs
 argument-hint: "[area or file to modernize]"
+allowed-tools: Skill(refactoring-patterns)
 hooks:
   PreToolUse:
     - matcher: Edit
@@ -42,6 +43,25 @@ Update legacy code to modern patterns and language features.
 /modernize react-hooks
 /modernize error-handling
 ```
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the multi-phase modernization workflow:
+
+```
+TodoWrite:
+1. Detect outdated patterns in codebase - pending
+2. Prioritize modernization opportunities - pending
+3. Phase 1: Syntax modernization - pending
+4. Phase 2: API modernization - pending
+5. Phase 3: Architecture modernization - pending
+6. Phase 4: Dependencies modernization - pending
+7. Run tests after each phase - pending
+8. Verify code quality improvements - pending
+9. Commit changes if all tests pass - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each phase.
 
 ## Workflow
 

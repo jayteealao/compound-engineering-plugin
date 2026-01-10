@@ -2,6 +2,7 @@
 name: generate-api-tests
 description: Generate comprehensive API and integration tests from endpoints
 argument-hint: "[endpoint path or controller]"
+allowed-tools: [Skill(api-documentation), Skill(test-patterns)]
 ---
 
 # Generate API Tests Command
@@ -32,6 +33,25 @@ Generate comprehensive API and integration tests from endpoint definitions.
 # Generate from OpenAPI spec
 /generate-api-tests openapi.yaml
 ```
+
+## Progress Tracking
+
+Use TodoWrite to track progress through the endpoint-by-endpoint test generation:
+
+```
+TodoWrite:
+1. Discover all API endpoints from source - pending
+2. Create test strategy for each endpoint - pending
+3. Generate tests for endpoint #1: [path] - pending
+4. Generate tests for endpoint #2: [path] - pending
+5. Generate tests for endpoint #3: [path] - pending
+...
+6. Create test fixtures and helpers - pending
+7. Run and verify generated tests - pending
+8. Generate summary report - pending
+```
+
+Update the status from `pending` → `in_progress` → `completed` as you work through each endpoint. Add endpoint-specific todos dynamically.
 
 ## Workflow
 
