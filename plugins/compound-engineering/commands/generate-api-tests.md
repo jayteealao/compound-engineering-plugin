@@ -79,7 +79,34 @@ Analyze the target to find all API endpoints:
 - Inferred from code if necessary
 ```
 
-### 2. Test Strategy
+### 2. Choose Test Scenario Priority
+
+Use AskUserQuestion to determine which test scenarios to prioritize:
+
+```yaml
+questions:
+  - question: "Which test scenarios should I prioritize?"
+    header: "Scenarios"
+    multiSelect: true
+    options:
+      - label: "Happy path (Recommended)"
+        description: "Valid requests with expected responses. Core functionality verification."
+      - label: "Authentication"
+        description: "Missing/invalid/expired tokens, wrong permissions. Security-critical tests."
+      - label: "Validation"
+        description: "Invalid inputs, missing fields, type mismatches. Input validation tests."
+      - label: "Error cases"
+        description: "Not found, conflicts, rate limits, server errors. Error handling tests."
+```
+
+**Based on answer:**
+- Generate **selected scenario types** with more comprehensive coverage
+- If **none selected**, generate all scenario types (default, balanced coverage)
+- **Prioritize selected scenarios** (more tests, more edge cases for those types)
+
+**Default:** If no answer provided, generate all scenario types with balanced coverage
+
+### 3. Test Strategy
 
 Plan comprehensive API tests:
 
@@ -115,7 +142,7 @@ Plan comprehensive API tests:
    - Server errors → 500
 ```
 
-### 3. Generate Tests
+### 4. Generate Tests
 
 Use the `api-test-generator` agent:
 
@@ -165,7 +192,7 @@ def test_create_user_without_email_returns_400():
 ```
 ```
 
-### 4. Create Test Fixtures
+### 5. Create Test Fixtures
 
 ```markdown
 ## Test Fixtures
@@ -202,7 +229,7 @@ def admin_headers():
 ```
 ```
 
-### 5. Run and Verify
+### 6. Run and Verify
 
 ```bash
 # Run API tests

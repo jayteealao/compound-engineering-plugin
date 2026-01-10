@@ -88,7 +88,32 @@ Consider adding tests before refactoring.
 ### Proceed? [Y/n]
 ```
 
-### 2. Analysis
+### 2. Choose Refactoring Strategy
+
+Use AskUserQuestion to determine the user's preferred approach:
+
+```yaml
+questions:
+  - question: "Which refactoring strategy would you prefer?"
+    header: "Strategy"
+    multiSelect: false
+    options:
+      - label: "Incremental (Recommended)"
+        description: "Refactor in small steps with test verification after each. Safest approach, easiest to review."
+      - label: "Comprehensive"
+        description: "Apply all refactorings at once. Faster but riskier, harder to review individual changes."
+      - label: "Interactive"
+        description: "Present each refactoring opportunity for approval. Most control but slower."
+```
+
+**Based on answer:**
+- **Incremental:** Apply refactorings one at a time with test runs between each
+- **Comprehensive:** Apply all at once, run tests at end
+- **Interactive:** Show each opportunity, ask "Apply this refactoring? Yes/No/Skip"
+
+**Default:** If no answer provided, use "Incremental" (recommended option)
+
+### 3. Analysis
 
 Analyze the refactoring target:
 

@@ -57,7 +57,32 @@ Update the status from `pending` → `in_progress` → `completed` as you work t
 
 ## Workflow
 
-### 1. Code Analysis
+### 1. Choose Analysis Depth
+
+Use AskUserQuestion to determine scanning depth:
+
+```yaml
+questions:
+  - question: "How comprehensive should the debt analysis be?"
+    header: "Depth"
+    multiSelect: false
+    options:
+      - label: "Quick scan (Recommended)"
+        description: "High-level overview focusing on critical issues only. Fast, good for initial assessment."
+      - label: "Standard scan"
+        description: "All debt categories with basic metrics. Balanced depth and speed."
+      - label: "Deep analysis"
+        description: "Comprehensive scan including cost estimates and dependency analysis. Slow but thorough."
+```
+
+**Based on answer:**
+- **Quick scan:** Scan critical categories only (code debt, security issues), skip detailed metrics
+- **Standard scan:** Scan all 5 categories (code, architecture, test, documentation, dependencies), provide summary metrics
+- **Deep analysis:** Scan all categories, estimate remediation costs, analyze dependencies, provide actionable recommendations
+
+**Default:** If no answer provided, use "Quick scan" (recommended option)
+
+### 2. Code Analysis
 
 The command scans for debt indicators:
 

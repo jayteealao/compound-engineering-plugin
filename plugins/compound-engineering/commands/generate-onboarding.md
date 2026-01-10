@@ -56,7 +56,34 @@ Update the status from `pending` → `in_progress` → `completed` as you work t
 
 ## Workflow
 
-### 1. Project Analysis
+### 1. Choose Onboarding Sections
+
+Use AskUserQuestion to determine which sections to generate:
+
+```yaml
+questions:
+  - question: "Which onboarding sections should I generate?"
+    header: "Sections"
+    multiSelect: true
+    options:
+      - label: "Architecture overview"
+        description: "High-level system design, key components, data flow diagrams"
+      - label: "Development setup"
+        description: "Environment setup, dependencies, running locally, common issues"
+      - label: "Codebase tour"
+        description: "Directory structure, key files, naming conventions, where to find things"
+      - label: "Key decisions"
+        description: "Architecture decisions, technology choices, trade-offs made"
+```
+
+**Based on answer:**
+- Generate **selected sections only** (more detailed content)
+- If **none selected**, generate all sections (default, balanced detail)
+- If **1-2 selected**, provide deeper detail in those specific sections
+
+**Default:** If no answer provided, generate all 4 sections
+
+### 2. Project Analysis
 
 First, analyze the project structure:
 

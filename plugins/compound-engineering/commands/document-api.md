@@ -57,7 +57,34 @@ The command first discovers API endpoints:
 **Summary:** 5 endpoints, 1 documented, 4 need documentation
 ```
 
-### 2. Generate Documentation
+### 2. Choose Documentation Format
+
+Use AskUserQuestion to determine which documentation formats to generate:
+
+```yaml
+questions:
+  - question: "Which documentation format should I generate?"
+    header: "Format"
+    multiSelect: true
+    options:
+      - label: "OpenAPI spec (Recommended)"
+        description: "Machine-readable API specification. Standard format, works with tools like Swagger UI."
+      - label: "Markdown reference"
+        description: "Human-readable endpoint documentation. Easy to read, version control friendly."
+      - label: "Postman collection"
+        description: "Importable collection for API testing. Great for manual testing and exploration."
+      - label: "Code examples"
+        description: "Usage examples in multiple languages (curl, JS, Python). Helps developers get started."
+```
+
+**Based on answer:**
+- Generate **selected formats only**
+- If **none selected**, generate OpenAPI spec + Markdown reference (default)
+- If **"Code examples" selected**, include examples in curl, JavaScript, and Python
+
+**Default:** If no answer provided, generate OpenAPI spec + Markdown reference
+
+### 3. Generate Documentation
 
 Spawn the `api-docs-generator` agent to create:
 
@@ -84,7 +111,7 @@ Creating `docs/api/authentication.md`:
 - Example flows
 ```
 
-### 3. Generate Examples
+### 4. Generate Examples
 
 Create working examples for each endpoint:
 
@@ -117,7 +144,7 @@ users = response.json()
 ```
 ```
 
-### 4. Validation
+### 5. Validation
 
 Validate the generated documentation:
 

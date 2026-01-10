@@ -131,7 +131,32 @@ Files: 8
 Pattern: Convert class to function components
 ```
 
-### 3. Execute Modernization
+### 3. Choose Modernization Level
+
+Use AskUserQuestion to determine modernization aggressiveness:
+
+```yaml
+questions:
+  - question: "How aggressively should code be modernized?"
+    header: "Aggressiveness"
+    multiSelect: false
+    options:
+      - label: "Conservative (Recommended)"
+        description: "Auto-fix only safe patterns (syntax, simple APIs). Review everything else. Lowest risk."
+      - label: "Balanced"
+        description: "Auto-fix common patterns. Flag complex cases for review. Good balance of speed and safety."
+      - label: "Aggressive"
+        description: "Modernize all detected patterns. Fast but requires thorough review afterward."
+```
+
+**Based on answer:**
+- **Conservative:** Auto-fix Phase 1 (syntax) only, manual review for Phases 2-4
+- **Balanced:** Auto-fix Phases 1-2, manual review for Phases 3-4
+- **Aggressive:** Auto-fix all 4 phases, comprehensive test run at end
+
+**Default:** If no answer provided, use "Conservative" (recommended option)
+
+### 4. Execute Modernization
 
 Apply changes with verification:
 

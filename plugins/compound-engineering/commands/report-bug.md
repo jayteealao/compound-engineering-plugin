@@ -94,7 +94,32 @@ Create a well-structured bug report with:
 *Reported via `/report-bug` command*
 ```
 
-## Step 4: Create GitHub Issue
+## Step 4: Confirm Bug Report
+
+After gathering all information, show the formatted report summary and confirm:
+
+```yaml
+questions:
+  - question: "Is this bug report complete and ready to submit?"
+    header: "Confirmation"
+    multiSelect: false
+    options:
+      - label: "Yes, submit report (Recommended)"
+        description: "All information is accurate and complete. Ready to create GitHub issue."
+      - label: "Edit information"
+        description: "Need to revise or add details before submitting."
+      - label: "Cancel"
+        description: "Don't submit this bug report."
+```
+
+**Based on answer:**
+- **Yes, submit report:** Proceed to Step 5 (create GitHub issue)
+- **Edit information:** Re-prompt for specific field to modify, show updated report, ask again
+- **Cancel:** Exit without creating issue, display message "Bug report cancelled. No issue created."
+
+**Default:** If no answer provided, use "Yes, submit report"
+
+## Step 5: Create GitHub Issue
 
 Use the GitHub CLI to create the issue:
 
@@ -114,7 +139,7 @@ gh issue create \
   --body "[Formatted bug report]"
 ```
 
-## Step 5: Confirm Submission
+## Step 6: Confirm Submission
 
 After the issue is created:
 1. Display the issue URL to the user

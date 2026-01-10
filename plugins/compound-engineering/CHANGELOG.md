@@ -5,6 +5,97 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.32.0] - 2026-01-10
+
+### Added
+
+**Enhanced user control with AskUserQuestion in 9 commands**
+
+Added strategic user questions to 9 commands, giving users control over workflow strategies and approaches before execution. Each command now prompts for preferences at optimal decision points, with sensible defaults for streamlined workflows.
+
+**Commands enhanced:**
+
+1. **`/refactor`** - Strategy selection (Incremental/Comprehensive/Interactive)
+   - Incremental (Recommended): Small steps with test verification after each
+   - Comprehensive: Apply all refactorings at once
+   - Interactive: Present each opportunity for approval
+   - **Placement**: After safety checks, before analysis
+
+2. **`/modernize`** - Aggressiveness level (Conservative/Balanced/Aggressive)
+   - Conservative (Recommended): Auto-fix only safe patterns, review everything else
+   - Balanced: Auto-fix common patterns, flag complex cases
+   - Aggressive: Modernize all detected patterns
+   - **Placement**: After pattern detection, before applying changes
+
+3. **`/generate-tests`** - Testing approach (Unit/Integration/E2E/Balanced pyramid)
+   - Unit tests (Recommended): Fast, isolated tests with mocks
+   - Integration tests: Component interactions with real dependencies
+   - End-to-end tests: Full user workflows
+   - Balanced pyramid: 70% unit, 20% integration, 10% e2e
+   - **Placement**: Before test generation starts
+
+4. **`/scan-debt`** - Analysis depth (Quick/Standard/Deep)
+   - Quick scan (Recommended): High-level overview, critical issues only
+   - Standard scan: All debt categories with basic metrics
+   - Deep analysis: Comprehensive scan with cost estimates and dependency analysis
+   - **Placement**: Before scanning begins
+
+5. **`/debug`** - Error frequency and environment (multiSelect)
+   - Frequency: One-time/Intermittent/Recurring/Constant (guides analysis depth)
+   - Environment: Production/Staging/Development (multiSelect)
+   - **Placement**: During Phase 1 information gathering (interactive mode only)
+
+6. **`/report-bug`** - Confirmation before submission (Yes/Edit/Cancel)
+   - Prevents accidental submissions with incomplete information
+   - Allows editing before creating GitHub issue
+   - **Placement**: After gathering all bug information, before creating issue
+
+7. **`/generate-onboarding`** - Section selection (multiSelect)
+   - Architecture overview: System design, components, data flow
+   - Development setup: Environment, dependencies, common issues
+   - Codebase tour: Directory structure, key files, navigation
+   - Key decisions: Architecture decisions, technology choices
+   - **Placement**: Before generation starts
+
+8. **`/document-api`** - Documentation format selection (multiSelect)
+   - OpenAPI spec (Recommended): Machine-readable, works with Swagger UI
+   - Markdown reference: Human-readable, version control friendly
+   - Postman collection: Importable for API testing
+   - Code examples: Usage examples in curl, JavaScript, Python
+   - **Placement**: After endpoint discovery, before documentation generation
+
+9. **`/generate-api-tests`** - Test scenario priority (multiSelect)
+   - Happy path (Recommended): Valid requests, expected responses
+   - Authentication: Missing/invalid/expired tokens, permissions
+   - Validation: Invalid inputs, missing fields, type mismatches
+   - Error cases: Not found, conflicts, rate limits, server errors
+   - **Placement**: After endpoint discovery, before test generation
+
+**Design principles:**
+- **2-4 options per question**: Clear, distinct choices with trade-offs explained
+- **Recommended option marked**: Best practice option labeled "(Recommended)"
+- **Default behavior**: Use recommended option when user doesn't answer or skips
+- **Strategic placement**: Questions appear at optimal workflow decision points
+- **multiSelect patterns**:
+  - `false` for strategy/approach choices (mutually exclusive)
+  - `true` for feature selections (can pick multiple)
+- **Backward compatible**: Commands work without questions, defaults make sense
+
+**Impact:**
+- Users can choose refactoring strategy based on risk tolerance
+- Users control modernization aggressiveness for different codebases
+- Users select testing approach aligned with their philosophy
+- Users pick debt analysis depth matching their needs
+- Better debugging through error frequency context
+- Fewer accidental bug report submissions
+- Users select which onboarding sections to generate
+- Users choose API documentation formats for their workflow
+- Users prioritize API test scenarios
+
+**Version:** 2.31.0 → 2.32.0 (MINOR - new interactive features)
+
+---
+
 ## [2.31.0] - 2026-01-10
 
 ### Added

@@ -57,9 +57,37 @@ First, analyze the target code:
 - [ ] Identify coverage gaps
 ```
 
-### 2. Test Strategy
+### 2. Choose Testing Approach
 
-Determine the testing approach:
+Use AskUserQuestion to determine testing strategy:
+
+```yaml
+questions:
+  - question: "Which testing approach matches your goals?"
+    header: "Test Type"
+    multiSelect: false
+    options:
+      - label: "Unit tests (Recommended)"
+        description: "Fast, isolated tests for individual functions. Best for TDD and quick feedback loops."
+      - label: "Integration tests"
+        description: "Test component interactions and data flow. More realistic but slower than unit tests."
+      - label: "End-to-end tests"
+        description: "Full user workflows from UI to database. Most realistic but slowest and most brittle."
+      - label: "Balanced pyramid"
+        description: "Mix of all three: many unit, some integration, few e2e. Industry best practice."
+```
+
+**Based on answer:**
+- **Unit tests:** Generate isolated tests with mocks/stubs
+- **Integration tests:** Generate tests with real dependencies
+- **End-to-end tests:** Generate full workflow tests
+- **Balanced pyramid:** Generate 70% unit, 20% integration, 10% e2e
+
+**Default:** If no answer provided, use "Unit tests" (recommended option)
+
+### 3. Test Strategy
+
+Determine the testing approach based on user selection:
 
 ```markdown
 ## Testing Strategy
@@ -81,7 +109,7 @@ Determine the testing approach:
 - Mock data structures
 ```
 
-### 3. Generate Tests
+### 4. Generate Tests
 
 Use the `test-generator` agent:
 

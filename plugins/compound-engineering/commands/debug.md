@@ -53,14 +53,51 @@ Update status: `pending` → `in_progress` → `completed` as you progress.
 - Extract key details automatically
 
 **If no arguments:**
-Prompt user for:
+
+Use AskUserQuestion to gather error context:
+
+```yaml
+questions:
+  - question: "How frequently does this error occur?"
+    header: "Frequency"
+    multiSelect: false
+    options:
+      - label: "One-time occurrence"
+        description: "Error happened once, cannot reproduce. May be transient issue."
+      - label: "Intermittent (rare)"
+        description: "Happens occasionally, hard to predict. Likely race condition or edge case."
+      - label: "Recurring (daily)"
+        description: "Happens regularly under specific conditions. Consistent pattern exists."
+      - label: "Constant (blocking)"
+        description: "Happens every time, blocking users. Critical production issue."
+
+  - question: "What environment is affected?"
+    header: "Environment"
+    multiSelect: true
+    options:
+      - label: "Production"
+        description: "Affecting live users"
+      - label: "Staging"
+        description: "Caught in pre-production"
+      - label: "Development"
+        description: "Only seen locally"
+```
+
+**Then prompt for additional details:**
 - Error message
 - Stack trace (if available)
 - Error logs (paste or file path)
 - When it occurred
 - What user was doing
-- Environment (production, staging, dev)
 - Recent changes (deploy, config change, etc.)
+
+**Analysis depth based on frequency:**
+- **One-time:** Quick analysis, suggest monitoring
+- **Intermittent:** Deep RCA with hypothesis testing for race conditions
+- **Recurring:** Pattern analysis, identify common factors
+- **Constant:** Immediate hotfix priority, thorough RCA afterward
+
+**Default:** If no answer provided, assume "Recurring (daily)"
 
 **For log files:**
 ```bash
