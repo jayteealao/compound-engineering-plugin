@@ -2,67 +2,48 @@
 
 **Philosophy:** Each unit of engineering work should make subsequent units of work easier—not harder.
 
-**Core Cycle:** Plan → Delegate → Assess → Codify → Maintain
+**Core Cycle:** Plan → Work → Review → Triage → Fix → Compound
 
 ---
 
-## 📋 Entry Points (Choose Your Starting Point)
+## 📋 Quick Reference
 
-```
-┌─────────────────────┐     ┌─────────────────────┐     ┌─────────────────────┐
-│ New Feature/Bug     │     │ Explore Codebase    │     │ Review Findings     │
-│ Request             │     │ First               │     │ from Review         │
-└──────────┬──────────┘     └──────────┬──────────┘     └──────────┬──────────┘
-           │                           │                           │
-           ▼                           ▼                           ▼
-  ┌─────────────────┐        ┌─────────────────┐        ┌─────────────────┐
-  │ /workflows:plan │        │ /code-map       │        │ /triage         │
-  │                 │        │ /find-code      │        │                 │
-  └─────────────────┘        └─────────────────┘        └─────────────────┘
-```
+| Phase | Command | Purpose | Output |
+|-------|---------|---------|--------|
+| **Planning** | `/workflows:plan` | Research & plan with 4 parallel agents | `.claude/plans/*.md` |
+| **Depth** | `/deepen-plan` | Add 40+ research agents per section | Enhanced plan |
+| **Validation** | `/plan_review` | Multi-agent plan quality check | Plan feedback |
+| **Execution** | `/workflows:work` | Execute plan/todos systematically | Code + commits |
+| **Review** | `/workflows:review` | Multi-agent code review (9-11 agents) | `.claude/todos/review/PR-*/*.md` |
+| **Triage** | `/triage` | Prioritize todos interactively | Prioritized queue |
+| **Debug** | `/debug` | 5-phase systematic debugging | Fix recommendations |
+| **Testing** | `/generate-tests` | Generate comprehensive tests | Test files |
+| **Compound** | `/workflows:compound` | Document solutions | `.claude/solutions/**/*.md` |
 
 ---
 
-## 🔄 Main Workflow Loop
+## 🔄 Main Workflow
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                        PHASE 1: PLANNING (Parallel Agents)
+                        PHASE 1: PLANNING (4 Parallel Agents)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
                          /workflows:plan "Add OAuth login"
                                         │
-                    ┌───────────────────┼───────────────────┐
-                    │                   │                   │
-                    ▼                   ▼                   ▼
-          ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐
-          │ agent            │ │ agent            │ │ agent            │
-          │ repo-research-   │ │ best-practices-  │ │ framework-docs-  │
-          │ analyst          │ │ researcher       │ │ researcher       │
-          │                  │ │                  │ │                  │
-          │ • Discovers      │ │ • Finds OAuth    │ │ • Rails/Django/  │
-          │   existing auth  │ │   best practices │ │   Next.js auth   │
-          │ • Similar code   │ │ • Industry       │ │   patterns       │
-          │ • Conventions    │ │   standards      │ │ • Framework      │
-          │                  │ │ • Security tips  │ │   conventions    │
-          └──────────────────┘ └──────────────────┘ └──────────────────┘
-                    │                   │                   │
-                    └───────────────────┼───────────────────┘
-                                        │
-                    ┌───────────────────┴───────────────────┐
-                    │                                       │
-                    ▼                                       ▼
-          ┌──────────────────┐                   ┌──────────────────┐
-          │ agent            │                   │ skill            │
-          │ spec-flow-       │                   │ compound-docs    │
-          │ analyzer         │                   │ (searches        │
-          │                  │                   │ .claude/         │
-          │ • Validates user │                   │ solutions/)      │
-          │   flows          │                   │                  │
-          │ • Finds gaps     │                   │                  │
-          └──────────────────┘                   └──────────────────┘
-                    │                                       │
-                    └───────────────────┬───────────────────┘
+                    ┌───────────────────┼───────────────────┬──────────────┐
+                    │                   │                   │              │
+                    ▼                   ▼                   ▼              ▼
+          ┌──────────────────┐ ┌──────────────────┐ ┌──────────────┐ ┌────────────┐
+          │ repo-research-   │ │ best-practices-  │ │ framework-   │ │ spec-flow- │
+          │ analyst          │ │ researcher       │ │ docs-        │ │ analyzer   │
+          │                  │ │                  │ │ researcher   │ │            │
+          │ • Existing code  │ │ • Best practices │ │ • Framework  │ │ • User     │
+          │ • Conventions    │ │ • Standards      │ │   patterns   │ │   flows    │
+          │ • Patterns       │ │ • Security       │ │ • Docs       │ │ • Gaps     │
+          └──────────────────┘ └──────────────────┘ └──────────────┘ └────────────┘
+                    │                   │                   │              │
+                    └───────────────────┴───────────────────┴──────────────┘
                                         │
                     Writes: .claude/plans/2026-01-11-oauth-login.md
                                         │
@@ -85,640 +66,441 @@
           │                            │
           ▼                            ▼
    Spawns 40+              Spawns review agents
-   parallel agents         to validate plan
-   per section:            quality:
-   • Per-section          • architecture-strategist
-     research             • senior-code-reviewer
-   • Review agents        • framework-conventions
-   • Skill discovery      • pattern-recognition
-   • Learning search
-          │                            │
-          └────────────────────────────┘
-                       │
-              Enhanced plan ready
-                       │
-                       ▼
+   parallel agents         to validate plan:
+   per section            • architecture-strategist
+                          • senior-code-reviewer
+                          • framework-conventions
+                          • pattern-recognition
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                    PHASE 2: IMPLEMENTATION (Tools + Agents + Skills)
+                PHASE 2: WORK (Break Plan into Todos)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-                    /workflows:work .claude/plans/oauth-login.md
-                                        │
-                         Creates TodoWrite task list
-                        (Phase 1, Step 3 - ONLY HERE)
-                                        │
-                            Setup environment:
-                      git worktree or feature branch
-                                        │
-              ┌─────────────────────────┼─────────────────────────┐
-              │                         │                         │
-              ▼                         ▼                         ▼
-    ┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐
-    │ Semantic Search  │     │ Impact Analysis  │     │ Pattern Discovery│
-    │ /find-code       │     │ /trace-impact    │     │ skill:           │
-    │ "oauth patterns" │     │ "auth_user"      │     │ framework-       │
-    │                  │     │                  │     │ conventions      │
-    │ Returns top 10   │     │ Shows all code   │     │                  │
-    │ with context     │     │ that depends on  │     │ Discovers how    │
-    │                  │     │ this function    │     │ team does auth   │
-    └──────────────────┘     └──────────────────┘     └──────────────────┘
-              │                         │                         │
-              └─────────────────────────┼─────────────────────────┘
-                                        │
-              ┌─────────────────────────┼─────────────────────────┐
-              │                         │                         │
-              ▼                         ▼                         ▼
-    ┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐
-    │ If stuck:        │     │ Need refactor:   │     │ Need tests:      │
-    │ /debug [error]   │     │ /refactor        │     │ /generate-tests  │
-    │                  │     │ /modernize       │     │                  │
-    │ 5-phase analysis │     │                  │     │ Unit/Integration/│
-    │ + fix            │     │ Safe with tests  │     │ E2E options      │
-    └──────────────────┘     └──────────────────┘     └──────────────────┘
-              │                         │                         │
-              └─────────────────────────┼─────────────────────────┘
-                                        │
-                    Implements feature, writes tests, commits
-                           TodoWrite tasks → completed
-                                        │
-                                        ▼
-                              Create Pull Request
-                                        │
-                                        ▼
-
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                  PHASE 3: REVIEW (10-15 Parallel Agent Swarm)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-                         /workflows:review PR-123
-                                        │
-                            Sets up git worktree
-                                        │
-          ┌─────────┬──────────┬────────┼────────┬──────────┬─────────┐
-          │         │          │        │        │          │         │
-          ▼         ▼          ▼        ▼        ▼          ▼         ▼
-    ┌─────────┐ ┌─────────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐
-    │ agent   │ │ agent   │ │agent │ │agent │ │agent │ │agent │ │agent │
-    │security-│ │perform- │ │senior│ │archi-│ │kieran│ │frame-│ │data- │
-    │sentinel │ │ance-    │ │code- │ │tect- │ │python│ │work- │ │integ-│
-    │         │ │oracle   │ │review│ │ure   │ │review│ │conven│ │rity  │
-    │• SQL    │ │• N+1    │ │• Code│ │• SOLID│ │• Type│ │• Rails│ │• Migr│
-    │• XSS    │ │• Memory │ │  qual│ │• Layer│ │  hints│ │ conven│ │ ation│
-    │• CSRF   │ │• Slow   │ │• DRY │ │• Coupl│ │• PEP8│ │• REST │ │ valid│
-    │• Auth   │ │  queries│ │• SOLID│ │  ing  │ │      │ │  API  │ │      │
-    └─────────┘ └─────────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘
-          │         │          │        │        │          │         │
-          │         │          ▼        │        │          │         │
-          │         │      ┌──────┐     │        │          │         │
-          │         │      │agent │     │        │          │         │
-          │         │      │pattern│    │        │          │         │
-          │         │      │-recog│     │        │          │         │
-          │         │      │      │     │        │          │         │
-          │         │      │• Anti│     │        │          │         │
-          │         │      │ -pat-│     │        │          │         │
-          │         │      │ terns│     │        │          │         │
-          │         │      └──────┘     │        │          │         │
-          │         │          │        │        │          │         │
-          └─────────┴──────────┼────────┴────────┴──────────┴─────────┘
-                               │
-            Uses skill: file-todos to create structured findings
-                               │
-              Writes to: .claude/todos/PR-123/
-                               │
-              ┌────────────────┼────────────────┐
-              │                │                │
-              ▼                ▼                ▼
-      ┌────────────┐   ┌────────────┐   ┌────────────┐
-      │ p1-        │   │ p2-        │   │ p3-        │
-      │ security-  │   │ performance│   │ style-     │
-      │ sql-       │   │ -n-plus-   │   │ nits.md    │
-      │ injection  │   │ 1.md       │   │            │
-      │ .md        │   │            │   │ • Naming   │
-      │            │   │ • 3 N+1    │   │ • Comments │
-      │ • User     │   │   queries  │   │ • Format   │
-      │   input    │   │ • Memory   │   │            │
-      │   not      │   │   leak      │   │            │
-      │   escaped  │   │            │   │            │
-      └────────────┘   └────────────┘   └────────────┘
-              │                │                │
-              └────────────────┼────────────────┘
-                               │
-                               ▼
-
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                      PHASE 3.5: TRIAGE FINDINGS (Optional)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-                              /triage
-                                │
-              Reads: .claude/todos/ (all pending findings)
-                                │
-              Uses skill: file-todos to manage todos
-                                │
-                    Present each finding to user:
-                                │
-        ┌───────────────────────┼───────────────────────┐
-        │                       │                       │
-        ▼                       ▼                       ▼
-   User: "yes"            User: "next"           User: "custom"
-   Add to CLI            Skip this              Modify priority/
-   todo system           finding                description
-        │                       │                       │
-        └───────────────────────┼───────────────────────┘
-                                │
-              Creates TodoWrite tracking list:
-              • Finding #1: SQL injection - approved
-              • Finding #2: N+1 query - skipped
-              • Finding #3: Style nit - custom P3
-                                │
-                                ▼
-                    Prioritized action plan ready
-                                │
-                                ▼
-
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                        PHASE 4: FIX ISSUES (Iterative)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-                   /workflows:work .claude/todos/PR-123/p1-security-sql.md
-                                        │
-                    ┌───────────────────┼───────────────────┐
-                    │                   │                   │
-                    ▼                   ▼                   ▼
-          ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-          │ /debug       │    │ agent        │    │ skill:       │
-          │ [error msg]  │    │ pr-comment-  │    │ refactoring- │
-          │              │    │ resolver     │    │ patterns     │
-          │ 5-phase:     │    │              │    │              │
-          │ • Parse      │    │ Addresses    │    │ Safe         │
-          │ • Categorize │    │ GitHub PR    │    │ refactoring  │
-          │ • Root cause │    │ comments     │    │ techniques   │
-          │ • Fix recs   │    │              │    │              │
-          │ • Action plan│    │              │    │              │
-          └──────────────┘    └──────────────┘    └──────────────┘
-                    │                   │                   │
-                    └───────────────────┼───────────────────┘
-                                        │
-                    ┌───────────────────┼───────────────────┐
-                    │                   │                   │
-                    ▼                   ▼                   ▼
-          ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-          │ /refactor    │    │ /generate-   │    │ /trace-      │
-          │              │    │ tests        │    │ impact       │
-          │ If code      │    │              │    │              │
-          │ needs        │    │ Add tests    │    │ Verify fix   │
-          │ restructure  │    │ for fix      │    │ doesn't break│
-          │              │    │              │    │ other code   │
-          └──────────────┘    └──────────────┘    └──────────────┘
-                    │                   │                   │
-                    └───────────────────┼───────────────────┘
-                                        │
-                    Push fixes, verify tests pass
-                                        │
-                                        ▼
-                         Re-run: /workflows:review PR-123
-                                        │
-                      All P1s fixed? → MERGE PR
-                                        │
-                                        ▼
-
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                   PHASE 5: COMPOUND KNOWLEDGE (Parallel Docs)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-                          /workflows:compound
-                        "Fixed tricky SQL injection"
-                                        │
-          ┌─────────────┬───────────────┼───────────────┬─────────────┐
-          │             │               │               │             │
-          ▼             ▼               ▼               ▼             ▼
-    ┌──────────┐  ┌──────────┐   ┌──────────┐   ┌──────────┐  ┌──────────┐
-    │ Context  │  │ Solution │   │ Related  │   │ Prevent- │  │ Test     │
-    │ Analyzer │  │ Extractor│   │ Docs     │   │ ion      │  │ Generator│
-    │ (agent)  │  │ (agent)  │   │ Finder   │   │ Strategy │  │ (agent)  │
-    │          │  │          │   │ (agent)  │   │ (agent)  │  │          │
-    │ Extracts:│  │ Extracts:│   │ Searches:│   │ Creates: │  │ Suggests:│
-    │ • Problem│  │ • Root   │   │ • .claude│   │ • How to │  │ • Test   │
-    │   type   │  │   cause  │   │   /solut-│   │   prevent│  │   cases  │
-    │ • Symp-  │  │ • Working│   │   ions/  │   │ • Best   │  │ • Regres-│
-    │   toms   │  │   fix    │   │ • Similar│   │   pract- │  │   sion   │
-    │ • CORA   │  │ • Code   │   │   issues │   │   ices   │  │   guards │
-    │   schema │  │   changes│   │ • Links  │   │ • Checks │  │          │
-    └──────────┘  └──────────┘   └──────────┘   └──────────┘  └──────────┘
-          │             │               │               │             │
-          └─────────────┴───────────────┼───────────────┴─────────────┘
-                                        │
-              Writes: .claude/solutions/2026-01-11-sql-injection-oauth.md
-                                        │
-                            With YAML frontmatter:
-                              - problem_type
-                              - component
-                              - severity
-                              - tags
-                                        │
-                      📚 KNOWLEDGE COMPOUNDS FOR NEXT TIME 📚
-                                        │
-              Next engineer searches: "SQL injection OAuth"
-              Finds solution in 30 seconds instead of 3 hours
-                                        │
-                                        ▼
-
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                  PHASE 6: MAINTENANCE (Periodic, Parallel)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-                       /workflows:maintain full
-                      (Run weekly or monthly)
-                                        │
-          ┌─────────────┬───────────────┼───────────────┬─────────────┐
-          │             │               │               │             │
-          ▼             ▼               ▼               ▼             ▼
-    ┌──────────┐  ┌──────────┐   ┌──────────┐   ┌──────────┐  ┌──────────┐
-    │/update-  │  │/scan-    │   │/health-  │   │/analyze- │  │ agent    │
-    │deps      │  │debt      │   │report    │   │coverage  │  │ debt-    │
-    │          │  │          │   │          │   │          │  │ tracker  │
-    │• Check   │  │• Tech    │   │• Overall │   │• Test    │  │          │
-    │  outdated│  │  debt    │   │  health  │   │  gaps    │  │ Scores   │
-    │• Security│  │  score   │   │• Metrics │   │• Missing │  │ and      │
-    │  vulns   │  │• TODO    │   │• Trends  │   │  tests   │  │ priority │
-    │• Breaking│  │  count   │   │• Issues  │   │• Branch  │  │          │
-    │  changes │  │• Complex │   │• Warnings│   │  coverage│  │          │
-    │• Auto PR │  │  files   │   │          │   │          │  │          │
-    └──────────┘  └──────────┘   └──────────┘   └──────────┘  └──────────┘
-          │             │               │               │             │
-          └─────────────┴───────────────┼───────────────┴─────────────┘
-                                        │
-                     Generates comprehensive reports
-                                        │
-              If debt too high or coverage low:
-                                        │
-                    ┌───────────────────┼───────────────────┐
-                    │                   │                   │
-                    ▼                   ▼                   ▼
-          ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-          │ /refactor    │    │ /modernize   │    │ /generate-   │
-          │              │    │              │    │ tests        │
-          │ Fix complex  │    │ Update old   │    │              │
-          │ code         │    │ patterns     │    │ Increase     │
-          │              │    │              │    │ coverage     │
-          └──────────────┘    └──────────────┘    └──────────────┘
-                    │                   │                   │
-                    └───────────────────┼───────────────────┘
-                                        │
-                              CODEBASE STAYS HEALTHY
-                                        │
-                                        ▼
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
----
-
-## 🛠️ Specialized Workflows (Side Paths)
-
-### 1. Debugging Workflow
-
-```
-                              /debug [error or file]
-                                        │
-                      ┌─────────────────┼─────────────────┐
-                      │                 │                 │
-                      ▼                 ▼                 ▼
-           ┌────────────────┐ ┌────────────────┐ ┌────────────────┐
-           │ Phase 1:       │ │ Phase 2:       │ │ Phase 3:       │
-           │ Parse & Info   │ │ Categorize     │ │ Root Cause     │
-           │                │ │                │ │                │
-           │ • Error msg    │ │ • Type         │ │ • Investigation│
-           │ • Stack trace  │ │ • Severity     │ │ • Hypotheses   │
-           │ • Frequency    │ │ • Impact       │ │ • Analysis     │
-           │ • Environment  │ │ • Component    │ │                │
-           └────────────────┘ └────────────────┘ └────────────────┘
-                      │                 │                 │
-                      └─────────────────┼─────────────────┘
-                                        │
-                      ┌─────────────────┼─────────────────┐
-                      │                 │                 │
-                      ▼                 ▼                 ▼
-           ┌────────────────┐ ┌────────────────┐ ┌────────────────┐
-           │ Phase 4:       │ │ Phase 5:       │ │ Uses:          │
-           │ Fix Recs       │ │ Action Items   │ │ skill:         │
-           │                │ │                │ │ error-analysis │
-           │ • Hotfix       │ │ • Create todos │ │                │
-           │ • Long-term    │ │ • Priority     │ │ Systematic     │
-           │ • Prevention   │ │ • Track with   │ │ debugging      │
-           │                │ │   TodoWrite    │ │ methodology    │
-           └────────────────┘ └────────────────┘ └────────────────┘
-                      │                 │                 │
-                      └─────────────────┼─────────────────┘
-                                        │
-                      Implement fix → Document with
-                                  /workflows:compound
-                                        │
-                                        ▼
-```
-
----
-
-### 2. Semantic Code Exploration (llm-tldr)
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    llm-tldr Integration Workflow                         │
-│                    (95-99% token reduction)                              │
-└─────────────────────────────────────────────────────────────────────────┘
-
-                    First time? Run: skill tldr-setup
-                                │
-              ┌─────────────────┼─────────────────┐
-              │                 │                 │
-              ▼                 ▼                 ▼
-    ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-    │ Check if     │  │ Install      │  │ Index        │
-    │ installed    │  │ llm-tldr     │  │ codebase     │
-    │              │  │ (pip)        │  │              │
-    │ Python 3.7+? │  │ .tldrignore  │  │ Start daemon │
-    └──────────────┘  └──────────────┘  └──────────────┘
-              │                 │                 │
-              └─────────────────┼─────────────────┘
-                                │
-                        Ready to use!
-                                │
-              ┌─────────────────┼─────────────────┐
-              │                 │                 │
-              ▼                 ▼                 ▼
-    ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐
-    │ /code-map        │ │ /find-code       │ │ /trace-impact    │
-    │                  │ │ [query]          │ │ [function]       │
-    │ Architecture     │ │                  │ │                  │
-    │ overview:        │ │ Semantic search: │ │ Impact analysis: │
-    │ • Patterns (MVC, │ │ • Natural lang   │ │ • All callers    │
-    │   layered, etc)  │ │ • "JWT token     │ │ • Direct +       │
-    │ • Call graph     │ │   validation"    │ │   transitive     │
-    │ • Dead code      │ │ • Top 10 matches │ │ • Dependency tree│
-    │ • Module         │ │ • Similarity     │ │ • Test coverage  │
-    │   coupling       │ │   scores         │ │ • Risk level     │
-    │ • Layer          │ │ • Context        │ │                  │
-    │   violations     │ │   extraction     │ │                  │
-    │                  │ │                  │ │                  │
-    │ Writes to:       │ │ Writes to:       │ │ Writes to:       │
-    │ .claude/         │ │ .claude/         │ │ .claude/         │
-    │ architecture/    │ │ research/        │ │ research/        │
-    └──────────────────┘ └──────────────────┘ └──────────────────┘
-              │                 │                 │
-              └─────────────────┼─────────────────┘
-                                │
-                      ┌─────────┼─────────┐
-                      │         │         │
-                      ▼         ▼         ▼
-            ┌──────────────────────────────────┐
-            │ Skills (used by agents):         │
-            │                                  │
-            │ • skill: tldr-context            │
-            │   99% token reduction            │
-            │   Function → summary + deps      │
-            │                                  │
-            │ • skill: tldr-semantic-search    │
-            │   Natural language queries       │
-            │   100ms with daemon              │
-            │                                  │
-            │ • skill: tldr-architecture       │
-            │   Pattern detection              │
-            │   Coupling analysis              │
-            └──────────────────────────────────┘
-                                │
-                    Used by 9 enhanced agents:
-                    • security-sentinel
-                    • performance-oracle
-                    • senior-code-reviewer
-                    • framework-conventions-reviewer
-                    • architecture-strategist
-                    • repo-research-analyst
-                    • git-history-analyzer
-                    • framework-docs-researcher
-                    • library-readme-writer
-                                │
-                                ▼
-```
-
----
-
-### 3. Refactoring Workflows
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                        Refactoring Workflows                             │
-└─────────────────────────────────────────────────────────────────────────┘
-
-          ┌─────────────────────┐            ┌─────────────────────┐
-          │ /refactor           │            │ /modernize          │
-          │                     │            │                     │
-          │ Safe refactoring    │            │ Update to modern    │
-          │ with test verify    │            │ patterns/APIs       │
-          └──────────┬──────────┘            └──────────┬──────────┘
-                     │                                  │
-          AskUserQuestion:                   AskUserQuestion:
-          Strategy?                          Aggressiveness?
-          • Incremental (recommended)        • Conservative (recommended)
-          • Comprehensive                    • Balanced
-          • Interactive                      • Aggressive
-                     │                                  │
-                     ▼                                  ▼
-          ┌─────────────────────┐            ┌─────────────────────┐
-          │ Uses:               │            │ Uses:               │
-          │ • skill:            │            │ • skill:            │
-          │   refactoring-      │            │   refactoring-      │
-          │   patterns          │            │   patterns          │
-          │                     │            │                     │
-          │ • /trace-impact     │            │ • /trace-impact     │
-          │   (verify safe)     │            │   (check breaking)  │
-          │                     │            │                     │
-          │ • /generate-tests   │            │ • /generate-tests   │
-          │   (regression)      │            │   (new patterns)    │
-          └──────────┬──────────┘            └──────────┬──────────┘
-                     │                                  │
-                     └──────────────┬───────────────────┘
-                                    │
-                          Run tests after each
-                          refactoring step
+              /workflows:work .claude/plans/oauth-login.md
                                     │
                                     ▼
+                    Uses file-todos skill to:
+                    • Parse plan sections
+                    • Create todo files
+                    • YAML frontmatter + markdown
+                                    │
+                                    ▼
+                    Creates in .claude/todos/plan/:
+                    • oauth-login-models.md
+                    • oauth-login-routes.md
+                    • oauth-login-views.md
+                    • oauth-login-tests.md
+                                    │
+                                    ▼
+              /workflows:work .claude/todos/plan/oauth-login-models.md
+                                    │
+                                    ▼
+                    For each todo:
+                    1. Read todo file
+                    2. Implement changes
+                    3. Run tests
+                    4. Git commit incrementally
+                    5. Mark todo completed
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                PHASE 3: REVIEW (9-11 Parallel Agents)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                        /workflows:review PR-123
+                                    │
+        ┌───────────┬───────────┬───┴───┬───────────┬───────────┬───────────┐
+        │           │           │       │           │           │           │
+        ▼           ▼           ▼       ▼           ▼           ▼           ▼
+    ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐
+    │senior- │ │security│ │perform-│ │arch-   │ │pattern-│ │data-   │ │git-    │
+    │code-   │ │sentinel│ │ance-   │ │stra-   │ │recog-  │ │integ-  │ │history-│
+    │reviewer│ │        │ │oracle  │ │tegist  │ │nition  │ │rity    │ │analyzer│
+    └────────┘ └────────┘ └────────┘ └────────┘ └────────┘ └────────┘ └────────┘
+        │           │           │       │           │           │           │
+        └───────────┴───────────┴───┬───┴───────────┴───────────┴───────────┘
+                                    │
+        ┌───────────────────────────┴────────────────────────────┐
+        │                                                         │
+        ▼                                                         ▼
+    ┌────────────────┐                                    ┌────────────────┐
+    │framework-      │                                    │kieran-         │
+    │conventions-    │                                    │typescript-     │
+    │reviewer        │                                    │reviewer        │
+    └────────────────┘                                    └────────────────┘
+        │                                                         │
+        └───────────────────────────┬─────────────────────────────┘
+                                    │
+                    Conditional agents (if needed):
+                    • data-migration-expert
+                    • deployment-verification-agent
+                    • test-coverage-analyzer
+                                    │
+                                    ▼
+                    Uses file-todos skill to write:
+                    .claude/todos/review/PR-123/
+                    • p1-security-sql.md
+                    • p2-performance-n+1.md
+                    • p3-style-nits.md
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                        PHASE 4: TRIAGE (Interactive)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                            /triage
+                                │
+                                ▼
+                    Reads: .claude/todos/review/PR-123/
+                                │
+                                ▼
+                    For each finding:
+                    1. Present to user
+                    2. AskUserQuestion: yes/next/custom
+                    3. Update priority
+                    4. Track with TodoWrite
+                                │
+                                ▼
+                    Creates prioritized work queue
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                        PHASE 5: FIX (Work on Review Todos)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        /workflows:work .claude/todos/review/PR-123/p1-security-sql.md
+                                │
+                                ▼
+                    1. Read todo file
+                    2. Fix issue
+                    3. Run tests
+                    4. Git commit
+                    5. Mark completed
+                                │
+                                ▼
+              Re-run /workflows:review to verify fix
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                        PHASE 6: COMPOUND (Document Solutions)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+            /workflows:compound "Fixed SQL injection in OAuth"
+                                │
+                                ▼
+                    Uses compound-docs skill:
+                    1. Analyze conversation
+                    2. Extract solution
+                    3. Find related docs
+                    4. Create prevention strategy
+                                │
+                                ▼
+        Writes: .claude/solutions/security-issues/oauth-sql-injection.md
 ```
 
 ---
 
-### 4. Testing & Documentation Workflows
+## 🐛 Debug Workflow
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    Testing & Documentation Workflows                     │
-└─────────────────────────────────────────────────────────────────────────┘
+                            /debug "Error message"
+                                        │
+                                        ▼
+                            5-Phase Analysis:
+                                        │
+            ┌───────────────────────────┼────────────────────────────┐
+            │                           │                            │
+            ▼                           ▼                            ▼
+    ┌──────────────┐          ┌──────────────┐           ┌──────────────┐
+    │ Phase 1      │          │ Phase 2      │           │ Phase 3      │
+    │ Parse Error  │  ───>    │ Categorize   │  ───>     │ Root Cause   │
+    │ Information  │          │ Error Type   │           │ Analysis     │
+    └──────────────┘          └──────────────┘           └──────────────┘
+            │                           │                            │
+            └───────────────────────────┼────────────────────────────┘
+                                        │
+            ┌───────────────────────────┼────────────────────────────┐
+            │                           │                            │
+            ▼                           ▼                            ▼
+    ┌──────────────┐          ┌──────────────┐           ┌──────────────┐
+    │ Phase 4      │          │ Phase 5      │           │ Output       │
+    │ Generate Fix │  ───>    │ Create       │  ───>     │ Fix + Todos  │
+    │ Recommen-    │          │ Action Items │           │              │
+    │ dations      │          │              │           │              │
+    └──────────────┘          └──────────────┘           └──────────────┘
 
-    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-    │ /generate-   │    │ /generate-   │    │ /analyze-    │
-    │ tests        │    │ api-tests    │    │ coverage     │
-    └──────┬───────┘    └──────┬───────┘    └──────┬───────┘
-           │                   │                   │
-    AskUserQuestion:    Uses:              Analyzes:
-    Testing approach?   • skill:           • Coverage gaps
-    • Unit (recom.)       api-            • Untested paths
-    • Integration         documentation   • Critical missing
-    • E2E               • skill:           • Suggests tests
-    • Balanced pyramid    test-patterns
-           │                   │                   │
-           └───────────────────┼───────────────────┘
-                               │
-                     Uses skill: test-patterns
-                               │
-                               ▼
-          Generates comprehensive test suites
-                               │
-                               ▼
-
-    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-    │ /document-   │    │ /generate-   │    │ agent:       │
-    │ api          │    │ onboarding   │    │ library-     │
-    │              │    │              │    │ readme-writer│
-    └──────┬───────┘    └──────┬───────┘    └──────┬───────┘
-           │                   │                   │
-    AskUserQuestion:    AskUserQuestion:    Uses:
-    Format? (multi)     Sections? (multi)   • skill:
-    • OpenAPI           • Architecture         library-writer
-    • Swagger           • Setup             • Best practices
-    • Markdown          • Codebase tour     • Examples
-    • Postman           • Key decisions
-           │                   │                   │
-           └───────────────────┼───────────────────┘
-                               │
-                Uses skill: api-documentation
-                Uses skill: onboarding-docs
-                               │
-                               ▼
+                    Uses error-analysis skill for methodology
 ```
 
 ---
 
-## 📂 File Organization (Where Everything Lives)
+## 🧪 Testing Workflow
+
+```
+                    /generate-tests src/auth/oauth.ts
+                                │
+                                ▼
+                    Uses test-patterns skill:
+                    • Unit test patterns
+                    • Integration test patterns
+                    • Mocking strategies
+                    • Edge cases
+                                │
+                                ▼
+                    Generates:
+                    • Unit tests
+                    • Integration tests
+                    • Fixture data
+                                │
+                                ▼
+                    Runs tests to verify
+```
+
+---
+
+## 📁 File Organization
+
+All workflow outputs are organized in `.claude/`:
 
 ```
 .claude/
-├── plans/               # From: /workflows:plan
-│   └── YYYY-MM-DD-feature-name.md
+├── plans/                    # From /workflows:plan
+│   └── YYYY-MM-DD-feature.md
 │
-├── solutions/           # From: /workflows:compound
-│   └── YYYY-MM-DD-problem-solution.md
-│       (YAML frontmatter for search)
+├── todos/
+│   ├── plan/                # From /workflows:work (plan breakdown)
+│   │   └── feature-section-1.md
+│   │
+│   └── review/              # From /workflows:review (PR findings)
+│       └── PR-123/
+│           ├── p1-security.md
+│           ├── p2-performance.md
+│           └── p3-style.md
 │
-├── todos/               # From: /workflows:review
-│   └── PR-123/
-│       ├── p1-security-sql.md
-│       ├── p2-performance-n+1.md
-│       └── p3-style-nits.md
-│
-├── architecture/        # From: /code-map
-│   └── YYYY-MM-DD-architecture-report.md
-│
-└── research/            # From: /find-code, /trace-impact
-    └── YYYY-MM-DD-semantic-search-results.md
+└── solutions/               # From /workflows:compound
+    └── category/
+        └── problem-solution.md
 ```
+
+**Critical Separation:**
+- **Plan todos** (`.claude/todos/plan/`) - Implementation tasks from planning phase
+- **Review todos** (`.claude/todos/review/PR-*/`) - Issues found during code review
+- These are NEVER mixed - they serve different purposes in the workflow
 
 ---
 
-## 🎯 Quick Reference: When to Use What
+## 🎯 Complete Example: OAuth Feature
 
-| Scenario | Command | What It Does |
-|----------|---------|--------------|
-| **Starting new feature** | `/workflows:plan` | 3 parallel research agents → plan file |
-| **Deepening a plan** | `/deepen-plan` | 40+ agents research each section |
-| **Reviewing a plan** | `/plan_review` | Review agents validate plan quality |
-| **Implementing feature** | `/workflows:work` | Execute plan with quality |
-| **Code review PR** | `/workflows:review` | 10-15 parallel agents → findings |
-| **Triage findings** | `/triage` | Categorize/prioritize todos |
-| **Debugging error** | `/debug` | 5-phase systematic analysis |
-| **Finding similar code** | `/find-code` | Semantic search (not keywords) |
-| **Understanding architecture** | `/code-map` | Architecture patterns + call graph |
-| **Checking impact** | `/trace-impact` | All code affected by change |
-| **Refactoring code** | `/refactor` | Safe refactoring with tests |
-| **Modernizing code** | `/modernize` | Update to modern patterns |
-| **Generating tests** | `/generate-tests` | Unit/integration/E2E tests |
-| **Documenting solution** | `/workflows:compound` | 5 parallel agents → knowledge base |
-| **Maintaining health** | `/workflows:maintain` | 4 parallel maintenance tasks |
+### Step 1: Planning
+```bash
+claude /workflows:plan "Add OAuth login with Google and GitHub"
+# Spawns 4 parallel research agents
+# Writes: .claude/plans/2026-01-11-oauth-login.md
+# Asks: Next steps? /deepen-plan, /plan_review, or /workflows:work?
+```
+
+### Step 2: Optional Depth
+```bash
+claude /deepen-plan .claude/plans/2026-01-11-oauth-login.md
+# Spawns 40+ agents for deeper research per section
+# Updates plan with comprehensive details
+```
+
+### Step 3: Optional Validation
+```bash
+claude /plan_review .claude/plans/2026-01-11-oauth-login.md
+# Spawns review agents to validate plan quality
+# Provides feedback on completeness, feasibility
+```
+
+### Step 4: Execute Plan
+```bash
+claude /workflows:work .claude/plans/2026-01-11-oauth-login.md
+# Uses file-todos skill to break plan into todos:
+#   .claude/todos/plan/oauth-models.md
+#   .claude/todos/plan/oauth-routes.md
+#   .claude/todos/plan/oauth-views.md
+#   .claude/todos/plan/oauth-tests.md
+```
+
+### Step 5: Work on Todos
+```bash
+claude /workflows:work .claude/todos/plan/oauth-models.md
+# Implements OAuth models
+# Runs tests
+# Commits incrementally
+# Marks todo completed
+```
+
+### Step 6: Create PR and Review
+```bash
+# After pushing branch and creating PR
+claude /workflows:review PR-123
+# Spawns 9-11 parallel review agents
+# Creates review todos in .claude/todos/review/PR-123/
+```
+
+### Step 7: Triage Findings
+```bash
+claude /triage
+# Presents each finding interactively
+# User decides: yes/next/custom
+# Creates prioritized work queue
+```
+
+### Step 8: Fix Issues
+```bash
+claude /workflows:work .claude/todos/review/PR-123/p1-security-sql.md
+# Fixes SQL injection issue
+# Runs tests
+# Commits
+# Re-review to verify
+```
+
+### Step 9: Debug (if stuck)
+```bash
+claude /debug "OAuth callback failing with 401"
+# 5-phase analysis
+# Root cause identification
+# Fix recommendations
+```
+
+### Step 10: Generate Tests
+```bash
+claude /generate-tests src/auth/oauth.ts
+# Creates comprehensive test suite
+# Runs tests to verify
+```
+
+### Step 11: Document Solution
+```bash
+claude /workflows:compound "OAuth implementation with security best practices"
+# Analyzes conversation
+# Extracts key learnings
+# Creates: .claude/solutions/auth/oauth-implementation.md
+```
 
 ---
 
 ## 🔑 Key Principles
 
-1. **Massive Parallelism** - Commands spawn 3-40+ agents simultaneously
-2. **Structured Knowledge** - Everything written to `.claude/` with consistent naming
-3. **Compounding Returns** - Each solution documented makes next occurrence instant
-4. **Quality Gates** - Review before merge, test as you code
-5. **Follow Patterns** - Discover and use existing conventions
-6. **Skills as Libraries** - Reusable expertise (26 skills)
-7. **MCP Integration** - External tools (playwright, context7, tldr)
+### 1. Separation of Concerns
+- **Plan todos** - Implementation tasks from planning
+- **Review todos** - Issues found in code review
+- Never mix the two types
+
+### 2. File-Based Todos
+- All todos use `file-todos` skill
+- YAML frontmatter for metadata
+- Markdown content for details
+- Version controlled with codebase
+
+### 3. Parallel Agent Execution
+- Planning: 4 agents in parallel
+- Deepen: 40+ agents in parallel
+- Review: 9-11 agents in parallel (9 core + up to 2 conditional)
+- Maximum efficiency
+
+### 4. Progressive Disclosure
+- Start simple: `/workflows:plan`
+- Add depth when needed: `/deepen-plan`
+- Validate if uncertain: `/plan_review`
+- Review before merge: `/workflows:review`
+- Document learnings: `/workflows:compound`
+
+### 5. Knowledge Compounding
+- Each solution documented in `.claude/solutions/`
+- Future planning searches past solutions
+- Learning compounds over time
+- Team knowledge grows automatically
 
 ---
 
-## 🚀 First Time Using the Plugin?
+## 📊 Agent Inventory
 
-```bash
-# 1. Plan your first feature
-/workflows:plan "Add user profile page"
+### Research Agents (4)
+- **repo-research-analyst** - Repository structure, existing patterns, conventions
+- **best-practices-researcher** - Industry best practices, standards, security
+- **framework-docs-researcher** - Framework-specific documentation and patterns
+- **spec-flow-analyzer** - User flow analysis, specification gap detection
 
-# 2. Deepen it (optional but recommended)
-/deepen-plan .claude/plans/2026-01-11-user-profile.md
+### Review Agents (11)
+- **senior-code-reviewer** - High-bar code quality standards
+- **security-sentinel** - Security audits, vulnerability detection
+- **performance-oracle** - Performance analysis and optimization
+- **architecture-strategist** - Architectural decisions and compliance
+- **pattern-recognition-specialist** - Code patterns and anti-patterns
+- **data-integrity-guardian** - Database safety, migration validation
+- **framework-conventions-reviewer** - Framework-specific conventions
+- **kieran-typescript-reviewer** - TypeScript quality and conventions
+- **data-migration-expert** - Production data migration validation
+- **deployment-verification-agent** - Deployment risk assessment
+- **code-simplicity-reviewer** - Simplicity and minimalism review
 
-# 3. Implement it
-/workflows:work .claude/plans/2026-01-11-user-profile.md
+### Testing Agents (1)
+- **test-coverage-analyzer** - Coverage gap analysis
 
-# 4. Review it
-/workflows:review PR-456
-
-# 5. Triage findings (if many)
-/triage
-
-# 6. Fix P1 issues
-/workflows:work .claude/todos/PR-456/p1-security.md
-
-# 7. Document what you learned
-/workflows:compound
-
-# 8. Maintain codebase health
-/workflows:maintain quick
-```
-
-**Each cycle makes the next one easier. That's compounding engineering.** 🎯
+### Workflow Agents (1)
+- **spec-flow-analyzer** - Specification and flow analysis
 
 ---
 
-## 📊 Component Inventory
+## 📚 Skill Inventory
 
-- **38 Agents** - Specialized experts (review, research, docs, testing, etc.)
-- **36 Commands** - Workflow automation + utilities
-- **26 Skills** - Reusable knowledge libraries
-- **3 MCP Servers** - External integrations (playwright, context7, tldr)
+### Knowledge Management
+- **compound-docs** - Document solved problems in `.claude/solutions/`
+- **file-todos** - File-based todo system with YAML frontmatter
+
+### Code Quality
+- **error-analysis** - Systematic error analysis with root cause identification
+- **framework-conventions-guide** - Framework-agnostic quality standards
+- **refactoring-patterns** - Safe, systematic refactoring methodology
+- **test-patterns** - Unit, integration, and API testing patterns
 
 ---
 
-## 💡 Philosophy in Practice
+## 🚀 Getting Started
 
-```
-First time solving a problem:  3 hours of research
-Document with /workflows:compound
-Next time same problem:        30 seconds to find solution
+1. **Start with planning:**
+   ```bash
+   claude /workflows:plan "Your feature description"
+   ```
 
-First PR review:               Manual, slow, might miss issues
-Use /workflows:review:         10+ agents, comprehensive, fast
-Next PR review:                Same quality, repeatable
+2. **Execute the plan:**
+   ```bash
+   claude /workflows:work .claude/plans/your-plan.md
+   ```
 
-Understanding new codebase:    Days of exploration
-Use /code-map + /find-code:   30 minutes to architecture map
-Every search after:            Instant semantic search
-```
+3. **Review your work:**
+   ```bash
+   claude /workflows:review PR-123
+   ```
 
-**This is compounding engineering. Each unit of work makes the next unit easier.** ✨
+4. **Triage findings:**
+   ```bash
+   claude /triage
+   ```
+
+5. **Document learnings:**
+   ```bash
+   claude /workflows:compound "What you learned"
+   ```
+
+---
+
+## 💡 Tips
+
+- **Use `/deepen-plan`** when you need comprehensive research (spawns 40+ agents)
+- **Use `/plan_review`** before starting work to catch issues early
+- **Use `/triage`** to efficiently prioritize review findings
+- **Use `/debug`** for systematic error analysis with 5-phase methodology
+- **Use `/workflows:compound`** after solving hard problems to build team knowledge
+- **Separate plan and review todos** - they serve different purposes
+- **Run `/workflows:review`** after fixes to verify resolution
+
+---
+
+## 📖 Version History
+
+See [CHANGELOG.md](plugins/compound-engineering/CHANGELOG.md) for detailed version history.

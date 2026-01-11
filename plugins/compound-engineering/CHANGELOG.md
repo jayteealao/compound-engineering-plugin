@@ -5,6 +5,125 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-01-11
+
+### Breaking Changes
+
+**Major Architecture Simplification** - Reduced plugin surface area by 65% while preserving complete workflow functionality.
+
+**Component Reduction:**
+- **Commands:** 36 → 9 (75% reduction)
+- **Agents:** 38 → 17 (55% reduction)
+- **Skills:** 26 → 6 (77% reduction)
+- **MCP Servers:** 3 (unchanged)
+
+**Total:** 100 → 35 components (65% reduction)
+
+### Removed
+
+**27 Commands Removed:**
+- Maintenance: `/update-deps`, `/scan-debt`, `/health-report`, `/analyze-coverage`, `/workflows:maintain`
+- Documentation: `/document-api`, `/generate-onboarding`, `/generate-api-tests`
+- Testing: `/playwright-test`, `/xcode-test`
+- Code Analysis (llm-tldr): `/code-map`, `/find-code`, `/trace-impact`
+- Refactoring: `/refactor`, `/modernize`
+- Utility: `/changelog`, `/create-agent-skill`, `/heal-skill`, `/generate_command`, `/report-bug`, `/reproduce-bug`, `/resolve_parallel`, `/resolve_pr_parallel`, `/resolve_todo_parallel`, `/feature-video`, `/deploy-docs`, `/release-docs`
+
+**20 Agents Removed:**
+- Analysis: `codebase-health`, `debt-tracker`, `dependency-auditor`, `error-analyst`
+- Design: `design-implementation-reviewer`, `design-iterator`, `figma-design-sync`
+- Docs: `api-docs-generator`, `library-readme-writer`, `onboarding-generator`
+- Refactoring: `code-modernizer`, `refactoring-assistant`
+- Review: `agent-native-reviewer`, `julik-frontend-races-reviewer`, `kieran-python-reviewer`
+- Testing: `api-test-generator`, `test-generator`
+- Workflow: `bug-reproduction-validator`, `every-style-editor`, `lint`, `pr-comment-resolver`
+
+**Note:** `code-simplicity-reviewer` was retained per user request for final simplicity and minimalism review.
+
+**20 Skills Removed:**
+- Architecture/Development: `agent-native-architecture`, `create-agent-skills`, `frontend-design`, `library-writer`, `llm-application-patterns`, `skill-creator`
+- Documentation: `api-documentation`, `onboarding-docs`
+- Maintenance: `debugging-workflow`, `dependency-management`, `technical-debt`
+- Content/Workflow: `claude-workspace`, `every-style-editor`, `git-worktree`, `rclone`, `gemini-imagegen`
+- Code Analysis (llm-tldr): `tldr-setup`, `tldr-architecture`, `tldr-context`, `tldr-semantic-search`
+
+### Retained (Core Workflow)
+
+**9 Commands (Essential):**
+- Workflow: `/workflows:plan`, `/workflows:work`, `/workflows:review`, `/workflows:compound`
+- Utility: `/debug`, `/deepen-plan`, `/generate-tests`, `/plan_review`, `/triage`
+
+**17 Agents (Essential):**
+- Research (4): `repo-research-analyst`, `best-practices-researcher`, `framework-docs-researcher`, `git-history-analyzer`
+- Review (11): `senior-code-reviewer`, `security-sentinel`, `performance-oracle`, `architecture-strategist`, `pattern-recognition-specialist`, `data-integrity-guardian`, `framework-conventions-reviewer`, `kieran-typescript-reviewer`, `data-migration-expert`, `deployment-verification-agent`, `code-simplicity-reviewer`
+- Testing (1): `test-coverage-analyzer`
+- Workflow (1): `spec-flow-analyzer`
+
+**6 Skills (Essential):**
+- Knowledge Management: `compound-docs`, `file-todos`
+- Code Quality: `error-analysis`, `framework-conventions-guide`, `refactoring-patterns`, `test-patterns`
+
+### Changed
+
+**FLOW.md - Completely Rewritten**
+
+Simplified workflow documentation to reflect the streamlined architecture:
+- Focused on 6-phase core cycle: Plan → Work → Review → Triage → Fix → Compound
+- Updated all diagrams to show only retained commands/agents
+- Removed references to deprecated llm-tldr commands and skills
+- Emphasized separation of plan todos vs. review todos
+- Added complete end-to-end OAuth example
+- Documented 16 agents and 6 skills
+
+**README.md - Major Update**
+
+Updated all component tables and documentation:
+- Component counts table reflects 9 commands, 16 agents, 6 skills
+- Removed all deprecated agents, commands, and skills from tables
+- Reorganized agents by category (Research, Review, Testing, Workflow)
+- Simplified commands into Workflow and Utility categories
+- Simplified skills into Knowledge Management and Code Quality categories
+- Updated MCP servers section to remove references to deprecated skills
+
+### Rationale
+
+**Why This Simplification?**
+
+The plugin grew to 100 components (36 commands, 38 agents, 26 skills) through organic growth, creating:
+- **Cognitive overload** - Too many options made it hard to know what to use
+- **Maintenance burden** - Each component required updates, testing, documentation
+- **Redundancy** - Multiple components solving similar problems
+- **Complexity** - Overlapping functionality and unclear boundaries
+
+**What We Preserved:**
+
+✅ Complete planning workflow with parallel research agents
+✅ Plan → todos separation using file-todos skill
+✅ Review → todos separation (different from plan todos)
+✅ Interactive triage workflow
+✅ Systematic debugging with 5-phase analysis
+✅ Knowledge compounding to `.claude/solutions/`
+✅ Parallel agent execution (4 for planning, 9-12 for review)
+✅ Progressive disclosure (plan → deepen → review → compound)
+
+**What We Removed:**
+
+❌ Specialized commands for specific frameworks/tools
+❌ Overlapping review agents (merged into core reviewers)
+❌ Language-specific agents (kept TypeScript, removed Python)
+❌ Documentation generation commands (manual task)
+❌ Maintenance automation (complex, rarely used)
+❌ MCP-wrapper skills (use MCP servers directly)
+❌ Development/meta tools (create-agent-skill, skill-creator)
+
+**Result:**
+
+A focused, maintainable plugin that preserves 100% of core workflow functionality with 65% fewer components. Users gain:
+- **Clarity** - 9 commands vs. 36 (easier to learn)
+- **Speed** - Fewer decisions, faster execution
+- **Reliability** - Smaller surface area = fewer bugs
+- **Maintainability** - Easier to test, document, update
+
 ## [2.33.0-beta.2] - 2026-01-10
 
 ### Added
