@@ -9,11 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-**Version bump to beta.2**
+**Merge beta.1 (llm-tldr) with workflow command regression fixes**
 
-Incremented version to 2.33.0-beta.2 for continued beta testing with workflow command protection fixes in place.
+This release combines:
+- llm-tldr integration features from v2.33.0-beta.1 (semantic code search, 3 new commands, 4 new skills)
+- Workflow command protection fixes from v2.32.1 (prevents EnterPlanMode/TodoWrite hijacking)
 
-## [2.32.1] - 2026-01-10
+**Component counts:** 38 agents, 36 commands, 26 skills, 3 MCP servers
+
+All features from both releases are included.
 
 ### Fixed
 
@@ -50,6 +54,98 @@ Fixed critical regression where workflow commands (`/workflows:plan`, `/workflow
 **Root cause:** Claude Code's system prompts were detecting "planning" keywords and triggering built-in EnterPlanMode instead of executing custom workflow instructions.
 
 **Impact:** All workflow commands now execute their custom logic correctly without interference from Claude Code's default tools.
+
+## [2.33.0-beta.1] - 2026-01-10
+
+### Added
+
+**llm-tldr Integration (Beta)** - Code analysis and semantic search capabilities
+
+Integrated llm-tldr for structural code understanding and semantic search, providing 95-99% token reduction for code analysis operations.
+
+**Note:** This is a beta release. The llm-tldr integration requires Python 3.7+ and `pip install llm-tldr`. All features are functional but may receive refinements based on user feedback.
+
+**New MCP Server:**
+- `tldr` - Code analysis and semantic search via llm-tldr
+  - Semantic search using natural language queries
+  - Structure extraction (AST, call graphs, control flow, data flow)
+  - 99% token efficiency for function context (21,000 → 175 tokens)
+  - Architecture pattern detection (MVC, layered, hexagonal)
+  - Impact analysis through call graph tracing
+  - Supports 16 languages (Python, TypeScript, JavaScript, Go, Rust, Java, C, C++, Ruby, PHP, C#, Kotlin, Scala, Swift, Lua, Elixir)
+
+**New Skills:**
+1. `tldr-setup` - One-command installation and configuration
+   - Checks if llm-tldr is installed
+   - Installs llm-tldr if missing
+   - Creates `.tldrignore` file
+   - Indexes the codebase
+   - Starts daemon for fast queries
+   - Scripts: install.sh, warm.sh, daemon.sh
+
+2. `tldr-context` - Extract LLM-optimized function context
+   - 99% token reduction (21,000 → 175 tokens)
+   - Returns function signature, summary, key logic, dependencies, callers
+   - Includes complexity metrics and call graph information
+
+3. `tldr-semantic-search` - Natural language code search
+   - Search by behavior, not just keywords
+   - Powered by 1024-dimensional embeddings (bge-large-en-v1.5)
+   - 100ms query response with daemon (300x faster than cold start)
+   - Works regardless of naming conventions
+
+4. `tldr-architecture` - Architecture analysis and pattern detection
+   - Detects layered architecture patterns (MVC, hexagonal, clean architecture)
+   - Call graph analysis (central modules, leaf modules, circular dependencies)
+   - Dead code detection (unreachable functions, unused exports, orphaned files)
+   - Module coupling analysis
+
+**New Commands:**
+1. `/code-map` - Generate architectural overview
+   - Architecture pattern detection
+   - Layer structure and module boundaries
+   - Dependency analysis and coupling metrics
+   - Code statistics by module and language
+   - Generates report in `.claude/architecture/`
+
+2. `/find-code` - Semantic code search
+   - Natural language queries ("JWT token validation")
+   - Returns top 10 matches with similarity scores
+   - Extracts context for top matches
+   - Offers drill-down and comparison options
+   - Export results to `.claude/research/`
+
+3. `/trace-impact` - Call graph impact analysis
+   - Find all code affected by function changes
+   - Build complete dependency tree (direct + transitive callers)
+   - Identify test coverage for code paths
+   - Risk assessment based on coupling, complexity, coverage
+   - Testing recommendations and rollback plans
+
+**Performance:**
+- Initial indexing: 30-60 seconds for typical projects
+- Query speed: 100ms with daemon (vs 30 seconds cold start)
+- Token savings: 95-99% for code context operations
+- Disk usage: 200-500MB for indices and embeddings
+
+**Requirements:**
+- Python 3.7+
+- `pip install llm-tldr`
+- 200-500MB disk space
+
+### Changed
+
+- Component counts updated: 36 commands (was 32), 25 skills (was 21), 3 MCP servers (was 2)
+- README.md updated with llm-tldr documentation
+- plugin.json updated with tldr MCP server configuration
+- Keywords added: semantic-search, code-analysis, architecture-analysis
+- **Enhanced 9 agents with llm-tldr integration** (95-99% token savings)
+  - **Review agents:** security-sentinel, performance-oracle, senior-code-reviewer, framework-conventions-reviewer, architecture-strategist
+  - **Research agents:** repo-research-analyst, git-history-analyzer, framework-docs-researcher
+  - **Documentation agents:** library-readme-writer
+  - Each agent now includes guidance on when to use tldr vs Read tool
+  - Added specific workflows for using tldr-context, tldr-semantic-search, tldr-architecture, and tldr-impact
+  - Fallback strategies for when llm-tldr is not available or indexed
 
 ## [2.32.0] - 2026-01-10
 

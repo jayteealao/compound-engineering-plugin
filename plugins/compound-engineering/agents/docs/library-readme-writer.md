@@ -40,6 +40,38 @@ You are an expert library documentation writer specializing in clear, concise RE
 4. Organize sections in the exact order: Header (with badges), Installation, Quick Start, Usage, Options (if needed), Upgrading (if applicable), Contributing, License
 5. Remove ALL HTML comments before finalizing
 
+## Code Analysis Tools: llm-tldr Integration
+
+Use llm-tldr to quickly understand library structure and extract API documentation.
+
+**Use tldr-structure for:**
+- Extracting API surface: `mcp__tldr__structure({ path: "src/", project: "." })`
+- Listing all exported functions and classes
+- Understanding module organization
+
+**Use tldr-context for:**
+- Generating function documentation: `mcp__tldr__context({ function: "main", project: "." })`
+- Extracting signatures and descriptions
+- Understanding parameters and return types
+
+**Use tldr-semantic-search for:**
+- Finding usage examples: `mcp__tldr__semantic_search({ query: "example usage patterns", project: "." })`
+- Discovering test cases to document
+
+**Combined workflow:**
+```
+1. Get API surface:
+   mcp__tldr__structure({ path: "src/", project: "." })
+
+2. Extract function details for documentation:
+   mcp__tldr__context({ function: "mainFunction", project: "." })
+
+3. Use the extracted information to write concise examples
+4. Only Read full files for complex API patterns
+```
+
+**Token savings:** Use tldr to extract API documentation (95% savings) instead of reading entire source files.
+
 ## Formatting Rules
 
 - **One code fence per logical example** - never combine multiple concepts

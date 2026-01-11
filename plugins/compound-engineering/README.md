@@ -7,9 +7,9 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 | Component | Count |
 |-----------|-------|
 | Agents | 38 |
-| Commands | 33 |
-| Skills | 22 |
-| MCP Servers | 2 |
+| Commands | 36 |
+| Skills | 26 |
+| MCP Servers | 3 |
 
 ## Agents
 
@@ -131,6 +131,14 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | `/health-report` | Generate comprehensive health report |
 | `/update-deps` | Safely update dependencies |
 
+### Code Analysis Commands (llm-tldr)
+
+| Command | Description |
+|---------|-------------|
+| `/code-map` | Generate architectural overview and code structure map |
+| `/find-code` | Semantic code search using natural language queries |
+| `/trace-impact` | Find all code affected by a change using call graph analysis |
+
 ### Refactoring Commands
 
 | Command | Description |
@@ -232,12 +240,34 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 - `GEMINI_API_KEY` environment variable
 - Python packages: `google-genai`, `pillow`
 
+### Code Analysis (llm-tldr)
+
+| Skill | Description |
+|-------|-------------|
+| `tldr-setup` | Install and configure llm-tldr code analysis tool |
+| `tldr-context` | Extract LLM-optimized function context (99% token reduction) |
+| `tldr-semantic-search` | Search code using natural language queries |
+| `tldr-architecture` | Analyze codebase architecture and detect patterns |
+
+**Features:**
+- 99% token reduction for function context
+- Semantic search powered by embeddings
+- Architecture pattern detection (MVC, layered, hexagonal)
+- Call graph and impact analysis
+- Supports 16 languages
+
+**Requirements:**
+- Python 3.7+
+- `pip install llm-tldr`
+- 200-500MB disk space for indices
+
 ## MCP Servers
 
 | Server | Description |
 |--------|-------------|
 | `playwright` | Browser automation via `@playwright/mcp` |
 | `context7` | Framework documentation lookup via Context7 |
+| `tldr` | Code analysis and semantic search via `llm-tldr` |
 
 ### Playwright
 
@@ -256,6 +286,43 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 - `get-library-docs` - Get documentation for a specific library
 
 Supports 100+ frameworks including Rails, React, Next.js, Vue, Django, Laravel, and more.
+
+### tldr (llm-tldr)
+
+**Capabilities:**
+- **Semantic search** - Find code using natural language queries
+- **Structure extraction** - AST, call graphs, control flow, data flow
+- **Token efficiency** - 99% reduction for function context (21,000 → 175 tokens)
+- **Architecture analysis** - Detect patterns and layered structures
+- **Impact analysis** - Find all code affected by changes
+
+**Setup:**
+```bash
+# Install llm-tldr
+pip install llm-tldr
+
+# Index codebase
+claude skill tldr-setup
+```
+
+**Usage:**
+```bash
+# Semantic search
+claude /find-code "JWT token validation"
+
+# Architecture overview
+claude /code-map
+
+# Impact analysis
+claude /trace-impact validate_token
+```
+
+**Languages:** Python, TypeScript, JavaScript, Go, Rust, Java, C, C++, Ruby, PHP, C#, Kotlin, Scala, Swift, Lua, Elixir
+
+**Performance:**
+- Initial indexing: 30-60 seconds
+- Query speed: 100ms with daemon
+- Disk usage: 200-500MB for indices
 
 MCP servers start automatically when the plugin is enabled.
 
@@ -285,9 +352,20 @@ claude /plugin install compound-engineering
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp"
+    },
+    "tldr": {
+      "type": "stdio",
+      "command": "tldr-mcp",
+      "args": ["--project", "."],
+      "env": {}
     }
   }
 }
+```
+
+**Note:** For the `tldr` MCP server, you must first install llm-tldr:
+```bash
+pip install llm-tldr
 ```
 
 Or add them globally in `~/.claude/settings.json` for all projects.

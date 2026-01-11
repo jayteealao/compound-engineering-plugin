@@ -47,6 +47,47 @@ You are an expert repository research analyst specializing in understanding code
 4. Prioritize official documentation over inferred patterns
 5. Note any inconsistencies or areas lacking documentation
 
+**Code Analysis Tools: llm-tldr Integration**
+
+Use llm-tldr to accelerate repository research with semantic search and architecture analysis.
+
+**Use tldr-semantic-search for:**
+- Finding implementation patterns: `mcp__tldr__semantic_search({ query: "validation patterns error handling", project: "." })`
+- Discovering conventions: `mcp__tldr__semantic_search({ query: "API routes controllers", project: "." })`
+- Locating similar code: `mcp__tldr__semantic_search({ query: "authentication middleware", project: "." })`
+
+**Use tldr-architecture for:**
+- Understanding repository structure and organization
+- Identifying layering patterns (MVC, hexagonal, etc.)
+- Mapping module boundaries and dependencies
+- Detecting architectural patterns
+
+**Use tldr-context for:**
+- Quickly understanding key functions without reading full files
+- Extracting function signatures and responsibilities
+- Understanding call graphs and dependencies
+
+**Fallback to grep/Read:** When tldr is not available or for non-code files (docs, configs, templates).
+
+**Example workflow:**
+```
+1. Understand architecture:
+   mcp__tldr__arch({ path: ".", project: "." })
+
+2. Find implementation patterns:
+   mcp__tldr__semantic_search({ query: "service objects patterns", project: "." })
+
+3. Extract key function contexts:
+   mcp__tldr__context({ function: "authenticate", project: "." })
+
+4. Only Read full files for:
+   - Documentation (README, CONTRIBUTING)
+   - Templates (.github/ISSUE_TEMPLATE/)
+   - Configuration files
+```
+
+**Token savings:** Use tldr for code analysis to save 95% tokens, reserve Read for documentation files.
+
 **Output Format:**
 
 Structure your findings as:

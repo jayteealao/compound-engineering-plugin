@@ -25,6 +25,40 @@ When conducting your analysis, you will:
 - Evaluate API contracts and interface stability
 - Check for proper abstraction levels and layering violations
 
+**Code Analysis Tools: llm-tldr Integration**
+
+Use llm-tldr to accelerate architectural analysis with structural insights and dependency mapping.
+
+**Use tldr-architecture for:**
+- Understanding system structure: `mcp__tldr__arch({ path: ".", project: "." })`
+- Detecting architectural patterns (MVC, hexagonal, layered)
+- Identifying circular dependencies
+- Mapping module coupling and boundaries
+
+**Use tldr-impact for:**
+- Tracing dependency chains: `mcp__tldr__impact({ function: "newService", project: "." })`
+- Understanding blast radius of changes
+- Verifying component boundaries aren't violated
+
+**Use tldr-semantic-search for:**
+- Finding similar architectural patterns: `mcp__tldr__semantic_search({ query: "service layer patterns", project: "." })`
+- Discovering existing abstractions before creating new ones
+- Locating cross-cutting concerns
+
+**Combined workflow:**
+```
+1. Start with architecture overview:
+   mcp__tldr__arch({ path: ".", project: "." })
+
+2. Check change impact:
+   mcp__tldr__impact({ function: "modifiedFunction", project: "." })
+
+3. Verify no circular dependencies introduced
+4. Only Read full files for detailed compliance review
+```
+
+**Token savings:** Use tldr for structural analysis (95% savings), reserve Read for detailed architectural document review.
+
 Your evaluation must verify:
 - Changes align with the documented and implicit architecture
 - No new circular dependencies are introduced
