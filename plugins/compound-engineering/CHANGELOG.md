@@ -5,6 +5,31 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2026-01-11
+
+### Changed
+
+**README.md - Comprehensive Usage Guide Rewrite**
+
+Transformed README.md from component inventory (190 lines) to comprehensive usage guide (1,778 lines):
+
+- **Quick Start Section:** Added 5-step workflow for new users to get productive in <10 minutes
+- **Detailed Command Documentation:** All 9 commands now include:
+  - What it does (with agent counts and specifics)
+  - When to use (specific scenarios)
+  - Exact usage examples with arguments
+  - Expected outputs with file paths
+  - Next steps (typical follow-up commands)
+- **Complete OAuth Workflow Example:** Step-by-step walkthrough (Steps 1-9) showing real-world implementation from idea to production in ~90 minutes
+- **File Organization:** `.claude/` directory structure diagram with naming conventions and status transitions
+- **Integration Guides:** Visual flows showing how commands work together (Planning → Execution flow, Review → Triage → Work flow)
+- **Enhanced References:** Agents, skills, and MCP servers tables with "When they run" and "Used by" columns
+- **Key Principles:** Documented compounding engineering, separation of concerns, parallel execution, progressive disclosure, file-based artifacts
+- **Tips & Best Practices:** Practical guidance for planning, execution, reviews, and documentation
+- **Troubleshooting:** Common issues and solutions (MCP servers, similar code discovery)
+
+**Impact:** Users can now understand and use the plugin effectively without external documentation. README serves as both quick reference and comprehensive guide.
+
 ## [3.0.0] - 2026-01-11
 
 ### Breaking Changes
