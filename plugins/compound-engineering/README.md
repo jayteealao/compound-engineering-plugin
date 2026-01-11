@@ -2,6 +2,8 @@
 
 AI-powered development tools that get smarter with every use. Make each unit of engineering work easier than the last.
 
+**📖 [Read the Complete Workflow Guide](../../FLOW.md)** - Comprehensive visual guide showing how all commands, agents, and skills work together.
+
 ## Components
 
 | Component | Count |

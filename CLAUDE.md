@@ -2,6 +2,8 @@
 
 This repository is a Claude Code plugin marketplace that distributes the `compound-engineering` plugin to developers building with AI-powered tools.
 
+**📖 [Complete Workflow Guide](FLOW.md)** - Visual documentation of how all commands, agents, and skills work together in the compound engineering workflow.
+
 ## Repository Structure
 
 ```
