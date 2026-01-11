@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.33.0-beta.2] - 2026-01-10
 
+### Added
+
+**FLOW.md - Comprehensive Workflow Documentation**
+
+Added visual workflow documentation (`FLOW.md` in repository root) showing:
+- Complete 6-phase workflow loop (Plan → Work → Review → Triage → Fix → Compound → Maintain)
+- Parallel execution diagrams for all commands
+- Specialized workflows (debugging, semantic search, refactoring, testing/docs)
+- Quick reference table for all 36 commands
+- When to use what command/agent/skill
+- File organization in `.claude/` directories
+
+Key visualizations:
+- `/workflows:plan` spawning 3 parallel research agents
+- `/workflows:review` spawning 10-15 parallel review agents
+- `/workflows:compound` spawning 5 parallel documentation agents
+- `/workflows:maintain` running 4 commands in parallel
+- `/deepen-plan` spawning 40+ agents (one per section + reviewers)
+
+References added to:
+- `plugins/compound-engineering/README.md` (for plugin users)
+- `CLAUDE.md` (for contributors)
+
 ### Changed
 
 **Merge beta.1 (llm-tldr) with workflow command regression fixes**
