@@ -21,24 +21,27 @@ This command is for:
 
 ## Progress Tracking
 
-Use TodoWrite to track progress through all findings in the triage session:
+The todo files themselves track progress - no separate tracking needed.
 
+**Triage flow:**
+- Present each finding from `.claude/todos/*-pending-*.md`
+- User decides: yes (approve) / next (skip) / custom (modify)
+- Approved: Rename file `pending` → `ready`, update YAML frontmatter `status: ready`
+- Skipped: Delete the todo file
+- Custom: Update file, then approve or skip
+
+**Progress is visible in the filesystem:**
+```bash
+# See all pending findings
+ls .claude/todos/*-pending-*.md
+
+# See approved findings (ready to work on)
+ls .claude/todos/*-ready-*.md
+
+# Track progress: count files
+echo "Pending: $(ls .claude/todos/*-pending-*.md 2>/dev/null | wc -l)"
+echo "Ready: $(ls .claude/todos/*-ready-*.md 2>/dev/null | wc -l)"
 ```
-TodoWrite:
-1. Finding #1: [title] - decision: pending - pending
-2. Finding #2: [title] - decision: pending - pending
-3. Finding #3: [title] - decision: pending - pending
-...
-Final summary and report - pending
-```
-
-**Update tracking as you go:**
-- When presenting a finding: Mark as `in_progress`
-- After user decides "yes": Update to `completed` with `decision: approved (ready)`
-- After user decides "next": Update to `completed` with `decision: skipped`
-- After user decides "custom": Update to `completed` with `decision: custom priority`
-
-**Dynamic list:** Add todos dynamically as you discover findings. Start with a count placeholder, then populate as findings are loaded.
 
 ## Workflow
 
@@ -184,7 +187,7 @@ Do you want to add this to the todo list?
 ### Step 3: Continue Until All Processed
 
 - Process all items one by one
-- Track using TodoWrite for visibility
+- Track progress via file renames and deletions
 - Don't wait for approval between items - keep moving
 
 ### Step 4: Final Summary

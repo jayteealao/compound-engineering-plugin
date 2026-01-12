@@ -31,18 +31,23 @@ Error: Connection refused
 
 ## Progress Tracking
 
-Use TodoWrite to track the 5-phase error analysis workflow:
+The todo files created in Phase 5 are the output - no separate tracking needed.
 
-```
-TodoWrite:
-1. Parse error information and extract key details - pending
-2. Categorize error type and severity - pending
-3. Perform root cause analysis - pending
-4. Generate fix recommendations (hotfix + long-term) - pending
-5. Create action items and todos - pending
-```
+**5-phase workflow:**
+1. Parse error information → Extract error details
+2. Categorize error → Determine type/severity
+3. Root cause analysis → Use error-analyst agent
+4. Fix recommendations → Hotfix + long-term solutions
+5. Create action items → **Write todo files to `.claude/todos/`**
 
-Update status: `pending` → `in_progress` → `completed` as you progress.
+**Output: Todo files using file-todos skill format**
+
+Each action item becomes a todo file:
+- Immediate actions → `{id}-ready-p1-{description}.md`
+- Short-term actions → `{id}-ready-p2-{description}.md`
+- Long-term actions → `{id}-pending-p3-{description}.md`
+
+Progress tracking is the todo files themselves.
 
 ## Workflow
 

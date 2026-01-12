@@ -31,22 +31,41 @@ Do not proceed until you have a valid plan file path.
 
 ## Progress Tracking
 
-Use TodoWrite to track progress through the 9-phase deepening workflow:
+The plan file itself is the progress tracker - update it directly as you deepen.
 
-```
-TodoWrite:
-1. Parse plan structure and identify sections - pending
-2. Discover and apply available skills (parallel) - pending
-3. Discover and apply learnings/solutions (parallel) - pending
-4. Launch per-section research agents (parallel) - pending
-5. Launch ALL review agents (40+ parallel) - pending
-6. Synthesize all agent findings - pending
-7. Enhance plan sections with research insights - pending
-8. Update plan file with enhancements - pending
-9. Present post-enhancement options to user - pending
+**Deepening approach:**
+1. Parse plan structure → Identify sections to enhance
+2. Discover skills → Apply relevant skill knowledge inline
+3. Discover learnings → Link to `.claude/solutions/` discoveries
+4. Launch research agents → Add agent findings to relevant sections
+5. Launch review agents → Incorporate review feedback
+6. Synthesize findings → Merge all research into plan sections
+7. Enhance sections → Expand with code examples, best practices, edge cases
+8. Add metadata → Document what was added (skills applied, agents run, learnings referenced)
+9. Present options → Show before/after, offer next steps
+
+**Plan file structure after deepening:**
+
+The plan grows with inline enhancements:
+- Existing sections enriched with research
+- Code examples added inline
+- Links to similar code added
+- Best practices incorporated
+- Edge cases documented
+- Testing strategies expanded
+
+Plus a new section at the end:
+```markdown
+## Deepening Metadata
+
+**Deepened:** {timestamp}
+**Skills Applied:** {list of skills}
+**Learnings Referenced:** {list of .claude/solutions/ files}
+**Agents Run:** {count} parallel research agents
+**Plan Size:** {before} → {after} lines
 ```
 
-Update the status from `pending` → `in_progress` → `completed` as you work through each phase.
+Progress is visible in the plan file itself - no separate tracking needed.
 
 ## Main Tasks
 

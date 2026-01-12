@@ -10,7 +10,7 @@ argument-hint: "[plan file, specification, or todo file path]"
 
 **This is a WORK EXECUTION command, NOT a planning command.**
 
-- Use TodoWrite ONLY in Phase 1, Step 3 ("Create Todo List") to track implementation tasks
+- Create persistent work todos in `.claude/todos/work/` in Phase 1, Step 3 to track implementation tasks from the plan
 - DO NOT use EnterPlanMode - this command executes existing plans
 - Follow the execution workflow below EXACTLY
 
@@ -62,11 +62,31 @@ This command takes a work document (plan, specification, or todo file) and execu
    - You prefer staying in the main repository
 
 3. **Create Todo List**
-   - Use TodoWrite to break plan into actionable tasks
-   - Include dependencies between tasks
-   - Prioritize based on what needs to be done first
-   - Include testing and quality check tasks
-   - Keep tasks specific and completable
+
+   Create work todo files in `.claude/todos/work/` for each task:
+
+   For each task in the plan:
+   1. Create file: `.claude/todos/work/work-{plan-id}-{task-num}-pending-{description}.md`
+   2. Include YAML frontmatter with dependencies
+   3. Link to parent plan file
+
+   Example:
+   ```yaml
+   ---
+   status: pending
+   priority: p2
+   issue_id: "work-oauth-001"
+   tags: [implementation, oauth]
+   dependencies: []
+   parent_plan: .claude/plans/add-oauth-login.md
+   ---
+
+   # Create OAuth Controller
+
+   [Implementation details from plan]
+   ```
+
+   Also create progress summary: `.claude/plans/progress/{plan-name}-work-progress.md`
 
 ### Phase 2: Execute
 
@@ -76,13 +96,15 @@ This command takes a work document (plan, specification, or todo file) and execu
 
    ```
    while (tasks remain):
-     - Mark task as in_progress in TodoWrite
+     - Update work todo: Rename file `pending` → `in_progress`
+     - Update progress summary: Mark current task in progress
      - Read any referenced files from the plan
      - Look for similar patterns in codebase
      - Implement following existing conventions
      - Write tests for new functionality
      - Run tests after changes
-     - Mark task as completed
+     - Rename file `in_progress` → `complete`, append work log
+     - Update progress summary
    ```
 
 2. **Follow Existing Patterns**
@@ -110,9 +132,15 @@ This command takes a work document (plan, specification, or todo file) and execu
    - Repeat until implementation matches design
 
 5. **Track Progress**
-   - Keep TodoWrite updated as you complete tasks
+
+   Update todo file statuses as you complete tasks:
+   - Start task: Rename `pending` → `in_progress`
+   - Complete task: Rename `in_progress` → `complete`, append work log
+   - Update progress summary file
+
+   Additional tracking:
    - Note any blockers or unexpected discoveries
-   - Create new tasks if scope expands
+   - Create new task files if scope expands
    - Keep user informed of major milestones
 
 ### Phase 3: Quality Check
@@ -149,7 +177,7 @@ This command takes a work document (plan, specification, or todo file) and execu
    Present findings to user and address critical issues.
 
 3. **Final Validation**
-   - All TodoWrite tasks marked completed
+   - All work todos marked complete (check: `ls .claude/todos/work/*-complete-*.md`)
    - All tests pass
    - Linting passes
    - Code follows existing patterns
@@ -282,7 +310,7 @@ This command takes a work document (plan, specification, or todo file) and execu
 Before creating PR, verify:
 
 - [ ] All clarifying questions asked and answered
-- [ ] All TodoWrite tasks marked completed
+- [ ] All work todos in complete status
 - [ ] Tests pass (run `bin/rails test`)
 - [ ] Linting passes (use linting-agent)
 - [ ] Code follows existing patterns
@@ -309,6 +337,6 @@ For most features: tests + linting + following patterns is sufficient.
 - **Skipping clarifying questions** - Ask now, not after building wrong thing
 - **Ignoring plan references** - The plan has links for a reason
 - **Testing at the end** - Test continuously or suffer later
-- **Forgetting TodoWrite** - Track progress or lose track of what's done
+- **Forgetting todo status updates** - Update todo files and progress summary or lose track of what's done
 - **80% done syndrome** - Finish the feature, don't move on early
 - **Over-reviewing simple changes** - Save reviewer agents for complex work
