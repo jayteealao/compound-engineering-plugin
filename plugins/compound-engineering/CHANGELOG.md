@@ -5,6 +5,38 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-01-12
+
+### Added
+
+**Persistent Progress Tracking - Replace TodoWrite with Repo-Local Systems**
+
+Eliminated all TodoWrite usage (14 references across 4 commands) in favor of persistent, file-based tracking that aligns with the plugin's file-based artifacts philosophy.
+
+**New Infrastructure:**
+- **`.claude/plans/progress/`** - Work progress summaries (optional high-level overview)
+- **`.claude/todos/work/`** - Work-specific todos with dependencies and parent plan links
+
+**Command Changes:**
+
+- **`/workflows:work`** - Creates persistent file-todos in `.claude/todos/work/` with YAML frontmatter, dependencies, and parent plan links. Optional progress summary in `.claude/plans/progress/`. Status tracking via file renames: `pending` → `in_progress` → `complete`.
+
+- **`/deepen-plan`** - Updates plan file directly with inline enhancements. Adds code examples, best practices, and edge cases to existing sections. Appends metadata section documenting skills applied, learnings referenced, and agents run. The plan file itself becomes the progress tracker.
+
+- **`/triage`** - Uses file-todos status changes for tracking. Approved findings: rename `{id}-pending-*.md` → `{id}-ready-*.md`. Skipped findings: delete file. Progress visible in filesystem via `ls .claude/todos/*-ready-*.md`.
+
+- **`/debug`** - Creates file-todos in Phase 5 for action items. Immediate actions → `{id}-ready-p1-*.md`, long-term → `{id}-pending-p3-*.md`. The todo files are the output and tracking.
+
+**Benefits:**
+- Progress persists across conversation sessions
+- All tracking is version-controlled and searchable with git/grep
+- Progress can be shared across team members
+- Enables historical analysis of debug sessions and triage decisions
+- Consistent with file-based artifacts philosophy (plans, solutions, todos)
+- Can resume interrupted work by reading existing todo files
+
+**Verification:** Zero TodoWrite usage remains (only prohibition statements in `/workflows:plan`, `/workflows:review`, `/workflows:compound`).
+
 ## [3.0.1] - 2026-01-11
 
 ### Changed
