@@ -34,32 +34,22 @@ This command takes a work document (plan, specification, or todo file) and execu
    - Get user approval to proceed
    - **Do not skip this** - better to ask questions now than build the wrong thing
 
-2. **Setup Environment**
+2. **Branch Safety Check**
 
-   Choose your work style:
+   Before any work, check the current branch:
 
-   **Option A: Live work on current branch**
    ```bash
-   git checkout main && git pull origin main
-   git checkout -b feature-branch-name
+   git branch --show-current
    ```
 
-   **Option B: Parallel work with worktree (recommended for parallel development)**
-   ```bash
-   # Ask user first: "Work in parallel with worktree or on current branch?"
-   # If worktree:
-   skill: git-worktree
-   # The skill will create a new branch from main in an isolated worktree
-   ```
+   **If on main/master/develop (default branch):**
+   Use **AskUserQuestion tool** to present options:
 
-   **Recommendation**: Use worktree if:
-   - You want to work on multiple features simultaneously
-   - You want to keep main clean while experimenting
-   - You plan to switch between branches frequently
+   - **A: Create new branch** - `git checkout -b feature/<plan-name>`
+   - **B: Use worktree (recommended)** - `skill: git-worktree` for isolated parallel development
+   - **C: Continue on default branch** - Requires explicit confirmation ("I understand I'm committing to the default branch")
 
-   Use live branch if:
-   - You're working on a single feature
-   - You prefer staying in the main repository
+   **Never commit to the default branch without explicit user permission.**
 
 3. **Create Todo List**
 
@@ -121,6 +111,19 @@ This command takes a work document (plan, specification, or todo file) and execu
    - Don't wait until the end to test
    - Fix failures immediately
    - Add new tests for new functionality
+
+4. **Commit Incrementally**
+
+   Use this heuristic: **"Can I write a commit message describing a complete, valuable change? If yes, commit."**
+
+   | Commit when... | Don't commit when... |
+   |---|---|
+   | Logical unit of work complete | Small part of a larger unit |
+   | Tests pass and meaningful progress made | Tests are failing |
+   | About to switch contexts or modules | Purely scaffolding with no value alone |
+   | About to attempt risky or experimental changes | Would need a "WIP" commit message |
+
+   After committing, update the plan file: change `- [ ]` to `- [x]` for the completed task. Plan files become living progress documents.
 
 4. **Figma Design Sync** (if applicable)
 

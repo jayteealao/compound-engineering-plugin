@@ -8,9 +8,9 @@ AI-powered development tools that get smarter with every use. Transform feature 
 
 | Component | Count |
 |-----------|-------|
-| Agents | 17 |
-| Commands | 9 |
-| Skills | 6 |
+| Agents | 19 |
+| Commands | 10 |
+| Skills | 8 |
 | MCP Servers | 3 |
 
 ## Installation
@@ -119,6 +119,33 @@ claude /workflows:compound
 ---
 
 ## Core Workflow Commands
+
+### /workflows:brainstorm - Explore Requirements Before Planning
+
+**What it does:** Collaborative dialogue to clarify WHAT to build before HOW to build it. Uses structured Q&A to explore requirements, compare approaches, and capture design decisions.
+
+**When to use:**
+- Feature requests with vague or ambiguous requirements
+- When multiple valid approaches exist
+- Before planning complex features
+
+**Usage:**
+```bash
+claude /workflows:brainstorm "Add a notification system"
+```
+
+**What happens:**
+- Phase 0: Assesses if brainstorming is needed (skips if requirements are clear)
+- Phase 1: Asks clarifying questions one at a time (uses AskUserQuestion)
+- Phase 2: Proposes 2-3 approaches with pros/cons
+- Phase 3: Captures design in `.claude/brainstorms/YYYY-MM-DD-<topic>-brainstorm.md`
+- Phase 4: Offers to refine or proceed to `/workflows:plan`
+
+**Next steps:**
+1. **(Optional)** Refine the brainstorm document with `document-review` skill
+2. Run `/workflows:plan` to turn the brainstorm into an implementation plan
+
+---
 
 ### /workflows:plan - Create Implementation Plans
 
@@ -1023,7 +1050,8 @@ auto-discovers and injects past solutions into new plans
 
 | Command | Reads From | Writes To | Spawns Agents | Next Command |
 |---------|------------|-----------|---------------|--------------|
-| `/workflows:plan` | User description | `.claude/plans/*.md` | 3 research agents | `/deepen-plan` or `/plan_review` or `/workflows:work` |
+| `/workflows:brainstorm` | User description | `.claude/brainstorms/*.md` | 1 research agent | `/workflows:plan` |
+| `/workflows:plan` | User description, `.claude/brainstorms/` | `.claude/plans/*.md` | 4 research agents | `/deepen-plan` or `/plan_review` or `/workflows:work` |
 | `/deepen-plan` | `.claude/plans/*.md`, `.claude/solutions/` | `.claude/plans/*.md` (enhanced) | 40+ research agents | `/plan_review` or `/workflows:work` |
 | `/plan_review` | `.claude/plans/*.md` | Conversation feedback | 5-10 review agents | `/workflows:work` |
 | `/workflows:work` | `.claude/plans/*.md` or `.claude/todos/*.md` | Code + tests + commits | 0-5 conditional agents | `/workflows:review` (after PR) |
@@ -1039,7 +1067,7 @@ auto-discovers and injects past solutions into new plans
 
 Agents run automatically in commands or can be invoked manually with the Task tool.
 
-### Research Agents (4)
+### Research Agents (5)
 
 Automatically spawned by `/workflows:plan` and `/deepen-plan`.
 
@@ -1049,6 +1077,7 @@ Automatically spawned by `/workflows:plan` and `/deepen-plan`.
 | `best-practices-researcher` | Gathers external best practices, industry standards, security guidelines | Every `/workflows:plan`, `/deepen-plan` |
 | `framework-docs-researcher` | Researches framework-specific documentation and patterns (Rails/Django/React/etc.) | Every `/workflows:plan`, `/deepen-plan` |
 | `git-history-analyzer` | Analyzes git history, code evolution, and related PRs | `/workflows:plan` when historical context needed |
+| `learnings-researcher` | Searches `.claude/solutions/` for institutional knowledge and solved problems | Every `/workflows:plan`, `/deepen-plan` |
 
 **Manual invocation:**
 ```bash
@@ -1059,9 +1088,9 @@ Task best-practices-researcher: "Research OAuth 2.0 PKCE flow best practices"
 
 ---
 
-### Review Agents (11)
+### Review Agents (12)
 
-Automatically spawned by `/workflows:review` (9 always, 2 conditional).
+Automatically spawned by `/workflows:review` (9 always, 3 conditional).
 
 | Agent | Description | When They Run |
 |-------|-------------|---------------|
@@ -1074,6 +1103,7 @@ Automatically spawned by `/workflows:review` (9 always, 2 conditional).
 | `framework-conventions-reviewer` | Framework-specific conventions (any framework) | Every `/workflows:review` |
 | `kieran-typescript-reviewer` | TypeScript quality, type safety, strict conventions | `/workflows:review` when TypeScript changes detected |
 | `code-simplicity-reviewer` | Simplicity and minimalism review, complexity reduction | Every `/workflows:review` (final pass) |
+| `schema-drift-detector` | Detects unrelated schema.rb changes from other branches | `/workflows:review` when schema.rb changes detected |
 | `data-migration-expert` | Production data migration validation, ID mapping checks | `/workflows:review` when migrations detected |
 | `deployment-verification-agent` | Go/No-Go deployment checklists for risky changes | `/workflows:review` when risky data changes detected |
 
@@ -1299,6 +1329,34 @@ claude /debug "TypeError: Cannot read property 'id' of undefined"
 ```bash
 claude /generate-tests src/auth/oauth.ts
 ```
+
+---
+
+### brainstorming
+
+**Description:** Structured requirement clarification methodology for exploring WHAT to build before HOW.
+
+**When to use:** Used by `/workflows:brainstorm`. Invoked when requirements are ambiguous or need exploration.
+
+**What it provides:**
+- Four-phase process: Assess, Understand, Explore, Capture
+- One-question-at-a-time dialogue technique
+- YAGNI-focused approach selection
+- Design document template
+
+---
+
+### document-review
+
+**Description:** Structured document refinement for brainstorm and plan documents.
+
+**When to use:** After `/workflows:brainstorm` or `/workflows:plan` to improve documents before the next step.
+
+**What it provides:**
+- Clarity, completeness, specificity, and YAGNI evaluation
+- Auto-fix for minor issues, approval for substantive changes
+- Simplification guidance
+- Iteration with diminishing returns awareness
 
 ---
 

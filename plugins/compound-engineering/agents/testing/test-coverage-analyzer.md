@@ -1,5 +1,6 @@
 ---
 name: test-coverage-analyzer
+model: inherit
 description: Analyze test coverage gaps and suggest tests for critical uncovered paths
 ---
 

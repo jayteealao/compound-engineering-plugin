@@ -27,6 +27,14 @@ This command uses the `file-todos` skill to create finding files in `.claude/tod
 - For document reviews: Path to a markdown file or document
 </requirements>
 
+<protected_artifacts>
+The following paths are compound-engineering pipeline artifacts and must never be flagged for deletion:
+- `.claude/plans/*.md` — Plan files (living documents with checkbox tracking)
+- `.claude/solutions/*.md` — Solution documents from /workflows:compound
+- `.claude/todos/*.md` — Work tracking files
+- `.claude/brainstorms/*.md` — Brainstorm documents from /workflows:brainstorm
+</protected_artifacts>
+
 ## Main Tasks
 
 ### 1. Determine Review Target & Setup (ALWAYS FIRST)

@@ -27,6 +27,19 @@ Captures problem solutions while context is fresh, creating structured documenta
 /workflows:compound [brief context]    # Provide additional context hint
 ```
 
+<critical_requirement>
+**Only ONE file gets written - the final documentation.**
+Phase 1 subagents (Context Analyzer, Solution Extractor, Related Docs Finder, Prevention Strategist, Category Classifier) return TEXT DATA to the orchestrator. They must NOT use Write, Edit, or create any files. Only the Documentation Writer (Step 6) creates the final file.
+</critical_requirement>
+
+**Common mistakes to avoid:**
+
+| Wrong | Correct |
+|-------|---------|
+| Subagent writes `context-analysis.md` | Subagent returns context analysis as text |
+| Subagent writes `solution-draft.md` | Subagent returns solution draft as text |
+| Multiple files created during execution | Single `.claude/solutions/` file at the end |
+
 ## Execution Strategy: Parallel Subagents
 
 This command launches multiple specialized subagents IN PARALLEL to maximize efficiency:

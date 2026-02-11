@@ -33,17 +33,43 @@ Do not proceed until you have a clear feature description from the user.
 
 ## Main Tasks
 
+### Step 0: Clarify Requirements (Interactive Q&A)
+
+Before researching, clarify the feature description:
+
+1. Check `.claude/brainstorms/` for a recent brainstorm document matching this feature. If found, read it and incorporate decisions already made.
+2. Use **AskUserQuestion tool** to clarify requirements **one at a time**.
+3. Prefer multiple choice questions when natural options exist.
+4. Continue until requirements are clear OR user says "proceed".
+
+**Example questions:**
+- "Who is the primary user for this feature?" (end users / admins / developers / other)
+- "Should this integrate with existing [X] or be standalone?"
+- "What's the priority: speed of delivery or completeness?"
+
+### Step 1: Assess Research Needs
+
+Before spawning research agents, assess whether external research is needed:
+
+| Scenario | Research Decision |
+|---|---|
+| High-risk topics (security, payments, external APIs) | Always research externally |
+| Strong local context (CLAUDE.md has guidance, similar code exists) | Skip external, focus on repo research |
+| Uncertain or unfamiliar domain | Research externally |
+| Simple bug fix with clear root cause | Skip research entirely |
+
 ### 1. Repository Research & Context Gathering
 
 <thinking>
-First, I need to understand the project's conventions and existing patterns, leveraging all available resources and use paralel subagents to do this.
+First, I need to understand the project's conventions and existing patterns, leveraging all available resources and use parallel subagents to do this.
 </thinking>
 
-Runn these three agents in paralel at the same time:
+Run these agents in parallel at the same time (skip external research if Step 1 assessment says to):
 
 - Task repo-research-analyst(feature_description)
-- Task best-practices-researcher(feature_description)
-- Task framework-docs-researcher(feature_description)
+- Task learnings-researcher(feature_description) — searches `.claude/solutions/` for institutional knowledge
+- Task best-practices-researcher(feature_description) — skip if local context is sufficient
+- Task framework-docs-researcher(feature_description) — skip if local context is sufficient
 
 **Reference Collection:**
 
@@ -379,7 +405,14 @@ end
 
 ## Output Format
 
-Write the plan to `.claude/plans/<issue_title>.md`
+Write the plan using standardized naming: `.claude/plans/YYYY-MM-DD-<type>-<descriptive-name>-plan.md`
+
+Where `<type>` is one of: `feat`, `fix`, `refactor`, `docs`, `perf`, `security`
+
+**Examples:**
+- `.claude/plans/2026-02-11-feat-oauth-login-plan.md`
+- `.claude/plans/2026-02-11-fix-n-plus-one-queries-plan.md`
+- `.claude/plans/2026-02-11-refactor-auth-module-plan.md`
 
 ## Post-Generation Options
 

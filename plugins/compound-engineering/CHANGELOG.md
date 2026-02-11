@@ -5,6 +5,59 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-02-11
+
+### Breaking Changes
+
+**Major upstream adoption** - Adopted critical, high-value, and medium-value changes from upstream (EveryInc/compound-engineering-plugin) while preserving fork customizations (TodoWrite replacements, `.claude/` paths, 3 MCP servers).
+
+**Component counts:** 19 agents (+2), 10 commands (+1), 8 skills (+2), 3 MCP servers (unchanged)
+
+### Added
+
+**New Agents:**
+- **`learnings-researcher`** (research) - Searches `.claude/solutions/` for institutional knowledge using grep-first filtering strategy. Invoked during `/workflows:plan` and `/deepen-plan`.
+- **`schema-drift-detector`** (review) - Detects unrelated schema.rb changes by cross-referencing migration files against schema changes in PRs. Runs before other database reviewers.
+
+**New Skills:**
+- **`brainstorming`** - Structured requirement clarification methodology with four phases: Assess, Understand, Explore, Capture. YAGNI-focused approach selection.
+- **`document-review`** - Document refinement for brainstorm/plan documents with clarity, completeness, specificity, and YAGNI evaluation.
+
+**New Commands:**
+- **`/workflows:brainstorm`** - Interactive Q&A to explore requirements before planning. Writes brainstorm documents to `.claude/brainstorms/`. Includes `document-review` skill integration for iterative refinement.
+
+**New Infrastructure:**
+- **`.claude/brainstorms/`** - Brainstorm document storage directory
+
+### Changed
+
+**Context Token Reduction (Critical):**
+- Trimmed all 17 agent descriptions from 800-2000+ chars to ~150-200 chars (moved verbose descriptions to agent body)
+- Added `model: inherit` to all 19 agents (agents use parent conversation's model instead of defaulting)
+- Added `disable-model-invocation: true` to manually-invoked commands (`debug`, `triage`, `generate-tests`)
+
+**Bug Fixes:**
+- `/workflows:review` - Added `<protected_artifacts>` section preventing review agents from flagging `.claude/plans/`, `.claude/solutions/`, `.claude/todos/`, `.claude/brainstorms/` for deletion
+- `/workflows:compound` - Added `<critical_requirement>` ensuring Phase 1 subagents return text data only (no intermediary files). Only the Documentation Writer creates the final file.
+
+**Feature Improvements:**
+- `/workflows:work` - Added incremental commit heuristic decision table, branch safety check (prevents accidental commits to main/master), and checkbox tracking (`- [ ]` to `- [x]`) in plan files
+- `/workflows:plan` - Added Step 0 interactive Q&A with AskUserQuestion before research, smart research decision table (skip external research when local context is sufficient), `learnings-researcher` agent integration, standardized plan filename format (`YYYY-MM-DD-<type>-<descriptive-name>-plan.md`)
+- `best-practices-researcher` - Added Phase 0 skills-first research (checks available plugin skills before web search), mandatory deprecation check for external APIs
+
+### Rationale
+
+**Why v4.0.0?** Major version because:
+- New brainstorming workflow changes how features are initiated
+- Agent description trimming significantly changes token consumption
+- `model: inherit` changes agent model selection behavior
+- New agents and skills expand functionality
+
+**Preserved from fork (v3.1.0):**
+- TodoWrite replacements with file-based tracking
+- `.claude/` paths (not upstream's `docs/`)
+- 3 MCP servers (pw, context7, tldr)
+
 ## [3.1.0] - 2026-01-12
 
 ### Added

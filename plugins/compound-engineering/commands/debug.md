@@ -3,6 +3,7 @@ name: debug
 description: Analyze errors, stack traces, and logs to identify root causes and recommend fixes
 argument-hint: "[optional: error description or paste error logs]"
 allowed-tools: Skill(error-analysis)
+disable-model-invocation: true
 ---
 
 # Debug Command

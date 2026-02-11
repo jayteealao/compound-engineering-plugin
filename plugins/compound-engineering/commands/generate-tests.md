@@ -3,6 +3,7 @@ name: generate-tests
 description: Generate comprehensive tests for specified files or features following project conventions
 argument-hint: "[file path or feature description]"
 allowed-tools: Skill(test-patterns)
+disable-model-invocation: true
 ---
 
 # Generate Tests Command
